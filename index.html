@@ -287,6 +287,29 @@
           <span class="keybox-tag">Precisión obligatoria</span>
           <p><strong>El nivel relacional no es correlacional.</strong> Correlacionar es <em>una</em> de sus técnicas. Un chi cuadrado o un odds ratio son relacionales, no correlacionales.</p>
         </div>
+        <div class="design reveal" style="margin-top:8px">
+          <svg viewBox="0 0 230 112" role="img" aria-label="Diseño correlacional: dos variables medidas en la misma muestra">
+            <defs>
+              <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0d9488"/>
+              </marker>
+            </defs>
+            <g font-family="Georgia, serif" font-style="italic" font-size="16" fill="#0f172a">
+              <text x="14" y="62">M</text>
+              <text x="82" y="28">O<tspan font-size="10" dy="4">x</tspan></text>
+              <text x="82" y="98">O<tspan font-size="10" dy="4">z</tspan></text>
+              <text x="170" y="62">r</text>
+            </g>
+            <g stroke="#0d9488" stroke-width="2" marker-end="url(#arC)" fill="none">
+              <line x1="30" y1="55" x2="70" y2="30"/>
+              <line x1="30" y1="59" x2="70" y2="88"/>
+            </g>
+            <g stroke="#0f172a" stroke-width="1.4" fill="none" marker-start="url(#arC)" marker-end="url(#arC)">
+              <line x1="160" y1="34" x2="160" y2="88"/>
+            </g>
+          </svg>
+          <span class="design-cap">Diseño correlacional · dos variables en la misma muestra</span>
+        </div>
       </div>
       <aside class="side reveal">
         <div class="analogy">
@@ -433,13 +456,63 @@
           <span class="path-n">A</span>
           <h3>Manipular</h3>
           <p>Se aplica el taller y se mide antes y después, con un grupo de comparación.</p>
-          <span class="path-tag">→ Pretest – postest</span>
+          <div class="path-tags">
+            <span>Nivel: explicativo</span>
+            <span>Tipo: aplicado</span>
+            <span>Diseño: pre experimental</span>
+          </div>
+          <div class="design">
+            <svg viewBox="0 0 300 78" role="img" aria-label="Diseño pre test post test">
+              <defs>
+                <marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+                </marker>
+              </defs>
+              <g font-family="Georgia, serif" font-style="italic" font-size="17" fill="#0f172a">
+                <text x="8" y="26">G₁</text><text x="58" y="26">O₁</text><text x="146" y="26">X</text><text x="238" y="26">O₂</text>
+                <text x="8" y="62">G₂</text><text x="58" y="62">O₁</text><text x="146" y="62">—</text><text x="238" y="62">O₂</text>
+              </g>
+              <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#arA)" fill="none">
+                <line x1="78" y1="21" x2="136" y2="21"/><line x1="160" y1="21" x2="228" y2="21"/>
+                <line x1="78" y1="57" x2="136" y2="57"/><line x1="160" y1="57" x2="228" y2="57"/>
+              </g>
+            </svg>
+            <span class="design-cap">Pre test – post test · con un grupo es pre experimental</span>
+          </div>
         </div>
         <div class="path">
           <span class="path-n">B</span>
           <h3>Controlar</h3>
           <p>No se interviene: se aísla el aporte de cada factor con un modelo.</p>
-          <span class="path-tag">→ Coeficientes beta</span>
+          <div class="path-tags">
+            <span>Nivel: explicativo</span>
+            <span>Tipo: básico</span>
+            <span>Diseño: explicativo / causal</span>
+          </div>
+          <div class="design">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Diseño explicativo o causal">
+              <defs>
+                <marker id="arB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+                </marker>
+              </defs>
+              <g font-family="Georgia, serif" font-style="italic" font-size="17" fill="#0f172a">
+                <text x="10" y="70">M</text><text x="86" y="70">O</text>
+                <text x="158" y="32">X₁</text><text x="158" y="70">X₂</text><text x="155" y="108">Xₙ</text>
+                <text x="272" y="70">Y</text>
+              </g>
+              <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#arB)" fill="none">
+                <line x1="28" y1="64" x2="76" y2="64"/>
+                <line x1="100" y1="62" x2="146" y2="36"/>
+                <line x1="100" y1="64" x2="146" y2="64"/>
+                <line x1="100" y1="66" x2="146" y2="96"/>
+                <line x1="186" y1="30" x2="262" y2="62"/>
+                <line x1="186" y1="64" x2="262" y2="64"/>
+                <line x1="186" y1="102" x2="262" y2="66"/>
+              </g>
+            </svg>
+            <span class="design-cap">Explicativo / causal · M = muestra, O = observación, X = causas, Y = efecto</span>
+          </div>
         </div>
       </div>
       <p class="tiny reveal">Uno responde «¿el taller funcionó?»; el otro, «¿cuánto aporta cada factor al rendimiento?».</p>

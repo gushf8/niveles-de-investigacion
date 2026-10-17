@@ -413,6 +413,17 @@ kbd{
 }
 .path h3{margin:4px 0 5px;font-size:1rem}
 .path p{margin:0 0 10px;font-size:.81rem;color:var(--muted)}
+.path-tags{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 9px}
+.path-tags span{
+  font-size:.55rem;font-weight:700;letter-spacing:.03em;padding:3px 7px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent);border:1px solid rgba(37,99,235,.16);white-space:nowrap;
+}
+.design{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.62);padding:7px 9px;max-width:340px}
+.design svg{display:block;width:100%;height:auto}
+.design-cap{
+  display:block;margin-top:3px;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);text-align:center;line-height:1.3;
+}
 .path-tag{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;color:var(--accent)}
 
 /* ---------- escalera ---------- */
