@@ -258,7 +258,7 @@
   });
 
   /* ---------------- filtro rápido del rail ---------------- */
-  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 10, predictivo: 13, aplicativo: 15 };
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 14, aplicativo: 16 };
   $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
 
   /* ---------------- verbos ---------------- */
@@ -494,6 +494,52 @@
     }));
 
     renderBeta();
+  }
+
+  /* ---------------- página 10: calculadora 2x2 ---------------- */
+  if ($("#cellA")) {
+    const cells = ["cellA", "cellB", "cellC", "cellD"].map(id => $("#" + id));
+
+    const erf = x => {
+      const s = Math.sign(x); x = Math.abs(x);
+      const t = 1 / (1 + 0.3275911 * x);
+      const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+      return s * y;
+    };
+    const phi = z => 0.5 * (1 + erf(z / Math.SQRT2));
+
+    function updateCalc() {
+      const [a, b, c, d] = cells.map(i => Math.max(0, Math.min(99, parseInt(i.value, 10) || 0)));
+      const n = a + b + c + d;
+      const OR = (b * c) === 0 ? Infinity : (a * d) / (b * c);
+      const den = (a + b) * (c + d) * (a + c) * (b + d);
+      const chi = den === 0 ? 0 : n * Math.pow(a * d - b * c, 2) / den;
+      const p = den === 0 ? 1 : 2 * (1 - phi(Math.sqrt(chi)));
+
+      $("#orVal").textContent = isFinite(OR) ? fmt(OR, 2) : "∞";
+      $("#chiVal").textContent = fmt(chi, 2);
+      $("#pVal").textContent = p < 0.001 ? "< 0,001" : fmt(p, 3);
+
+      let txt = "";
+      if (!isFinite(OR)) {
+        txt = "Hay una celda en cero: el OR no se puede calcular. Es lo que ocurre cuando un grupo no tiene ningún caso en una categoría.";
+      } else if (OR > 1) {
+        txt = "Las chances de autoestima alta son <strong>" + fmt(OR, 2) + " veces mayores</strong> en el grupo con taller. ";
+      } else if (OR < 1) {
+        txt = "Las chances de autoestima alta son <strong>" + fmt(1 / OR, 2) + " veces menores</strong> en el grupo con taller. ";
+      } else {
+        txt = "OR = 1: no hay asociación entre el taller y la autoestima. ";
+      }
+      if (isFinite(OR)) {
+        txt += p < 0.05
+          ? "El χ² alcanza significancia (p < 0,05) con n = " + n + "."
+          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: no se puede descartar el azar.";
+      }
+      $("#calcRead").innerHTML = txt;
+    }
+
+    cells.forEach(i => i.addEventListener("input", updateCalc));
+    updateCalc();
   }
 
   /* ---------------- página 14: riesgo estimado ---------------- */

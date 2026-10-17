@@ -39,14 +39,14 @@
         <h1 class="reveal">Niveles de <em>investigación</em></h1>
         <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
         <div class="chips reveal">
-          <span class="chip">18 páginas</span>
+          <span class="chip">19 páginas</span>
           <span class="chip">6 niveles</span>
           <span class="chip">30 estudiantes</span>
           <span class="chip">Navegación por niveles</span>
         </div>
         <div class="hero-cta reveal">
           <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
-          <button class="btn btn-ghost" data-goto="11">Ver el taller</button>
+          <button class="btn btn-ghost" data-goto="12">Ver el taller</button>
         </div>
         <div class="hero-hint reveal">
           <kbd>←</kbd><kbd>→</kbd> navegar · clic en un nivel va a su teoría
@@ -335,8 +335,67 @@
     </div>
   </section>
 
+  <!-- 03C · técnicas relacionales -->
+  <section class="slide" data-slide="10" data-group="03 · Relacional" data-label="Chi² y odds ratio">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">03</span> Relacional · técnicas</p>
+        <h2 class="reveal">Chi² y odds ratio: <em>relacionar sin correlacionar</em></h2>
+        <p class="lede reveal">Cuando las variables son categóricas no se calcula una correlación. Se usan otras dos técnicas, y las dos siguen siendo del nivel relacional.</p>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="def-card">
+            <span class="def-tag">Chi cuadrado (χ²)</span>
+            <p>Compara las frecuencias <strong>observadas</strong> con las que se esperarían si no hubiera asociación. Responde <strong>si</strong> hay asociación (con su p), pero no su dirección ni su tamaño.</p>
+            <span class="def-use">Dos variables categóricas · «¿se asocian?»</span>
+          </div>
+          <div class="def-card">
+            <span class="def-tag">Odds ratio (OR)</span>
+            <p>En una tabla 2×2 compara las <strong>chances</strong> del desenlace entre dos grupos. OR = 1 significa que no hay asociación; OR = 2,5 significa que el grupo expuesto tiene 2,5 veces más chances.</p>
+            <span class="def-use">Dos variables binarias · «¿cuánto más probable?»</span>
+          </div>
+          <div class="def-card">
+            <span class="def-tag">r de Pearson · rho de Spearman</span>
+            <p>Mide <strong>cuánto y en qué dirección</strong> cambian juntas dos variables continuas u ordinales, de −1 a 1. Es la única de las tres que es <em>correlacional</em>.</p>
+            <span class="def-use">Dos variables continuas · «¿cuánto se mueven juntas?»</span>
+          </div>
+        </div>
+
+        <aside class="calc">
+          <div class="calc-head"><b>Calculadora 2×2</b><span>n = 30</span></div>
+          <table class="calc-table">
+            <thead><tr><th></th><th>Autoestima alta</th><th>No alta</th></tr></thead>
+            <tbody>
+              <tr><th>Con taller</th>
+                <td><input id="cellA" type="number" value="10" min="0" max="30" aria-label="Con taller, autoestima alta"></td>
+                <td><input id="cellB" type="number" value="5" min="0" max="30" aria-label="Con taller, autoestima no alta"></td>
+              </tr>
+              <tr><th>Sin taller</th>
+                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Sin taller, autoestima alta"></td>
+                <td><input id="cellD" type="number" value="10" min="0" max="30" aria-label="Sin taller, autoestima no alta"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="calc-out">
+            <div><span>OR</span><b id="orVal">—</b></div>
+            <div><span>χ²</span><b id="chiVal">—</b></div>
+            <div><span>p aprox.</span><b id="pVal">—</b></div>
+          </div>
+          <p class="calc-read" id="calcRead">—</p>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">La regla</span>
+        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= 04 EXPLICATIVO ================= -->
-  <section class="slide" data-slide="10" data-group="04 · Explicativo" data-label="Teoría">
+  <section class="slide" data-slide="11" data-group="04 · Explicativo" data-label="Teoría">
     <div class="wrap center">
       <p class="kicker reveal"><span class="num">04</span> Explicativo · teoría</p>
       <h2 class="reveal big">¿Por qué <em>ocurre</em>?</h2>
@@ -360,7 +419,7 @@
   </section>
 
   <!-- 11 -->
-  <section class="slide" data-slide="11" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
+  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">04A</span> Explicativo · pretest–postest</p>
@@ -406,7 +465,7 @@
   </section>
 
   <!-- 12 -->
-  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Betas (regresión)">
+  <section class="slide" data-slide="13" data-group="04 · Explicativo" data-label="Betas (regresión)">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">04B</span> Explicativo · coeficientes beta</p>
@@ -449,7 +508,7 @@
   </section>
 
   <!-- ================= 05 PREDICTIVO ================= -->
-  <section class="slide" data-slide="13" data-group="05 · Predictivo" data-label="Teoría">
+  <section class="slide" data-slide="14" data-group="05 · Predictivo" data-label="Teoría">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">05</span> Predictivo · teoría</p>
@@ -478,7 +537,7 @@
   </section>
 
   <!-- 14 -->
-  <section class="slide" data-slide="14" data-group="05 · Predictivo" data-label="Ejemplo">
+  <section class="slide" data-slide="15" data-group="05 · Predictivo" data-label="Ejemplo">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">05</span> Predictivo · ejemplo</p>
@@ -528,7 +587,7 @@
   </section>
 
   <!-- ================= 06 APLICATIVO ================= -->
-  <section class="slide" data-slide="15" data-group="06 · Aplicativo" data-label="Teoría">
+  <section class="slide" data-slide="16" data-group="06 · Aplicativo" data-label="Teoría">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · teoría</p>
@@ -560,7 +619,7 @@
   </section>
 
   <!-- 16 -->
-  <section class="slide" data-slide="16" data-group="06 · Aplicativo" data-label="Ejemplo">
+  <section class="slide" data-slide="17" data-group="06 · Aplicativo" data-label="Ejemplo">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
@@ -589,7 +648,7 @@
   </section>
 
   <!-- ================= CIERRE ================= -->
-  <section class="slide" data-slide="17" data-group="Cierre" data-label="Clasificador">
+  <section class="slide" data-slide="18" data-group="Cierre" data-label="Clasificador">
     <div class="wrap">
       <p class="kicker reveal">Ponte a prueba</p>
       <h2 class="reveal">Clasificador de <em>niveles</em></h2>
@@ -613,7 +672,7 @@
   </section>
 
   <!-- 18 -->
-  <section class="slide" data-slide="18" data-group="Cierre" data-label="Síntesis">
+  <section class="slide" data-slide="19" data-group="Cierre" data-label="Síntesis">
     <div class="wrap">
       <p class="kicker reveal">Para llevarse</p>
       <h2 class="reveal">Cinco ideas que <em>no se olvidan</em></h2>
