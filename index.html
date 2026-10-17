@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Niveles de investigación · Metodología de la Investigación</title>
-<meta name="description" content="Deck interactivo sobre los seis niveles de investigación, con foco en el nivel explicativo: pretest-postest, coeficientes beta y una base de datos de 30 casos." />
+<meta name="description" content="Deck interactivo sobre los seis niveles de investigación con casos educativos: taller de autoestima, pretest-postest y regresión con betas." />
 <meta name="theme-color" content="#eef2f9" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,33 +26,35 @@
     <span class="brand-text">Metodología de la Investigación</span>
   </div>
   <div class="topbar-actions">
-    <button class="icon-btn" id="menuBtn" aria-label="Índice de la presentación" title="Índice (M)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <button class="nav-levels" id="menuBtn" aria-haspopup="dialog" aria-label="Abrir navegación por niveles">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span>Niveles</span>
+      <kbd>M</kbd>
     </button>
   </div>
 </header>
 
 <main class="deck" id="deck">
 
-  <!-- 1 -->
-  <section class="slide slide-hero is-active" data-slide="1" data-title="Portada" aria-label="Portada">
+  <!-- ================= GENERAL ================= -->
+  <section class="slide slide-hero is-active" data-slide="1" data-group="General" data-label="Portada">
     <div class="wrap">
       <div>
         <p class="kicker reveal">Metodología de la Investigación · Tarea 1</p>
         <h1 class="reveal">Niveles de <em>investigación</em></h1>
-        <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis que usted ejecuta</strong>. Con foco en el nivel explicativo y una base de datos de 30 casos para verlo funcionar.</p>
+        <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
         <div class="chips reveal">
+          <span class="chip">18 páginas</span>
           <span class="chip">6 niveles</span>
-          <span class="chip">3 rutas del explicativo</span>
-          <span class="chip">Base de datos · n = 30</span>
-          <span class="chip">Clasificador final</span>
+          <span class="chip">30 estudiantes</span>
+          <span class="chip">Navegación por niveles</span>
         </div>
         <div class="hero-cta reveal">
           <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
-          <button class="btn btn-ghost" data-goto="8">Ver los datos</button>
+          <button class="btn btn-ghost" id="heroLevels">Ver los seis niveles</button>
         </div>
         <div class="hero-hint reveal">
-          <kbd>←</kbd><kbd>→</kbd> para navegar · <kbd>M</kbd> índice · deslice en pantalla táctil
+          <kbd>←</kbd><kbd>→</kbd> navegar · <kbd>M</kbd> niveles · clic en cualquier página del índice
         </div>
       </div>
       <aside class="hero-card reveal" aria-hidden="true">
@@ -70,11 +72,11 @@
   </section>
 
   <!-- 2 -->
-  <section class="slide" data-slide="2" data-title="El criterio" aria-label="El criterio">
+  <section class="slide" data-slide="2" data-group="General" data-label="El criterio">
     <div class="wrap">
       <p class="kicker reveal">La idea que ordena todo</p>
       <h2 class="reveal">El nivel no se elige. <em>Se demuestra en el análisis.</em></h2>
-      <p class="lede reveal">Supo (2025) ordena los niveles por el <strong>tipo de análisis de datos</strong>, no por la profundidad que sugiere el título ni por la ambición del investigador.</p>
+      <p class="lede reveal">Cada nivel exige un <strong>tipo de análisis distinto</strong> y, por lo tanto, un objetivo distinto. Declarar el nivel sin ejecutarlo es una incoherencia.</p>
 
       <div class="rail reveal" id="levelRail">
         <button class="rail-item" data-level="exploratorio"><b>01</b><span class="rn">Exploratorio</span><em>No estadístico</em></button>
@@ -86,18 +88,18 @@
       </div>
 
       <div class="callout reveal">
-        <span class="callout-tag">Regla de oro</span>
-        <p>Declarar «mi tesis es explicativa» y presentar solo porcentajes no configura un nivel: configura una <strong>incoherencia interna</strong>. El análisis siempre tiene la última palabra.</p>
+        <span class="callout-tag">El caso de la sesión</span>
+        <p>Un taller de 8 sesiones para mejorar la autoestima en <strong>30 estudiantes</strong>. Con ese mismo caso veremos los seis niveles: qué se puede decir en cada uno y qué <strong>no</strong> se puede decir todavía.</p>
       </div>
     </div>
   </section>
 
   <!-- 3 -->
-  <section class="slide" data-slide="3" data-title="El verbo manda" aria-label="El verbo del objetivo">
+  <section class="slide" data-slide="3" data-group="General" data-label="El verbo manda">
     <div class="wrap">
       <p class="kicker reveal">Prueba rápida</p>
       <h2 class="reveal">El verbo del objetivo <em>ya eligió el nivel</em></h2>
-      <p class="lede reveal">Toque un verbo. Verá el nivel, el análisis que exige y un objetivo redactado.</p>
+      <p class="lede reveal">Toque un verbo. Verá el nivel, el análisis que exige y un objetivo aplicado al taller de autoestima.</p>
 
       <div class="verb-grid reveal" id="verbGrid">
         <button class="verb" data-verb="identificar">identificar</button>
@@ -124,71 +126,135 @@
     </div>
   </section>
 
-  <!-- 4 -->
-  <section class="slide" data-slide="4" data-title="01 · Exploratorio" aria-label="Nivel exploratorio">
+  <!-- ================= 01 EXPLORATORIO ================= -->
+  <section class="slide" data-slide="4" data-group="01 · Exploratorio" data-label="Teoría">
     <div class="wrap split">
       <div>
-        <p class="kicker reveal"><span class="num">01</span> Nivel exploratorio</p>
+        <p class="kicker reveal"><span class="num">01</span> Exploratorio · teoría</p>
         <h2 class="reveal">Cuando <em>todavía no hay</em> nada que medir</h2>
-        <p class="lede reveal">Análisis <strong>no estadístico</strong>: texto, discurso, observación, documentos. No busca conclusiones, busca <strong>preguntas</strong>.</p>
+        <p class="lede reveal">Análisis <strong>no estadístico</strong>: entrevistas, observación, documentos. No busca conclusiones, busca <strong>preguntas</strong>.</p>
         <div class="mini-grid reveal">
           <div class="mini"><span>Objetivo</span><b>identificar</b></div>
           <div class="mini"><span>Objetivo</span><b>interpretar</b></div>
           <div class="mini"><span>Objetivo</span><b>determinar</b></div>
           <div class="mini"><span>Objetivo</span><b>definir</b></div>
         </div>
-        <div class="case reveal">
-          <span class="case-tag">Caso real</span>
-          <p><strong>Whyte (1943), <em>Street Corner Society</em>.</strong> Tres años de observación participante en un barrio italoamericano de Boston. No midió nada: construyó categorías sobre liderazgo, redes y movilidad que ninguna encuesta previa había formulado.</p>
-        </div>
+        <table class="tbl reveal">
+          <thead><tr><th>Método</th><th>Qué produce</th></tr></thead>
+          <tbody>
+            <tr><td>Entrevista en profundidad</td><td>Significados y categorías</td></tr>
+            <tr><td>Observación de aula</td><td>Registro de prácticas</td></tr>
+            <tr><td>Análisis documental</td><td>Marco y antecedentes</td></tr>
+          </tbody>
+        </table>
       </div>
       <aside class="side reveal">
         <div class="analogy">
           <span class="analogy-icon" aria-hidden="true">🔦</span>
           <h3>La linterna</h3>
-          <p>Entra a un cuarto a oscuras. Barre la sala: hay un mueble a la derecha, un pasillo al fondo. No describió el cuarto ni explicó su distribución. <strong>Reconoció el terreno.</strong></p>
+          <p>Entra a un cuarto a oscuras y barre la sala. No describió el cuarto ni explicó su distribución: <strong>reconoció el terreno</strong>.</p>
         </div>
-        <div class="alert"><b>Alerta</b> Si existen 40 artículos sobre el tema, no es exploratorio: es falta de revisión de literatura.</div>
+        <div class="alert"><b>Alerta</b> Si ya existen 40 estudios sobre el tema, no es exploratorio: es falta de revisión de literatura.</div>
       </aside>
     </div>
   </section>
 
   <!-- 5 -->
-  <section class="slide" data-slide="5" data-title="02 · Descriptivo" aria-label="Nivel descriptivo">
+  <section class="slide" data-slide="5" data-group="01 · Exploratorio" data-label="Ejemplo">
     <div class="wrap split">
       <div>
-        <p class="kicker reveal"><span class="num">02</span> Nivel descriptivo</p>
-        <h2 class="reveal">El retrato <em>fiel</em> del fenómeno</h2>
+        <p class="kicker reveal"><span class="num">01</span> Exploratorio · ejemplo</p>
+        <h2 class="reveal">Ocho entrevistas <em>antes de medir</em></h2>
+        <p class="lede reveal">Un colegio quiere trabajar la autoestima, pero nadie ha investigado cómo la viven sus estudiantes. Antes de aplicar un cuestionario, se entrevista a 8 alumnos.</p>
+        <div class="quote reveal">
+          <p>«En clase no levanto la mano porque mis compañeros se ríen. En mi casa sí hablo.»</p>
+          <span>Estudiante de 4.º de secundaria · entrevista 3</span>
+        </div>
+        <table class="tbl reveal">
+          <thead><tr><th>Categoría que emerge</th><th>Frecuencia en 8 entrevistas</th></tr></thead>
+          <tbody>
+            <tr><td>Miedo al ridículo en clase</td><td>6 de 8</td></tr>
+            <tr><td>Comparación en redes sociales</td><td>5 de 8</td></tr>
+            <tr><td>Reconocimiento del docente</td><td>4 de 8</td></tr>
+          </tbody>
+        </table>
+        <p class="tiny reveal">El producto no es una conclusión: es un <strong>mapa de categorías</strong> y un problema delimitado para el siguiente nivel.</p>
+      </div>
+      <aside class="side reveal">
+        <div class="case">
+          <span class="case-tag">Caso real</span>
+          <p><strong>Whyte (1943), <em>Street Corner Society</em>.</strong> Tres años de observación participante en un barrio de Boston. No midió nada: construyó categorías sobre liderazgo y redes que ninguna encuesta previa había formulado.</p>
+        </div>
+        <div class="alert"><b>No se puede concluir</b> «la autoestima es baja en el colegio». Con 8 entrevistas se afirma qué categorías existen, no cuánto ni por qué.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= 02 DESCRIPTIVO ================= -->
+  <section class="slide" data-slide="6" data-group="02 · Descriptivo" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">02</span> Descriptivo · teoría</p>
+        <h2 class="reveal">El retrato <em>fiel</em> del grupo</h2>
         <p class="lede reveal">Análisis <strong>univariado</strong>: una variable a la vez, con su distribución, su centro y su dispersión.</p>
         <table class="tbl reveal">
           <thead><tr><th>Objetivo</th><th>Qué produce</th><th>Técnica</th></tr></thead>
           <tbody>
-            <tr><td>Describir / caracterizar</td><td>Perfil de la variable</td><td>%, media, DE, índice</td></tr>
+            <tr><td>Describir / caracterizar</td><td>Perfil de la variable</td><td>%, media, DE</td></tr>
             <tr><td>Estimar un parámetro</td><td>Valor poblacional</td><td>Estimación + IC</td></tr>
             <tr><td>Contrastar con un parámetro</td><td>Comparación con referencia</td><td>Prueba de una muestra</td></tr>
           </tbody>
         </table>
         <div class="case reveal">
           <span class="case-tag">Caso real</span>
-          <p><strong>ENAHO (INEI).</strong> Reporta el porcentaje de hogares con acceso a internet por departamento. Es un retrato preciso del país… y no dice por qué unos acceden y otros no.</p>
+          <p><strong>ENAHO (INEI).</strong> Reporta el porcentaje de hogares con internet por departamento. Es un retrato preciso del país… y no dice por qué unos acceden y otros no.</p>
         </div>
       </div>
       <aside class="side reveal">
         <div class="analogy">
           <span class="analogy-icon" aria-hidden="true">📷</span>
           <h3>La fotografía</h3>
-          <p>Tres sillones grises, una mesa de 1,20 m, dos lámparas. La foto es fiel, pero no explica por qué la sala está así ni qué efecto tiene sobre quien la habita.</p>
+          <p>Tres sillones, una mesa, dos lámparas. La foto es fiel, pero no explica por qué la sala está así.</p>
         </div>
         <div class="alert"><b>Alerta</b> Describir no es tabular. Y usar pruebas de significancia para comparar grupos ya lo saca del nivel descriptivo.</div>
       </aside>
     </div>
   </section>
 
-  <!-- 6 -->
-  <section class="slide" data-slide="6" data-title="03 · Relacional" aria-label="Nivel relacional">
+  <!-- 7 -->
+  <section class="slide" data-slide="7" data-group="02 · Descriptivo" data-label="Ejemplo">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">02</span> Descriptivo · ejemplo</p>
+        <h2 class="reveal">La autoestima de los 30 estudiantes, <em>sin cruzar nada</em></h2>
+        <p class="lede reveal">Un cuestionario de 20 ítems mide la autoestima de 0 a 100 y tres dimensiones. Se describe el grupo completo: una tabla, una media y una desviación estándar.</p>
+      </div>
+
+      <div class="stats-row reveal">
+        <div class="stat"><span>Media</span><b id="dMean">—</b></div>
+        <div class="stat"><span>Desviación estándar</span><b id="dSd">—</b></div>
+        <div class="stat"><span>Mínimo</span><b id="dMin">—</b></div>
+        <div class="stat"><span>Máximo</span><b id="dMax">—</b></div>
+        <div class="stat"><span>Bajo 55 puntos</span><b id="dLow">—</b></div>
+      </div>
+
+      <table class="tbl tbl-dims reveal">
+        <thead><tr><th>Dimensión</th><th>Media</th><th>DE</th><th>Mín.</th><th>Máx.</th><th>Lectura</th></tr></thead>
+        <tbody id="dimTable"></tbody>
+      </table>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Qué se puede decir</span>
+        <p>«La autoestima promedio del grupo es de <strong id="dSay">—</strong> puntos, con una dimensión académica más baja que la social». Eso es todo. <strong>No</strong> se puede decir todavía si el taller funciona ni qué la causa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 RELACIONAL ================= -->
+  <section class="slide" data-slide="8" data-group="03 · Relacional" data-label="Teoría">
     <div class="wrap split">
       <div>
-        <p class="kicker reveal"><span class="num">03</span> Nivel relacional</p>
+        <p class="kicker reveal"><span class="num">03</span> Relacional · teoría</p>
         <h2 class="reveal">Dos variables, <em>una relación</em></h2>
         <p class="lede reveal">Análisis <strong>bivariado</strong>. Compare grupos, asocie o mida la fuerza de la asociación. Todavía no hay causa.</p>
         <div class="mini-grid four reveal">
@@ -197,77 +263,94 @@
           <div class="mini"><span>Asociar</span><b>y correlacionar</b></div>
           <div class="mini"><span>Medir</span><b>fuerza (OR, RR)</b></div>
         </div>
-        <div class="case reveal">
-          <span class="case-tag">Caso real</span>
-          <p><strong>PISA (OCDE).</strong> El índice socioeconómico y cultural (ESCS) se asocia con el rendimiento en todos los países participantes. La asociación es robusta y repetida… y no demuestra que el origen cause el puntaje.</p>
+        <div class="keybox reveal">
+          <span class="keybox-tag">Precisión obligatoria</span>
+          <p><strong>El nivel relacional no es correlacional.</strong> Correlacionar es <em>una</em> de sus técnicas. Un chi cuadrado o un odds ratio son relacionales, no correlacionales.</p>
         </div>
       </div>
       <aside class="side reveal">
         <div class="analogy">
           <span class="analogy-icon" aria-hidden="true">💡</span>
           <h3>Las dos luces</h3>
-          <p>Enciendes la luz del pasillo y también se ilumina la sala. Verdadero y repetible. Pero ambas podrían depender de un mismo interruptor general.</p>
+          <p>Enciendes la luz del pasillo y también se ilumina la sala. Verdadero y repetible. Pero ambas podrían depender de un mismo interruptor.</p>
         </div>
-        <div class="keybox">
-          <span class="keybox-tag">Precisión obligatoria</span>
-          <p><strong>El nivel relacional no es correlacional.</strong> Correlacionar es <em>una</em> de sus técnicas. Un chi cuadrado o un odds ratio son relacionales, no correlacionales.</p>
-        </div>
+        <div class="alert"><b>Alerta</b> «Influye» es un verbo explicativo. En relacional se escribe «se asocia», «se relaciona», «difiere entre grupos».</div>
       </aside>
     </div>
   </section>
 
-  <!-- 7 -->
-  <section class="slide" data-slide="7" data-title="04 · Explicativo" aria-label="Nivel explicativo, presentación">
+  <!-- 9 -->
+  <section class="slide" data-slide="9" data-group="03 · Relacional" data-label="Ejemplo">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">03</span> Relacional · ejemplo</p>
+        <h2 class="reveal">Horas de estudio y rendimiento: <em>r = <span id="rVal">—</span></em></h2>
+        <p class="lede reveal">Con los mismos 30 estudiantes: ¿qué relación existe entre las horas de estudio semanales y la nota final?</p>
+        <div class="stats-row reveal">
+          <div class="stat"><span>Correlación (r)</span><b id="rBig">—</b></div>
+          <div class="stat"><span>Varianza explicada (r²)</span><b id="r2Big">—</b></div>
+          <div class="stat"><span>n</span><b>30</b></div>
+        </div>
+        <div class="keybox reveal">
+          <span class="keybox-tag">Interpretación correcta</span>
+          <p>«Existe una relación positiva y fuerte entre horas de estudio y rendimiento».<br><strong>No</strong> «estudiar más mejora el rendimiento»: eso exige controlar otras variables.</p>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="case">
+          <span class="case-tag">Caso real</span>
+          <p><strong>PISA (OCDE).</strong> El índice socioeconómico se asocia con el rendimiento en todos los países participantes. La asociación es robusta y repetida… y no demuestra que el origen cause el puntaje.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> r = 0,84 no autoriza a decir «causa». Puede haber una tercera variable: por ejemplo, el número de hermanos.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= 04 EXPLICATIVO ================= -->
+  <section class="slide" data-slide="10" data-group="04 · Explicativo" data-label="Teoría">
     <div class="wrap center">
-      <p class="kicker reveal"><span class="num">04</span> Nivel explicativo</p>
+      <p class="kicker reveal"><span class="num">04</span> Explicativo · teoría</p>
       <h2 class="reveal big">¿Por qué <em>ocurre</em>?</h2>
-      <p class="lede reveal">Análisis <strong>multivariado</strong>. Aquí el investigador deja de mirar y empieza a descartar explicaciones rivales. Hay dos caminos, y no compiten:</p>
+      <p class="lede reveal">Análisis <strong>multivariado</strong>. Se descartan explicaciones rivales por dos caminos que no compiten:</p>
       <div class="two-paths reveal">
         <div class="path">
           <span class="path-n">A</span>
           <h3>Manipular</h3>
-          <p>Se interviene y se mide antes y después, con grupo de comparación.</p>
-          <span class="path-tag">Pretest – postest</span>
+          <p>Se aplica el taller y se mide antes y después, con un grupo de comparación.</p>
+          <span class="path-tag">→ Pretest – postest</span>
         </div>
-        <div class="path-join" aria-hidden="true">+</div>
         <div class="path">
           <span class="path-n">B</span>
           <h3>Controlar</h3>
-          <p>No se interviene: se aíslan los efectos de otras variables con un modelo.</p>
-          <span class="path-tag">Coeficientes beta</span>
+          <p>No se interviene: se aísla el aporte de cada factor con un modelo.</p>
+          <span class="path-tag">→ Coeficientes beta</span>
         </div>
       </div>
-      <p class="tiny reveal">Ambos son explicativos. El primero responde «¿funcionó?»; el segundo, «¿cuánto aporta cada factor?».</p>
+      <p class="tiny reveal">Uno responde «¿el taller funcionó?»; el otro, «¿cuánto aporta cada factor al rendimiento?».</p>
     </div>
   </section>
 
-  <!-- 8 -->
-  <section class="slide" data-slide="8" data-title="04A · Pretest–postest" aria-label="Explicativo con pretest y postest">
+  <!-- 11 -->
+  <section class="slide" data-slide="11" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
     <div class="wrap">
       <div class="slide-head">
-        <p class="kicker reveal"><span class="num">04A</span> La ruta experimental</p>
-        <h2 class="reveal">Pretest–postest: <em>medir el cambio</em></h2>
-        <p class="lede reveal">Todos mejoran tras una intervención. La pregunta no es <em>si</em> mejoran, sino <strong>cuánto habrían mejorado sin ella</strong>.</p>
+        <p class="kicker reveal"><span class="num">04A</span> Explicativo · pretest–postest</p>
+        <h2 class="reveal">El taller de autoestima, <em>antes y después</em></h2>
+        <p class="lede reveal">30 estudiantes, 8 sesiones. Quince llevaron el taller y quince no. Se midió la autoestima total y sus tres dimensiones, antes y después.</p>
       </div>
 
       <div class="workbench reveal">
         <div class="wb-main">
-          <div class="stat-strip">
-            <div class="stat">
-              <span>Grupo control · n = 15</span>
-              <div class="nums"><b id="cPre">12,1</b> → <b id="cPost">13,5</b><em id="cDelta">+1,4</em></div>
-            </div>
-            <div class="stat">
-              <span>Grupo experimental · n = 15</span>
-              <div class="nums"><b id="ePre">12,4</b> → <b id="ePost">17,2</b><em id="eDelta">+4,9</em></div>
-            </div>
+          <div class="effect-panel">
+            <div class="eff"><span>Mejora del grupo con taller</span><b id="eDelta">—</b></div>
+            <div class="eff eff-main"><span>Efecto neto (descontando al control)</span><b id="netVal">—</b></div>
+            <p id="roNote">El grupo sin taller también mejoró: sin él, esa mejora se habría atribuido al programa.</p>
           </div>
 
-          <div class="effect-panel">
-            <div class="eff"><span>Efecto ingenuo</span><b id="naiveVal">+4,9</b></div>
-            <div class="eff eff-main"><span>Efecto neto (DiD)</span><b id="netVal">+3,5</b></div>
-            <p id="roNote">El grupo control también mejoró: sin él, esa mejora se habría atribuido al programa.</p>
-          </div>
+          <table class="tbl tbl-dims">
+            <thead><tr><th>Variable / dimensión</th><th>Pre</th><th>Post</th><th>Δ taller</th><th>Δ control</th></tr></thead>
+            <tbody id="dimEffect"></tbody>
+          </table>
 
           <div class="toggle-row">
             <span>Calcular con grupo control</span>
@@ -278,7 +361,7 @@
 
         <aside class="data-card">
           <div class="data-head">
-            <b>Base de datos · pretest / postest</b>
+            <b>Base de datos · autoestima</b>
             <span class="badge">n = 30</span>
           </div>
           <div class="data-scroll">
@@ -287,116 +370,60 @@
               <tbody id="tblPre"></tbody>
             </table>
           </div>
-          <div class="data-foot"><span>Datos simulados con fines didácticos</span><b id="tblPreFoot">30 registros</b></div>
+          <div class="data-foot"><span>Datos simulados con fines didácticos</span><b>30 registros</b></div>
         </aside>
-      </div>
-
-      <div class="grid-2 reveal">
-        <div class="case">
-          <span class="case-tag">Caso real</span>
-          <p><strong>Proyecto STAR (Tennessee, 1985–1989).</strong> Unos 11 600 escolares fueron asignados <em>al azar</em> a clases pequeñas, regulares o regulares con auxiliar. La ventaja de las clases pequeñas rondó <strong>0,2 desviaciones estándar</strong>, con efectos visibles años después.</p>
-        </div>
-        <div class="case">
-          <span class="case-tag">Caso real</span>
-          <p><strong>Aspirina e infartos (1988).</strong> Un ensayo con más de 22 000 médicos se detuvo antes de tiempo: el grupo tratado presentó cerca de <strong>44 % menos infartos</strong>. Sin grupo control, ese resultado sería indistinguible del azar.</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- 9 -->
-  <section class="slide" data-slide="9" data-title="04B · Coeficientes beta" aria-label="Explicativo con coeficientes beta">
+  <!-- 12 -->
+  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Betas (regresión)">
     <div class="wrap">
       <div class="slide-head">
-        <p class="kicker reveal"><span class="num">04B</span> La ruta del modelado</p>
-        <h2 class="reveal">Betas: <em>cuánto aporta cada factor</em></h2>
-        <p class="lede reveal">Una regresión descompone el resultado en aportes. Cada <strong>beta</strong> es el cambio esperado en Y por cada unidad de X, <strong>manteniendo lo demás constante</strong>: <span class="mono">Y = β₀ + β₁·Horas + β₂·Asist. + β₃·NSE + ε</span></p>
+        <p class="kicker reveal"><span class="num">04B</span> Explicativo · coeficientes beta</p>
+        <h2 class="reveal">Horas, gasto y hermanos: <em>cuánto aporta cada uno</em></h2>
+        <p class="lede reveal">Mismos 30 estudiantes. ¿Cuánto cambia la nota por cada hora de estudio, cada sol de gasto y cada hermano, <strong>manteniendo lo demás constante</strong>?</p>
       </div>
 
       <div class="workbench reveal">
         <div class="wb-main">
-          <div class="beta-sim">
-            <div class="beta-controls">
-              <div class="model-switch" role="group" aria-label="Especificación del modelo">
-                <button class="seg is-active" data-model="1">Modelo 1 · solo horas</button>
-                <button class="seg" data-model="2">Modelo 2 · con controles</button>
-              </div>
-              <div class="beta-eq" id="betaEq">Ŷ = 4,84 + 0,92 · Horas</div>
-            </div>
-
-            <div class="beta-big">
-              <span>Beta de horas</span>
-              <b id="betaH">0,92</b>
-              <span style="margin-left:auto">R² <b id="betaR2" style="font-size:.9rem;color:var(--ink-2)">0,88</b></span>
-            </div>
-            <p class="beta-read" id="betaRead">Por cada hora adicional de estudio, la nota sube <strong>0,92 puntos</strong>.</p>
-
-            <table class="beta-table" id="betaTable">
-              <thead><tr><th>Predictor</th><th>Beta</th><th>Qué significa</th></tr></thead>
-              <tbody></tbody>
-            </table>
-            <div class="beta-note" id="betaNote"></div>
+          <div class="model-switch" role="group" aria-label="Especificación del modelo">
+            <button class="seg is-active" data-model="1">Modelo 1 · solo horas</button>
+            <button class="seg" data-model="2">Modelo 2 · + gasto y hermanos</button>
           </div>
+          <div class="beta-eq" id="betaEq">—</div>
+
+          <table class="beta-table" id="betaTable">
+            <thead><tr><th>Predictor</th><th>Beta</th><th>Lectura</th></tr></thead>
+            <tbody></tbody>
+          </table>
+
+          <p class="beta-read" id="betaRead">—</p>
+          <div class="beta-note" id="betaNote"></div>
         </div>
 
         <aside class="data-card">
           <div class="data-head">
-            <b>Base de datos · notas y predictores</b>
+            <b>Base de datos · rendimiento</b>
             <span class="badge">n = 30</span>
           </div>
           <div class="data-scroll">
             <table class="data-table">
-              <thead><tr><th>ID</th><th>Horas</th><th>Asist.</th><th>NSE</th><th>Nota</th></tr></thead>
+              <thead><tr><th>ID</th><th>Horas</th><th>Gasto</th><th>Herm.</th><th>Nota</th></tr></thead>
               <tbody id="tblBeta"></tbody>
             </table>
           </div>
-          <div class="data-foot"><span id="betaSel">Toque una fila</span><b>30 registros</b></div>
+          <div class="data-foot"><span id="betaSel">Toque una fila para ver su predicción</span><b>30 registros</b></div>
         </aside>
       </div>
-
-      <div class="grid-2 reveal">
-        <div class="case">
-          <span class="case-tag">Caso real</span>
-          <p><strong>Ecuación de Mincer.</strong> Al regresar el logaritmo del ingreso sobre los años de escolaridad, el coeficiente se sitúa entre <strong>0,06 y 0,10</strong>: cada año adicional se asocia con 6 % a 10 % más de ingreso. Como Y está en logaritmos, el porcentaje exacto es <span class="mono">(e<sup>β</sup> − 1)·100</span>.</p>
-        </div>
-        <div class="case">
-          <span class="case-tag">Caso real</span>
-          <p><strong>Tamaño de clase (Hanushek).</strong> La beta del tamaño de clase se encoge —y a veces cambia de signo— cuando se controla el nivel socioeconómico. Ese desplazamiento no es un defecto: revela que <strong>las variables omitidas sesgaban el resultado</strong>.</p>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- 10 -->
-  <section class="slide" data-slide="10" data-title="04C · Las tres rutas" aria-label="Comparación de las rutas explicativas">
-    <div class="wrap">
-      <p class="kicker reveal"><span class="num">04C</span> Síntesis del explicativo</p>
-      <h2 class="reveal">Tres formas de sostener una causa</h2>
-      <div class="tbl-scroll reveal">
-        <table class="tbl tbl-wide">
-          <thead><tr><th>Criterio</th><th>Pretest–postest</th><th>Regresión con betas</th><th>Diseño mixto</th></tr></thead>
-          <tbody>
-            <tr><td>Pregunta</td><td>¿El programa produjo el cambio?</td><td>¿Cuánto aporta cada factor?</td><td>¿Funciona y por qué?</td></tr>
-            <tr><td>Control de rivales</td><td>Grupo de comparación y azar</td><td>Variables de control en el modelo</td><td>Ambos</td></tr>
-            <tr><td>Unidad de evidencia</td><td>Diferencia de medias</td><td>Coeficiente con intervalo de confianza</td><td>Coeficiente + efecto del programa</td></tr>
-            <tr><td>Se reporta</td><td>d de Cohen, ANOVA mixto</td><td>B, β estandarizado, p, R² ajustado</td><td>Ambos, con análisis de sensibilidad</td></tr>
-            <tr><td>Riesgo típico</td><td>Atribuir a la intervención la maduración</td><td>Confundir asociación ajustada con causa</td><td>Complejidad sin teoría</td></tr>
-            <tr><td>Fuerza</td><td>Alta validez interna</td><td>Alta generalizabilidad y precisión</td><td>Explica el mecanismo</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="callout reveal">
-        <span class="callout-tag">La trampa clásica</span>
-        <p>Un solo grupo, medición antes y después, y una mejora de 4,9 puntos. Sin grupo de comparación no puede separar el programa de la <strong>maduración</strong>, la <strong>historia</strong>, el <strong>efecto del test</strong> y la <strong>regresión a la media</strong>.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 -->
-  <section class="slide" data-slide="11" data-title="05 · Predictivo" aria-label="Nivel predictivo">
+  <!-- ================= 05 PREDICTIVO ================= -->
+  <section class="slide" data-slide="13" data-group="05 · Predictivo" data-label="Teoría">
     <div class="wrap split">
       <div>
-        <p class="kicker reveal"><span class="num">05</span> Nivel predictivo</p>
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · teoría</p>
         <h2 class="reveal">Anticipar <em>sin explicar</em></h2>
         <p class="lede reveal">Modelamiento estadístico. No pregunta por la causa: estima la <strong>probabilidad individual</strong> de un evento o su valor futuro.</p>
         <div class="mini-grid four reveal">
@@ -407,84 +434,115 @@
         </div>
         <div class="case reveal">
           <span class="case-tag">Caso real</span>
-          <p><strong>Georgia State University, GPS Advising.</strong> Un modelo sobre cientos de variables detectaba estudiantes en riesgo y un equipo de tutores intervenía. La universidad sostuvo durante años una mejora de retención y graduación. El modelo no explicaba el abandono: <strong>lo anticipaba</strong>.</p>
+          <p><strong>Georgia State University, GPS Advising.</strong> Un modelo detectaba estudiantes en riesgo y un equipo de tutores intervenía. El modelo no explicaba el abandono: <strong>lo anticipaba</strong>.</p>
         </div>
       </div>
       <aside class="side reveal">
         <div class="analogy">
           <span class="analogy-icon" aria-hidden="true">🌦️</span>
           <h3>El pronóstico del clima</h3>
-          <p>No le importa por qué llueve (eso es explicativo). Le importa <strong>si mañana llueve y a qué hora</strong>, para salir con paraguas.</p>
+          <p>No le importa por qué llueve. Le importa <strong>si mañana llueve</strong>, para salir con paraguas.</p>
         </div>
-        <div class="alert"><b>Alerta</b> Un modelo que acierta solo con los datos con que fue construido está sobreajustado: memorizó, no aprendió. Se verifica con validación cruzada.</div>
+        <div class="alert"><b>Alerta</b> Un modelo que acierta solo con los datos con que fue construido está sobreajustado: memorizó, no aprendió.</div>
       </aside>
     </div>
   </section>
 
-  <!-- 12 -->
-  <section class="slide" data-slide="12" data-title="06 · Aplicativo" aria-label="Nivel aplicativo">
+  <!-- 14 -->
+  <section class="slide" data-slide="14" data-group="05 · Predictivo" data-label="Ejemplo">
     <div class="wrap split">
       <div>
-        <p class="kicker reveal"><span class="num">06</span> Nivel aplicativo</p>
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · ejemplo</p>
+        <h2 class="reveal">¿Quién está en riesgo de <em>reprobar</em>?</h2>
+        <p class="lede reveal">Con asistencia, horas de estudio y autoestima se estima la probabilidad de reprobar de cada estudiante. El modelo no dice por qué: dice <strong>quién necesita ayuda ahora</strong>.</p>
+        <table class="tbl reveal">
+          <thead><tr><th>Estudiante</th><th>Probabilidad de reprobar</th><th>Decisión</th></tr></thead>
+          <tbody>
+            <tr><td>E03</td><td>0,78</td><td>Tutoría inmediata</td></tr>
+            <tr><td>C08</td><td>0,54</td><td>Seguimiento quincenal</td></tr>
+            <tr><td>C03</td><td>0,09</td><td>Sin intervención</td></tr>
+          </tbody>
+        </table>
+        <div class="callout reveal">
+          <span class="callout-tag">Cómo se juzga</span>
+          <p>No por el p-valor, sino por su acierto fuera de muestra: <strong>AUC = 0,81</strong>, con validación cruzada. Un modelo que solo acierta con los datos con que fue construido no sirve.</p>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="case">
+          <span class="case-tag">Diferencia clave</span>
+          <p>El nivel <strong>explicativo</strong> diría: «los hermanos reducen el rendimiento». El <strong>predictivo</strong> dice: «este estudiante tiene 78 % de probabilidad de reprobar». Distinto propósito, distinta métrica.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Predecir no es profecía: es una probabilidad con error. Y un modelo que no se valida fuera de la muestra es solo un recuerdo de los datos.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= 06 APLICATIVO ================= -->
+  <section class="slide" data-slide="15" data-group="06 · Aplicativo" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">06</span> Aplicativo · teoría</p>
         <h2 class="reveal">Intervenir, medir, <em>sostener</em></h2>
         <p class="lede reveal">Metodologías de mejora continua. Incluye la investigación tecnológica: el criterio no es el p-valor, es que el resultado <strong>se mantenga</strong>.</p>
         <table class="tbl reveal">
           <thead><tr><th>Objetivo</th><th>Qué hace</th></tr></thead>
           <tbody>
             <tr><td>Evaluar</td><td>Línea base y monitoreo de indicadores</td></tr>
-            <tr><td>Calibrar</td><td>Ajusta dosis, frecuencia o configuración</td></tr>
+            <tr><td>Calibrar</td><td>Ajusta dosis o frecuencia de las sesiones</td></tr>
             <tr><td>Controlar</td><td>Mantiene la mejora e institucionaliza</td></tr>
             <tr><td>Aceptar</td><td>Valida con criterios definidos antes</td></tr>
           </tbody>
         </table>
         <div class="case reveal">
           <span class="case-tag">Caso real</span>
-          <p><strong>Seis Sigma (Motorola, 1986; General Electric, 1995).</strong> El ciclo DMAIC —definir, medir, analizar, mejorar, controlar— convirtió la reducción de defectos en un estándar verificable, no en una anécdota de éxito.</p>
+          <p><strong>Seis Sigma (Motorola, 1986; GE, 1995).</strong> El ciclo DMAIC convirtió la reducción de defectos en un estándar verificable, no en una anécdota de éxito.</p>
         </div>
       </div>
       <aside class="side reveal">
         <div class="analogy">
           <span class="analogy-icon" aria-hidden="true">🚿</span>
           <h3>El agua de la ducha</h3>
-          <p>Mide con la mano (evaluar), ajusta la mezcla (calibrar), verifica que no varíe (controlar) y decide que esa posición es la buena (aceptar). Nadie investigó la causa del calentamiento.</p>
+          <p>Mide con la mano (evaluar), ajusta la mezcla (calibrar), verifica que no varíe (controlar) y fija la posición (aceptar).</p>
         </div>
         <div class="alert"><b>Alerta</b> «Hice un taller y me pareció que funcionó» no es nivel aplicativo. Hacen falta línea base, indicadores y criterios previos.</div>
       </aside>
     </div>
   </section>
 
-  <!-- 13 -->
-  <section class="slide" data-slide="13" data-title="La escalera" aria-label="La escalera de niveles">
-    <div class="wrap">
-      <p class="kicker reveal">El recurso que ordena la clase</p>
-      <h2 class="reveal">Un tema, <em>seis niveles</em></h2>
-      <p class="lede reveal">Tema único: uso de inteligencia artificial en la formación docente. Lo que cambia no es el tema ni la población: es <strong>la pregunta y el análisis</strong>.</p>
-
-      <div class="ladder reveal" id="ladder">
-        <div class="ladder-tabs" role="tablist" aria-label="Niveles">
-          <button class="lt is-active" role="tab" data-tab="0">Exploratorio</button>
-          <button class="lt" role="tab" data-tab="1">Descriptivo</button>
-          <button class="lt" role="tab" data-tab="2">Relacional</button>
-          <button class="lt" role="tab" data-tab="3">Explicativo</button>
-          <button class="lt" role="tab" data-tab="4">Predictivo</button>
-          <button class="lt" role="tab" data-tab="5">Aplicativo</button>
+  <!-- 16 -->
+  <section class="slide" data-slide="16" data-group="06 · Aplicativo" data-label="Ejemplo">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
+        <h2 class="reveal">Que el taller <em>no se quede</em> en un trimestre</h2>
+        <p class="lede reveal">El colegio decide institucionalizar el taller. Ya no se pregunta si funcionó una vez, sino si <strong>sigue funcionando</strong> y a qué costo.</p>
+        <table class="tbl reveal">
+          <thead><tr><th>Fase</th><th>Acción concreta</th><th>Indicador</th></tr></thead>
+          <tbody>
+            <tr><td>Evaluar</td><td>Línea base del primer bimestre</td><td>Autoestima media: 58,9</td></tr>
+            <tr><td>Calibrar</td><td>De 8 a 6 sesiones en 2.º grado</td><td>Asistencia ≥ 85 %</td></tr>
+            <tr><td>Controlar</td><td>Monitoreo bimestral en 3 secciones</td><td>Media ≥ 66 sostenida</td></tr>
+            <tr><td>Aceptar</td><td>Validar el protocolo para todo el nivel</td><td>Criterio cumplido 2 años</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="side reveal">
+        <div class="keybox">
+          <span class="keybox-tag">La diferencia</span>
+          <p>El <strong>explicativo</strong> demuestra que el taller produjo +9,3 puntos. El <strong>aplicativo</strong> demuestra que esos +9,3 se mantienen con 6 sesiones, en 3 secciones, dos años después.</p>
         </div>
-        <div class="ladder-panels" id="ladderPanels"></div>
-      </div>
-
-      <div class="callout reveal">
-        <span class="callout-tag">Regla de la escalera</span>
-        <p>No se explica lo que no se ha descrito, ni se predice lo que no se ha explicado, ni se aplica lo que no se ha medido.</p>
-      </div>
+        <div class="alert"><b>Alerta</b> Sin línea base no hay forma de demostrar mejora. El indicador se define <em>antes</em> de intervenir, no después.</div>
+      </aside>
     </div>
   </section>
 
-  <!-- 14 -->
-  <section class="slide" data-slide="14" data-title="Clasificador" aria-label="Clasificador de niveles">
+  <!-- ================= CIERRE ================= -->
+  <section class="slide" data-slide="17" data-group="Cierre" data-label="Clasificador">
     <div class="wrap">
       <p class="kicker reveal">Ponte a prueba</p>
       <h2 class="reveal">Clasificador de <em>niveles</em></h2>
-      <p class="lede reveal">Ocho situaciones. Elija el nivel. La retroalimentación explica el criterio, no solo la respuesta.</p>
+      <p class="lede reveal">Ocho situaciones del caso. Elija el nivel: la retroalimentación explica el criterio.</p>
 
       <div class="quiz reveal" id="quiz">
         <div class="quiz-head">
@@ -503,16 +561,16 @@
     </div>
   </section>
 
-  <!-- 15 -->
-  <section class="slide" data-slide="15" data-title="Cierre" aria-label="Cierre y referencias">
+  <!-- 18 -->
+  <section class="slide" data-slide="18" data-group="Cierre" data-label="Síntesis">
     <div class="wrap">
       <p class="kicker reveal">Para llevarse</p>
       <h2 class="reveal">Cinco ideas que <em>no se olvidan</em></h2>
       <ol class="takeaways reveal">
         <li><span>01</span><p><strong>El análisis decide el nivel.</strong> Si el título promete explicación y el informe muestra porcentajes, el nivel es decorativo.</p></li>
-        <li><span>02</span><p><strong>Relacional no es correlacional.</strong> Correlacionar es una técnica; el nivel abarca comparaciones, asociaciones y concordancias.</p></li>
-        <li><span>03</span><p><strong>Sin grupo de comparación no hay efecto.</strong> El pretest–postest de un solo grupo confunde el programa con la maduración.</p></li>
-        <li><span>04</span><p><strong>La beta cambia cuando controla.</strong> Ese cambio es información, no ruido: revela las variables omitidas.</p></li>
+        <li><span>02</span><p><strong>Relacional no es correlacional.</strong> r = 0,84 describe una asociación; no autoriza a decir «causa».</p></li>
+        <li><span>03</span><p><strong>Sin grupo de comparación no hay efecto.</strong> Los 15 estudiantes sin taller mejoraron 2,4 puntos por su cuenta.</p></li>
+        <li><span>04</span><p><strong>La beta cambia cuando controla.</strong> Las horas pasan de 0,64 a 0,48 al descontar hermanos: ese cambio es información.</p></li>
         <li><span>05</span><p><strong>Predecir no es explicar, y aplicar no es predecir.</strong> El predictivo anticipa; el aplicativo interviene, mide y sostiene.</p></li>
       </ol>
 
@@ -521,7 +579,7 @@
         <p>Hernández-Sampieri, R., &amp; Mendoza, C. P. (2018). <em>Metodología de la investigación: las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill.</p>
         <p>Supo, J. A. (2025). <em>Niveles de investigación: una clasificación emergente fundamentada en el análisis de datos</em>. BIOESTADISTICO.</p>
         <p>Valderrama Mendoza, S. (2018). <em>El desarrollo de la tesis descriptiva-comparativa, correlacional y cuasiexperimental</em>. San Marcos.</p>
-        <p class="refs-note">La base de datos de 30 casos es simulada y se usa solo con fines didácticos; los casos citados remiten a sus fuentes originales.</p>
+        <p class="refs-note">La base de 30 estudiantes es simulada y se usa solo con fines didácticos.</p>
       </div>
     </div>
   </section>
@@ -531,25 +589,28 @@
 <div class="scroll-hint" id="scrollHint" aria-hidden="true">Desplazar <span>↓</span></div>
 
 <nav class="navbar" aria-label="Navegación de la presentación">
-  <button class="nav-btn" id="prevBtn" aria-label="Diapositiva anterior">
+  <button class="nav-btn" id="prevBtn" aria-label="Página anterior">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
   </button>
   <div class="progress"><span id="progressBar"></span></div>
-  <span class="counter"><b id="curNum">01</b><span>/</span><span id="totNum">15</span></span>
-  <button class="nav-btn" id="nextBtn" aria-label="Diapositiva siguiente">
+  <span class="counter"><b id="curNum">01</b><span>/</span><span id="totNum">18</span></span>
+  <button class="nav-btn" id="nextBtn" aria-label="Página siguiente">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
   </button>
 </nav>
 
 <div class="menu" id="menu" aria-hidden="true">
-  <div class="menu-panel" role="dialog" aria-label="Índice">
+  <div class="menu-panel" role="dialog" aria-label="Navegación por niveles">
     <div class="menu-head">
-      <h3>Índice</h3>
+      <div>
+        <h3>Navegación por niveles</h3>
+        <p class="menu-sub">Cada nivel tiene su teoría y sus ejemplos. Elija una página.</p>
+      </div>
       <button class="icon-btn" id="menuClose" aria-label="Cerrar índice">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-    <div class="menu-grid" id="menuGrid"></div>
+    <div class="nav-groups" id="menuGrid"></div>
   </div>
 </div>
 

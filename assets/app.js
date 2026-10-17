@@ -1,49 +1,57 @@
 /* ==========================================================
-   Niveles de investigación — deck interactivo (tema claro)
+   Niveles de investigación — deck interactivo
+   Casos educativos · navegación por niveles
    ========================================================== */
 (function () {
   "use strict";
 
   const $  = (s, c) => (c || document).querySelector(s);
   const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
-  const fmt = (n, d = 2) => n.toFixed(d).replace(".", ",");
+  const fmt = (n, d = 1) => n.toFixed(d).replace(".", ",");
   const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const sd = a => {
+    const m = mean(a);
+    return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1));
+  };
 
-  /* ---------------- base de datos simulada (n = 30) ---------------- */
-  const DATASET = [
-    { id: "C01", grupo: "Control", pre: 13.6, post: 15.7, horas: 14.5, asist: 88, nse: 5, nota: 19.6 },
-    { id: "C02", grupo: "Control", pre: 12.4, post: 13.8, horas: 5.7, asist: 61, nse: 1, nota: 9.3 },
-    { id: "C03", grupo: "Control", pre: 12.2, post: 13.6, horas: 13.7, asist: 76, nse: 4, nota: 16.4 },
-    { id: "C04", grupo: "Control", pre: 11.0, post: 12.9, horas: 6.8, asist: 67, nse: 2, nota: 10.7 },
-    { id: "C05", grupo: "Control", pre: 10.3, post: 11.4, horas: 10.5, asist: 72, nse: 3, nota: 12.3 },
-    { id: "C06", grupo: "Control", pre: 12.1, post: 13.5, horas: 4.7, asist: 66, nse: 1, nota: 9.0 },
-    { id: "C07", grupo: "Control", pre: 11.5, post: 12.8, horas: 15.1, asist: 85, nse: 5, nota: 19.9 },
-    { id: "C08", grupo: "Control", pre: 12.6, post: 13.7, horas: 11.7, asist: 73, nse: 3, nota: 14.1 },
-    { id: "C09", grupo: "Control", pre: 13.8, post: 15.3, horas: 9.9, asist: 65, nse: 2, nota: 13.0 },
-    { id: "C10", grupo: "Control", pre: 12.3, post: 13.6, horas: 7.2, asist: 80, nse: 3, nota: 13.3 },
-    { id: "C11", grupo: "Control", pre: 11.4, post: 11.9, horas: 7.8, asist: 67, nse: 2, nota: 11.5 },
-    { id: "C12", grupo: "Control", pre: 12.4, post: 14.0, horas: 12.5, asist: 83, nse: 4, nota: 14.3 },
-    { id: "C13", grupo: "Control", pre: 12.6, post: 14.0, horas: 12.4, asist: 79, nse: 4, nota: 16.0 },
-    { id: "C14", grupo: "Control", pre: 13.2, post: 14.8, horas: 14.0, asist: 91, nse: 5, nota: 20.0 },
-    { id: "C15", grupo: "Control", pre: 10.6, post: 12.1, horas: 10.7, asist: 76, nse: 3, nota: 15.8 },
-    { id: "E01", grupo: "Experimental", pre: 12.3, post: 17.6, horas: 11.3, asist: 82, nse: 4, nota: 16.4 },
-    { id: "E02", grupo: "Experimental", pre: 11.4, post: 16.2, horas: 12.1, asist: 81, nse: 4, nota: 16.1 },
-    { id: "E03", grupo: "Experimental", pre: 13.1, post: 18.4, horas: 11.2, asist: 75, nse: 3, nota: 16.8 },
-    { id: "E04", grupo: "Experimental", pre: 11.2, post: 15.9, horas: 6.9, asist: 73, nse: 2, nota: 11.9 },
-    { id: "E05", grupo: "Experimental", pre: 13.3, post: 17.4, horas: 14.2, asist: 92, nse: 5, nota: 18.5 },
-    { id: "E06", grupo: "Experimental", pre: 12.2, post: 16.7, horas: 3.6, asist: 69, nse: 1, nota: 9.2 },
-    { id: "E07", grupo: "Experimental", pre: 10.8, post: 15.6, horas: 10.3, asist: 80, nse: 3, nota: 15.2 },
-    { id: "E08", grupo: "Experimental", pre: 10.4, post: 16.0, horas: 5.0, asist: 70, nse: 1, nota: 9.6 },
-    { id: "E09", grupo: "Experimental", pre: 12.7, post: 18.2, horas: 5.3, asist: 64, nse: 1, nota: 11.8 },
-    { id: "E10", grupo: "Experimental", pre: 13.2, post: 17.4, horas: 14.7, asist: 84, nse: 4, nota: 17.6 },
-    { id: "E11", grupo: "Experimental", pre: 13.0, post: 17.5, horas: 8.8, asist: 66, nse: 2, nota: 10.5 },
-    { id: "E12", grupo: "Experimental", pre: 13.8, post: 18.7, horas: 7.7, asist: 67, nse: 2, nota: 11.0 },
-    { id: "E13", grupo: "Experimental", pre: 11.9, post: 16.7, horas: 4.5, asist: 60, nse: 1, nota: 7.3 },
-    { id: "E14", grupo: "Experimental", pre: 13.7, post: 19.1, horas: 16.8, asist: 97, nse: 5, nota: 20.0 },
-    { id: "E15", grupo: "Experimental", pre: 12.2, post: 17.0, horas: 4.9, asist: 68, nse: 1, nota: 10.3 }
+  /* ---------------- base de datos: 30 estudiantes ---------------- */
+  const DATA = [
+    { id:"C01", g:"Control", preT:60.4, postT:61.7, preA:55.0, postA:55.9, preS:62.1, postS:63.9, preE:64.1, postE:65.3, horas:8.0, gasto:62, herm:2, rend:9.7 },
+    { id:"C02", g:"Control", preT:48.2, postT:51.7, preA:41.3, postA:44.8, preS:50.8, postS:54.8, preE:52.5, postE:55.5, horas:11.8, gasto:240, herm:2, rend:14.6 },
+    { id:"C03", g:"Control", preT:71.1, postT:73.2, preA:70.8, postA:73.0, preS:74.7, postS:75.5, preE:67.8, postE:71.2, horas:14.5, gasto:249, herm:0, rend:15.5 },
+    { id:"C04", g:"Control", preT:61.2, postT:63.8, preA:57.9, postA:59.8, preS:59.3, postS:61.4, preE:66.5, postE:70.3, horas:7.4, gasto:167, herm:1, rend:12.9 },
+    { id:"C05", g:"Control", preT:49.7, postT:51.8, preA:52.1, postA:55.0, preS:47.0, postS:49.7, preE:50.2, postE:50.7, horas:11.4, gasto:161, herm:1, rend:12.2 },
+    { id:"C06", g:"Control", preT:63.7, postT:66.7, preA:57.9, postA:60.6, preS:65.7, postS:68.5, preE:67.4, postE:71.0, horas:5.1, gasto:157, herm:2, rend:10.8 },
+    { id:"C07", g:"Control", preT:66.1, postT:68.5, preA:73.0, postA:74.5, preS:64.8, postS:66.7, preE:60.6, postE:64.4, horas:5.4, gasto:41, herm:1, rend:10.4 },
+    { id:"C08", g:"Control", preT:50.8, postT:53.3, preA:48.5, postA:50.8, preS:44.7, postS:48.0, preE:59.2, postE:61.1, horas:5.4, gasto:62, herm:3, rend:11.1 },
+    { id:"C09", g:"Control", preT:47.8, postT:50.7, preA:53.3, postA:55.8, preS:50.2, postS:53.5, preE:40.0, postE:42.9, horas:9.1, gasto:172, herm:2, rend:12.3 },
+    { id:"C10", g:"Control", preT:54.6, postT:57.3, preA:51.4, postA:53.5, preS:54.8, postS:56.9, preE:57.7, postE:61.4, horas:8.7, gasto:88, herm:2, rend:10.8 },
+    { id:"C11", g:"Control", preT:70.7, postT:71.6, preA:67.6, postA:67.8, preS:74.1, postS:75.3, preE:70.4, postE:71.8, horas:6.6, gasto:152, herm:2, rend:12.2 },
+    { id:"C12", g:"Control", preT:55.5, postT:58.7, preA:54.6, postA:56.0, preS:53.8, postS:57.7, preE:58.1, postE:62.4, horas:7.9, gasto:182, herm:1, rend:13.8 },
+    { id:"C13", g:"Control", preT:46.6, postT:48.7, preA:40.6, postA:42.2, preS:53.4, postS:55.5, preE:45.7, postE:48.4, horas:6.9, gasto:62, herm:1, rend:10.6 },
+    { id:"C14", g:"Control", preT:59.0, postT:60.6, preA:59.6, postA:59.4, preS:58.5, postS:61.2, preE:58.8, postE:61.1, horas:6.5, gasto:104, herm:3, rend:7.7 },
+    { id:"C15", g:"Control", preT:73.1, postT:76.0, preA:68.2, postA:70.2, preS:73.9, postS:77.4, preE:77.3, postE:80.6, horas:14.7, gasto:230, herm:1, rend:14.9 },
+    { id:"E01", g:"Experimental", preT:65.1, postT:74.8, preA:67.5, postA:80.0, preS:64.5, postS:72.5, preE:63.4, postE:71.8, horas:9.4, gasto:123, herm:2, rend:12.3 },
+    { id:"E02", g:"Experimental", preT:46.6, postT:54.7, preA:46.4, postA:56.3, preS:49.3, postS:57.4, preE:44.1, postE:50.4, horas:11.8, gasto:168, herm:1, rend:11.8 },
+    { id:"E03", g:"Experimental", preT:59.9, postT:69.8, preA:55.9, postA:67.5, preS:63.7, postS:73.0, preE:59.9, postE:68.8, horas:2.0, gasto:79, herm:2, rend:6.3 },
+    { id:"E04", g:"Experimental", preT:58.1, postT:67.2, preA:54.7, postA:67.3, preS:57.6, postS:65.9, preE:62.1, postE:68.5, horas:8.1, gasto:94, herm:3, rend:12.7 },
+    { id:"E05", g:"Experimental", preT:60.8, postT:70.2, preA:60.0, postA:74.8, preS:58.9, postS:67.4, preE:63.4, postE:68.3, horas:2.4, gasto:117, herm:3, rend:7.2 },
+    { id:"E06", g:"Experimental", preT:62.6, postT:70.7, preA:55.6, postA:68.9, preS:64.9, postS:73.0, preE:67.1, postE:70.3, horas:9.5, gasto:144, herm:1, rend:14.4 },
+    { id:"E07", g:"Experimental", preT:48.0, postT:57.9, preA:50.1, postA:62.2, preS:51.1, postS:62.6, preE:42.8, postE:48.8, horas:7.5, gasto:109, herm:1, rend:10.4 },
+    { id:"E08", g:"Experimental", preT:61.8, postT:70.3, preA:65.7, postA:80.3, preS:59.7, postS:64.9, preE:60.1, postE:65.6, horas:11.1, gasto:160, herm:2, rend:12.8 },
+    { id:"E09", g:"Experimental", preT:55.0, postT:64.2, preA:50.2, postA:63.7, preS:61.8, postS:70.3, preE:52.9, postE:58.7, horas:9.8, gasto:136, herm:1, rend:13.8 },
+    { id:"E10", g:"Experimental", preT:65.7, postT:74.4, preA:63.8, postA:78.5, preS:68.7, postS:77.0, preE:64.6, postE:67.7, horas:4.1, gasto:64, herm:2, rend:7.5 },
+    { id:"E11", g:"Experimental", preT:72.3, postT:81.4, preA:73.2, postA:84.2, preS:79.1, postS:85.8, preE:64.5, postE:74.1, horas:7.1, gasto:233, herm:2, rend:11.5 },
+    { id:"E12", g:"Experimental", preT:50.1, postT:59.7, preA:47.2, postA:61.1, preS:49.9, postS:59.3, preE:53.2, postE:58.7, horas:6.5, gasto:192, herm:3, rend:8.7 },
+    { id:"E13", g:"Experimental", preT:50.1, postT:60.3, preA:48.6, postA:63.6, preS:49.0, postS:57.2, preE:52.7, postE:60.0, horas:8.7, gasto:124, herm:1, rend:11.1 },
+    { id:"E14", g:"Experimental", preT:71.1, postT:79.7, preA:76.8, postA:88.2, preS:67.1, postS:76.1, preE:69.5, postE:74.7, horas:7.0, gasto:194, herm:3, rend:11.4 },
+    { id:"E15", g:"Experimental", preT:56.9, postT:68.0, preA:63.4, postA:77.2, preS:62.6, postS:75.2, preE:44.8, postE:51.6, horas:13.8, gasto:166, herm:0, rend:15.6 }
   ];
 
-  /* ---------------- regresión: mínimos cuadrados ---------------- */
+  const C = DATA.filter(d => d.g === "Control");
+  const E = DATA.filter(d => d.g === "Experimental");
+
+  /* ---------------- estadística ---------------- */
   function ols(X, y) {
     const n = X.length, k = X[0].length;
     const A = [];
@@ -62,7 +70,7 @@
     for (let c = 0; c < k; c++) {
       let piv = c;
       for (let r = c + 1; r < k; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
-      const tmp = A[c]; A[c] = A[piv]; A[piv] = tmp;
+      const t = A[c]; A[c] = A[piv]; A[piv] = t;
       const pv = A[c][c];
       for (let j = 0; j <= k; j++) A[c][j] /= pv;
       for (let r = 0; r < k; r++) {
@@ -84,15 +92,25 @@
     return { b, r2: 1 - ssr / sst };
   }
 
-  const Y = DATASET.map(d => d.nota);
-  const M1 = ols(DATASET.map(d => [1, d.horas]), Y);
-  const M2 = ols(DATASET.map(d => [1, d.horas, d.asist, d.nse]), Y);
+  function pearson(x, y) {
+    const mx = mean(x), my = mean(y);
+    let num = 0, dx = 0, dy = 0;
+    for (let i = 0; i < x.length; i++) {
+      num += (x[i] - mx) * (y[i] - my);
+      dx += (x[i] - mx) ** 2;
+      dy += (y[i] - my) ** 2;
+    }
+    return num / Math.sqrt(dx * dy);
+  }
+
+  const Y = DATA.map(d => d.rend);
+  const M1 = ols(DATA.map(d => [1, d.horas]), Y);
+  const M2 = ols(DATA.map(d => [1, d.horas, d.gasto, d.herm]), Y);
 
   /* ---------------- deck ---------------- */
   const slides = $$(".slide");
   const total = slides.length;
   let index = 0;
-
   $("#totNum").textContent = String(total).padStart(2, "0");
 
   function setRevealIndexes() {
@@ -116,8 +134,8 @@
 
     const active = slides[index];
     active.scrollTop = 0;
-    $$(".menu-item").forEach((b, i) => b.classList.toggle("is-current", i === index));
-    document.title = (active.dataset.title || "Niveles") + " · Niveles de investigación";
+    $$(".nav-link").forEach(b => b.classList.toggle("is-current", +b.dataset.n === index));
+    document.title = (active.dataset.label || "Niveles") + " · " + (active.dataset.group || "");
 
     const updateHint = () => {
       const hint = $("#scrollHint");
@@ -172,44 +190,75 @@
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) (dx < 0 ? next : prev)();
   });
 
-  /* ---------------- índice ---------------- */
+  /* ---------------- navegación por niveles ---------------- */
   const menu = $("#menu");
   const grid = $("#menuGrid");
 
+  const ANALYSIS = {
+    "General": "", "Cierre": "",
+    "01": "No estadístico", "02": "Univariado", "03": "Bivariado",
+    "04": "Multivariado", "05": "Modelamiento", "06": "Mejora continua"
+  };
+
+  const groups = [];
   slides.forEach((s, i) => {
-    const b = document.createElement("button");
-    b.className = "menu-item";
-    b.innerHTML = "<span>" + String(i + 1).padStart(2, "0") + "</span>" + (s.dataset.title || "Diapositiva");
-    b.addEventListener("click", () => { goTo(i + 1); closeMenu(); });
-    grid.appendChild(b);
+    const g = s.dataset.group || "General";
+    let grp = groups.find(x => x.name === g);
+    if (!grp) { grp = { name: g, items: [] }; groups.push(grp); }
+    grp.items.push({ n: i + 1, label: s.dataset.label || "Página" });
   });
 
-  function openMenu()   { menu.classList.add("is-open"); menu.setAttribute("aria-hidden", "false"); }
-  function closeMenu()  { menu.classList.remove("is-open"); menu.setAttribute("aria-hidden", "true"); }
+  grid.innerHTML = groups.map(g => {
+    const code = g.name.slice(0, 2);
+    const num = /^\d/.test(code) ? code : "";
+    const title = num ? g.name.slice(4).trim() : g.name;
+    const analysis = ANALYSIS[code] || "";
+    return '<div class="nav-group">' +
+      '<div class="nav-group-head">' +
+        (num ? "<span>" + num + "</span>" : "") +
+        "<b>" + title + "</b>" +
+        (analysis ? "<em>" + analysis + "</em>" : "") +
+      "</div>" +
+      g.items.map(it =>
+        '<button class="nav-link" data-n="' + (it.n - 1) + '">' + it.label + "</button>"
+      ).join("") +
+    "</div>";
+  }).join("");
+
+  grid.addEventListener("click", e => {
+    const b = e.target.closest(".nav-link");
+    if (!b) return;
+    goTo(+b.dataset.n + 1);
+    closeMenu();
+  });
+
+  function openMenu()  { menu.classList.add("is-open"); menu.setAttribute("aria-hidden", "false"); }
+  function closeMenu() { menu.classList.remove("is-open"); menu.setAttribute("aria-hidden", "true"); }
   function toggleMenu() { menu.classList.contains("is-open") ? closeMenu() : openMenu(); }
 
   $("#menuBtn").addEventListener("click", openMenu);
+  $("#heroLevels")?.addEventListener("click", openMenu);
   $("#menuClose").addEventListener("click", closeMenu);
   menu.addEventListener("click", e => { if (e.target === menu) closeMenu(); });
 
-  /* ---------------- rail ---------------- */
-  const railMap = { exploratorio: 4, descriptivo: 5, relacional: 6, explicativo: 7, predictivo: 11, aplicativo: 12 };
+  /* ---------------- filtro rápido del rail ---------------- */
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 10, predictivo: 13, aplicativo: 15 };
   $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
 
   /* ---------------- verbos ---------------- */
   const VERBS = {
-    identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las prácticas de retroalimentación que aparecen en un aula donde el tema no ha sido investigado." },
-    interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar el sentido que los docentes atribuyen a la evaluación formativa en su práctica cotidiana." },
-    describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir la distribución del uso de rúbricas según facultad y ciclo." },
-    estimar:      { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Estimar el porcentaje poblacional de docentes que aplica rúbricas, con su intervalo de confianza." },
-    comparar:     { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Comparar el rendimiento entre las secciones A y B mediante t de Student." },
-    asociar:      { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Asociar la competencia digital con la frecuencia de uso de inteligencia artificial." },
-    evidenciar:   { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Evidenciar la influencia del clima institucional en el compromiso docente, controlando la antigüedad." },
-    demostrar:    { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Demostrar que un programa de tutoría produce mejora, con grupo control y medición pre y post." },
-    predecir:     { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Predecir la probabilidad de abandono de cada estudiante con los datos del primer mes." },
-    pronosticar:  { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Pronosticar en qué mes del semestre es más probable que ocurra el abandono." },
-    evaluar:      { level: "Aplicativo",   analysis: "Mejora continua", ex: "Evaluar la línea base y el monitoreo mensual de un programa de tutoría." },
-    controlar:    { level: "Aplicativo",   analysis: "Mejora continua", ex: "Controlar que la reducción del abandono se mantenga bajo el 10 % durante tres semestres." }
+    identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las situaciones en que los estudiantes dicen sentirse inseguros en clase." },
+    interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar cómo los estudiantes explican su propia autoestima." },
+    describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir el nivel de autoestima de los 30 estudiantes y sus tres dimensiones." },
+    estimar:      { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Estimar la autoestima media de toda la promoción, con su intervalo de confianza." },
+    comparar:     { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Comparar la autoestima entre quienes practican deporte y quienes no." },
+    asociar:      { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Asociar las horas de estudio con el rendimiento académico." },
+    evidenciar:   { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Evidenciar el efecto de las horas de estudio sobre la nota, controlando hermanos y gasto." },
+    demostrar:    { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Demostrar que el taller de autoestima produce mejora, con grupo control y pre y post test." },
+    predecir:     { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Predecir la probabilidad de reprobar de cada estudiante." },
+    pronosticar:  { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Pronosticar en qué bimestre es más probable que el estudiante baje su autoestima." },
+    evaluar:      { level: "Aplicativo",   analysis: "Mejora continua", ex: "Evaluar la línea base y el monitoreo del taller en tres secciones." },
+    controlar:    { level: "Aplicativo",   analysis: "Mejora continua", ex: "Controlar que la autoestima media se mantenga sobre 66 durante dos años." }
   };
 
   $("#verbGrid")?.addEventListener("click", e => {
@@ -223,54 +272,89 @@
     $("#vrExample").innerHTML = "<em>Objetivo modelo:</em> " + d.ex;
   });
 
-  /* ---------------- diapositiva 8: pretest / postest ---------------- */
+  /* ---------------- página 7: descriptivo ---------------- */
+  if ($("#dimTable")) {
+    const preT = DATA.map(d => d.preT);
+    const low = preT.filter(v => v < 55).length;
+
+    $("#dMean").textContent = fmt(mean(preT), 1);
+    $("#dSd").textContent = fmt(sd(preT), 1);
+    $("#dMin").textContent = fmt(Math.min(...preT), 1);
+    $("#dMax").textContent = fmt(Math.max(...preT), 1);
+    $("#dLow").textContent = Math.round((low / preT.length) * 100) + " %";
+    $("#dSay").textContent = fmt(mean(preT), 1);
+
+    const dims = [
+      { k: "preT", n: "Autoestima total", r: "Punto de partida del grupo" },
+      { k: "preA", n: "Dimensión académica", r: "La más baja: imagen de sí como estudiante" },
+      { k: "preS", n: "Dimensión social", r: "La más alta: relación con los pares" },
+      { k: "preE", n: "Dimensión emocional", r: "Intermedia: manejo de la frustración" }
+    ];
+
+    $("#dimTable").innerHTML = dims.map(d => {
+      const v = DATA.map(x => x[d.k]);
+      return "<tr><td>" + d.n + "</td><td>" + fmt(mean(v), 1) + "</td><td>" + fmt(sd(v), 1) +
+        "</td><td>" + fmt(Math.min(...v), 1) + "</td><td>" + fmt(Math.max(...v), 1) +
+        "</td><td>" + d.r + "</td></tr>";
+    }).join("");
+  }
+
+  /* ---------------- página 9: relacional ---------------- */
+  if ($("#rVal")) {
+    const r = pearson(DATA.map(d => d.horas), DATA.map(d => d.rend));
+    $("#rVal").textContent = fmt(r, 2);
+    $("#rBig").textContent = fmt(r, 2);
+    $("#r2Big").textContent = fmt(r * r, 2);
+  }
+
+  /* ---------------- página 11: pretest–postest ---------------- */
   const tblPre = $("#tblPre");
   if (tblPre) {
-    tblPre.innerHTML = DATASET.map(d => {
-      const delta = d.post - d.pre;
+    tblPre.innerHTML = DATA.map(d => {
+      const delta = d.postT - d.preT;
       return "<tr>" +
         "<td>" + d.id + "</td>" +
-        '<td><span class="grp ' + (d.grupo === "Control" ? "c" : "e") + '">' + (d.grupo === "Control" ? "Control" : "Exper.") + "</span></td>" +
-        "<td>" + fmt(d.pre, 1) + "</td>" +
-        "<td>" + fmt(d.post, 1) + "</td>" +
+        '<td><span class="grp ' + (d.g === "Control" ? "c" : "e") + '">' + (d.g === "Control" ? "Control" : "Exper.") + "</span></td>" +
+        "<td>" + fmt(d.preT, 1) + "</td>" +
+        "<td>" + fmt(d.postT, 1) + "</td>" +
         '<td class="delta">+' + fmt(delta, 1) + "</td>" +
-        "</tr>";
+      "</tr>";
     }).join("");
 
-    const C = DATASET.filter(d => d.grupo === "Control");
-    const E = DATASET.filter(d => d.grupo === "Experimental");
-    const stats = {
-      cPre: mean(C.map(d => d.pre)), cPost: mean(C.map(d => d.post)),
-      ePre: mean(E.map(d => d.pre)), ePost: mean(E.map(d => d.post))
-    };
-    const dC = stats.cPost - stats.cPre;
-    const dE = stats.ePost - stats.ePre;
+    const avg = (arr, k) => mean(arr.map(d => d[k]));
+    const pairs = [
+      { n: "Autoestima total", a: "preT", b: "postT" },
+      { n: "Dimensión académica", a: "preA", b: "postA" },
+      { n: "Dimensión social", a: "preS", b: "postS" },
+      { n: "Dimensión emocional", a: "preE", b: "postE" }
+    ];
 
+    $("#dimEffect").innerHTML = pairs.map(p => {
+      const preE = avg(E, p.a), postE = avg(E, p.b);
+      const dE = postE - preE;
+      const dC = avg(C, p.b) - avg(C, p.a);
+      return "<tr><td>" + p.n + "</td><td>" + fmt(preE, 1) + "</td><td>" + fmt(postE, 1) +
+        '</td><td class="delta">+' + fmt(dE, 1) + "</td><td>+" + fmt(dC, 1) + "</td></tr>";
+    }).join("");
+
+    const dExp = avg(E, "postT") - avg(E, "preT");
+    const dCtl = avg(C, "postT") - avg(C, "preT");
     let withControl = true;
 
     function renderDiD() {
-      $("#cPre").textContent = fmt(stats.cPre, 1);
-      $("#cPost").textContent = fmt(stats.cPost, 1);
-      $("#ePre").textContent = fmt(stats.ePre, 1);
-      $("#ePost").textContent = fmt(stats.ePost, 1);
-      $("#cDelta").textContent = "+" + fmt(dC, 1);
-      $("#eDelta").textContent = "+" + fmt(dE, 1);
-
-      $("#naiveVal").textContent = "+" + fmt(dE, 1);
-
-      const sw = $("#controlToggle");
-      sw.setAttribute("aria-checked", String(withControl));
+      $("#eDelta").textContent = "+" + fmt(dExp, 1);
+      $("#controlToggle").setAttribute("aria-checked", String(withControl));
       $("#controlState").textContent = withControl ? "activo" : "desactivado";
 
       if (withControl) {
-        $("#netVal").textContent = "+" + fmt(dE - dC, 1);
+        $("#netVal").textContent = "+" + fmt(dExp - dCtl, 1);
         $("#netVal").style.color = "";
-        $("#roNote").textContent = "El grupo control mejoró " + fmt(dC, 1) +
-          " puntos sin recibir el programa: sin él, esa mejora se habría atribuido a la intervención.";
+        $("#roNote").textContent = "El grupo sin taller mejoró " + fmt(dCtl, 1) +
+          " puntos por su cuenta. El efecto que se puede atribuir al taller es la diferencia: " + fmt(dExp - dCtl, 1) + " puntos.";
       } else {
         $("#netVal").textContent = "—";
         $("#netVal").style.color = "var(--muted)";
-        $("#roNote").textContent = "Con un solo grupo el efecto neto no es estimable: la mejora mezcla el programa, la maduración, el efecto del test y la regresión a la media.";
+        $("#roNote").textContent = "Con un solo grupo el efecto neto no es estimable: la mejora mezcla el taller, la maduración, el efecto del test y la regresión a la media.";
       }
     }
 
@@ -278,69 +362,61 @@
     renderDiD();
   }
 
-  /* ---------------- diapositiva 9: betas ---------------- */
+  /* ---------------- página 12: betas ---------------- */
   const tblBeta = $("#tblBeta");
   if (tblBeta) {
     let model = 1;
     let selected = null;
 
-    tblBeta.innerHTML = DATASET.map((d, i) =>
-      '<tr data-i="' + i + '">' +
-        "<td>" + d.id + "</td>" +
-        "<td>" + fmt(d.horas, 1) + "</td>" +
-        "<td>" + d.asist + "</td>" +
-        "<td>" + d.nse + "</td>" +
-        "<td>" + fmt(d.nota, 1) + "</td>" +
-      "</tr>"
+    tblBeta.innerHTML = DATA.map((d, i) =>
+      '<tr data-i="' + i + '"><td>' + d.id + "</td><td>" + fmt(d.horas, 1) +
+      "</td><td>" + d.gasto + "</td><td>" + d.herm + "</td><td>" + fmt(d.rend, 1) + "</td></tr>"
     ).join("");
 
-    function predict(d, m) {
-      return m === 1
-        ? M1.b[0] + M1.b[1] * d.horas
-        : M2.b[0] + M2.b[1] * d.horas + M2.b[2] * d.asist + M2.b[3] * d.nse;
-    }
+    const predict = (d, m) => m === 1
+      ? M1.b[0] + M1.b[1] * d.horas
+      : M2.b[0] + M2.b[1] * d.horas + M2.b[2] * d.gasto + M2.b[3] * d.herm;
 
     function renderBeta() {
-      const isM2 = model === 2;
-      const m = isM2 ? M2 : M1;
-      const bH = m.b[1];
-
-      $("#betaH").textContent = fmt(bH, 2);
-      $("#betaR2").textContent = fmt(m.r2, 2);
-      $("#betaEq").textContent = isM2
-        ? "Ŷ = " + fmt(M2.b[0], 2) + " + " + fmt(M2.b[1], 2) + "·Horas + " + fmt(M2.b[2], 3) + "·Asist. + " + fmt(M2.b[3], 2) + "·NSE"
-        : "Ŷ = " + fmt(M1.b[0], 2) + " + " + fmt(M1.b[1], 2) + " · Horas";
-
-      $("#betaRead").innerHTML = "Por cada hora adicional de estudio, la nota sube <strong>" +
-        fmt(bH, 2) + " puntos</strong>" + (isM2 ? ", manteniendo constantes asistencia y NSE." : ".");
+      const m = model === 1 ? M1 : M2;
+      $("#betaEq").textContent = model === 1
+        ? "Ŷ = " + fmt(M1.b[0], 2) + " + " + fmt(M1.b[1], 2) + " · Horas   ·   R² = " + fmt(M1.r2, 2)
+        : "Ŷ = " + fmt(M2.b[0], 2) + " + " + fmt(M2.b[1], 2) + "·Horas + " + fmt(M2.b[2], 3) + "·Gasto − " + fmt(Math.abs(M2.b[3]), 2) + "·Hermanos   ·   R² = " + fmt(M2.r2, 2);
 
       const rows = [];
-      rows.push({ k: "Horas de estudio", v: fmt(bH, 2), why: "Cada hora adicional", key: true, drop: isM2 });
-      if (isM2) {
-        rows.push({ k: "Asistencia (%)", v: fmt(M2.b[2], 3), why: "Cada punto de asistencia" });
-        rows.push({ k: "NSE (1–5)", v: fmt(M2.b[3], 2), why: "Cada nivel socioeconómico" });
-        rows.push({ k: "Intercepto", v: fmt(M2.b[0], 2), why: "Sin interpretación sustantiva" });
-      } else {
-        rows.push({ k: "Intercepto", v: fmt(M1.b[0], 2), why: "Nota esperada con 0 horas (extrapolación)" });
+      rows.push({
+        k: "Horas de estudio", v: fmt(m.b[1], 2), key: true, drop: model === 2,
+        why: "Cada hora adicional " + (model === 1 ? "sube la nota " + fmt(m.b[1], 2) : "sube la nota " + fmt(m.b[1], 2))
+      });
+      if (model === 2) {
+        rows.push({ k: "Gasto en materiales (S/)", v: fmt(M2.b[2], 3), why: "Cada S/ 100 extra: " + fmt(M2.b[2] * 100, 2) + " puntos" });
+        rows.push({ k: "Número de hermanos", v: fmt(M2.b[3], 2), why: "Cada hermano adicional resta " + fmt(Math.abs(M2.b[3]), 2) + " puntos" });
       }
+      rows.push({
+        k: "Intercepto", v: fmt(m.b[0], 2),
+        why: model === 1 ? "Nota esperada con 0 horas" : "Sin interpretación: nadie tiene 0 en todo"
+      });
 
       $("#betaTable tbody").innerHTML = rows.map(r =>
         "<tr" + (r.key ? ' class="is-key' + (r.drop ? " is-drop" : "") + '"' : "") + ">" +
         "<td>" + r.k + "</td><td>" + r.v + "</td><td>" + r.why + "</td></tr>"
       ).join("");
 
-      $("#betaNote").textContent = isM2
-        ? "La beta de horas cayó de " + fmt(M1.b[1], 2) + " a " + fmt(M2.b[1], 2) +
-          ": al controlar asistencia y NSE, casi la mitad del efecto que parecía de las horas era del contexto."
-        : "Modelo sin controles: la beta de horas absorbe el efecto de todo lo que no está en el modelo.";
+      if (model === 1) {
+        $("#betaRead").innerHTML = "Con un solo predictor: por cada hora adicional de estudio, la nota sube <strong>" +
+          fmt(M1.b[1], 2) + " puntos</strong>. Pero este modelo no descuenta nada más.";
+        $("#betaNote").textContent = "Cuidado: la beta de horas absorbe el efecto de todo lo que no está en el modelo.";
+      } else {
+        $("#betaRead").innerHTML = "Al controlar las otras dos variables, cada hora adicional sube <strong>" +
+          fmt(M2.b[1], 2) + " puntos</strong>, y cada hermano <strong>baja " + fmt(Math.abs(M2.b[3]), 2) + " puntos</strong>.";
+        $("#betaNote").textContent = "La beta de horas cayó de " + fmt(M1.b[1], 2) + " a " + fmt(M2.b[1], 2) +
+          ": parte de esa asociación era, en realidad, tener menos hermanos.";
+      }
 
-      if (selected !== null) updateSel();
-    }
-
-    function updateSel() {
-      const d = DATASET[selected];
-      const yh = predict(d, model);
-      $("#betaSel").innerHTML = "<b>" + d.id + "</b> · predicho " + fmt(yh, 1) + " · real " + fmt(d.nota, 1);
+      if (selected !== null) {
+        const d = DATA[selected];
+        $("#betaSel").innerHTML = "<b>" + d.id + "</b> · predicho " + fmt(predict(d, model), 1) + " · real " + fmt(d.rend, 1);
+      }
     }
 
     tblBeta.addEventListener("click", e => {
@@ -349,7 +425,8 @@
       $$("#tblBeta tr").forEach(r => r.classList.remove("is-sel"));
       tr.classList.add("is-sel");
       selected = +tr.dataset.i;
-      updateSel();
+      const d = DATA[selected];
+      $("#betaSel").innerHTML = "<b>" + d.id + "</b> · predicho " + fmt(predict(d, model), 1) + " · real " + fmt(d.rend, 1);
     });
 
     $$(".seg").forEach(b => b.addEventListener("click", () => {
@@ -362,51 +439,20 @@
     renderBeta();
   }
 
-  /* ---------------- escalera ---------------- */
-  const STEPS = [
-    { name: "Exploratorio", q: "¿Qué usos, prácticas y tensiones reportan los docentes al incorporar IA generativa?", instrument: "8 entrevistas semiestructuradas", analysis: "Análisis temático (no estadístico)", verdict: "Categorías y preguntas para estudios posteriores", out: "Se obtiene un mapa del problema, no una conclusión." },
-    { name: "Descriptivo", q: "¿Cuál es la frecuencia de uso y qué herramientas emplean 120 docentes?", instrument: "Encuesta con escala ordinal", analysis: "Frecuencias, porcentajes, medias", verdict: "Perfil de uso por categoría", out: "Un retrato del fenómeno, sin cruzar variables." },
-    { name: "Relacional", q: "¿Qué relación existe entre competencia digital y frecuencia de uso de IA?", instrument: "Dos escalas aplicadas a la misma muestra", analysis: "rho de Spearman", verdict: "Coeficiente e interpretación del grado de asociación", out: "Se afirma relación, nunca causa." },
-    { name: "Explicativo", q: "¿Cuál es el efecto de un programa de capacitación sobre la planificación de sesiones?", instrument: "Cuasi experimento con grupo control, pre y post test", analysis: "ANOVA de medidas repetidas o regresión con betas", verdict: "Efecto atribuible al programa, controlando rivales", out: "Aquí se puede hablar de influencia; antes, no." },
-    { name: "Predictivo", q: "¿Qué modelo anticipa qué docentes adoptarán IA el próximo semestre?", instrument: "Datos de dos cohortes y variables predictoras", analysis: "Regresión logística con validación cruzada, AUC-ROC", verdict: "Probabilidad individual de adopción", out: "Se juzga por acierto fuera de muestra, no por p-valor." },
-    { name: "Aplicativo", q: "¿En qué medida el programa mejora la planificación y se sostiene en el tiempo?", instrument: "Línea base, indicadores y monitoreo semestral", analysis: "CEP: gráficos de control e índices de capacidad", verdict: "Proceso institucionalizado y validado", out: "El criterio es la sostenibilidad, no el entusiasmo." }
-  ];
-
-  const panels = $("#ladderPanels");
-  if (panels) {
-    panels.innerHTML = STEPS.map((s, i) =>
-      '<div class="lp' + (i === 0 ? " is-active" : "") + '" role="tabpanel">' +
-        "<div><h3>" + String(i + 1).padStart(2, "0") + " · " + s.name + "</h3>" +
-        '<p class="q">“' + s.q + '”</p>' +
-        "<dl><dt>Instrumento</dt><dd>" + s.instrument + "</dd>" +
-        "<dt>Análisis</dt><dd>" + s.analysis + "</dd>" +
-        "<dt>Producto</dt><dd>" + s.verdict + "</dd></dl></div>" +
-        '<div class="out"><b>Qué se obtiene</b>' + s.out + "</div>" +
-      "</div>"
-    ).join("");
-
-    $$("#ladder .lt").forEach(btn => btn.addEventListener("click", () => {
-      const i = +btn.dataset.tab;
-      $$("#ladder .lt").forEach(b => b.classList.toggle("is-active", b === btn));
-      $$(".lp", panels).forEach((p, j) => p.classList.toggle("is-active", i === j));
-    }));
-  }
-
   /* ---------------- quiz ---------------- */
   const QUIZ = [
-    { q: "¿Cuál es la proporción de docentes que aplica rúbricas en la facultad?", a: "Descriptivo", why: "Una sola variable, análisis univariado: eso es descriptivo." },
-    { q: "¿Cómo interpretan los docentes el sentido de la evaluación formativa en su práctica?", a: "Exploratorio", why: "Se busca comprender significados con análisis no estadístico: nivel exploratorio, objetivo interpretar." },
-    { q: "¿Existen diferencias significativas en el rendimiento entre las secciones A y B?", a: "Relacional", why: "Comparar grupos independientes es una técnica bivariada propia del nivel relacional." },
-    { q: "¿Qué factores explican la deserción, controlando el nivel socioeconómico?", a: "Explicativo", why: "El control de variables extrañas mediante análisis multivariado define el nivel explicativo." },
-    { q: "¿Qué probabilidad tiene cada estudiante de abandonar el próximo semestre?", a: "Predictivo", why: "No se pregunta por la causa: se estima una probabilidad individual con un modelo." },
-    { q: "¿El programa redujo el abandono y se mantuvo bajo el 10 % durante tres semestres?", a: "Aplicativo", why: "Evaluar y sostener una intervención con indicadores es nivel aplicativo." },
-    { q: "Se comparan los promedios de dos grupos con t de Student. ¿Qué nivel es?", a: "Relacional", why: "La t de Student compara grupos: análisis bivariado, nivel relacional." },
-    { q: "Se estima el efecto de un curso con grupo control y medición postest. ¿Qué nivel es?", a: "Explicativo", why: "Hay manipulación y grupo de comparación: inferencia causal, nivel explicativo." }
+    { q: "¿Cuál es la autoestima promedio de los 30 estudiantes?", a: "Descriptivo", why: "Una sola variable, análisis univariado: media y desviación estándar." },
+    { q: "¿Cómo viven la autoestima los estudiantes de un colegio donde nunca se investigó?", a: "Exploratorio", why: "Comprender significados con análisis no estadístico: nivel exploratorio." },
+    { q: "¿Qué relación existe entre horas de estudio y rendimiento?", a: "Relacional", why: "Dos variables, análisis bivariado: correlación. Relación, no causa." },
+    { q: "¿El taller produjo la mejora de la autoestima, comparado con el grupo sin taller?", a: "Explicativo", why: "Hay intervención y grupo de comparación: inferencia causal." },
+    { q: "¿Qué probabilidad tiene cada estudiante de reprobar?", a: "Predictivo", why: "Se estima una probabilidad individual con un modelo; no se busca la causa." },
+    { q: "¿La mejora del taller se mantiene dos años después?", a: "Aplicativo", why: "Evaluar y sostener una intervención con indicadores es nivel aplicativo." },
+    { q: "Se aplica t de Student para comparar la autoestima de dos secciones. ¿Qué nivel?", a: "Relacional", why: "Comparar grupos es una técnica bivariada del nivel relacional." },
+    { q: "Se controla el número de hermanos para aislar el efecto de las horas. ¿Qué nivel?", a: "Explicativo", why: "El control de variables extrañas mediante análisis multivariado define el explicativo." }
   ];
   const LEVELS = ["Exploratorio", "Descriptivo", "Relacional", "Explicativo", "Predictivo", "Aplicativo"];
 
-  const quiz = $("#quiz");
-  if (quiz) {
+  if ($("#quiz")) {
     let qi = 0, score = 0, answered = false;
     const qText = $("#qText"), qOpts = $("#qOptions"), qFb = $("#qFeedback"),
           qIdx = $("#qIndex"), qScore = $("#qScore"), qProg = $("#qProgress"), qNext = $("#qNext");
@@ -418,7 +464,7 @@
         qFb.innerHTML = "<b>" + score + " de " + QUIZ.length + "</b> correctas. " +
           (score === QUIZ.length
             ? "Domina el criterio: el análisis decide el nivel."
-            : "Repase el par relacional–correlacional y la frontera explicativo–predictivo.");
+            : "Repase relacional–correlacional y la frontera explicativo–predictivo.");
         qNext.textContent = "Reiniciar";
         qNext.disabled = false;
         qNext.onclick = reset;
