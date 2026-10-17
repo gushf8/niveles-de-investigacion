@@ -843,11 +843,20 @@
   ];
 
   if ($("#ex")) {
+    const shuffle = arr => {
+      const b = arr.slice();
+      for (let i = b.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = b[i]; b[i] = b[j]; b[j] = t;
+      }
+      return b;
+    };
+
+    let ORDER = shuffle(EX.map((_, i) => i));
     let idx = 0, score = 0, checked = false;
 
     function renderEx() {
-      const e = EX[idx];
-      $("#exLevel").textContent = "Nivel " + e.lvl + " · " + e.lvlName;
+      const e = EX[ORDER[idx]];
       $("#exIndex").textContent = idx + 1;
       $("#exProgress").style.width = ((idx) / EX.length) * 100 + "%";
       $("#exCase").textContent = e.case;
@@ -866,7 +875,7 @@
         const key = m[1];
         const b = e.blanks[key];
         html += '<select class="ex-sel" data-k="' + key + '"><option value="">—</option>' +
-          b.opts.map(o => '<option value="' + o + '">' + o + "</option>").join("") + "</select>";
+          shuffle(b.opts).map(o => '<option value="' + o + '">' + o + "</option>").join("") + "</select>";
         last = re.lastIndex;
       }
       html += e.text.slice(last);
@@ -876,7 +885,7 @@
     function verifyEx() {
       if (checked) return;
       checked = true;
-      const e = EX[idx];
+      const e = EX[ORDER[idx]];
       let allOk = true;
       const fixes = [];
       $$(".ex-sel").forEach(sel => {
@@ -921,6 +930,7 @@
     $("#exNext").addEventListener("click", nextEx);
     $("#exReset").addEventListener("click", () => {
       idx = 0; score = 0; checked = false;
+      ORDER = shuffle(EX.map((_, i) => i));
       $("#exScore").textContent = "0";
       $("#exReset").textContent = "Reiniciar";
       renderEx();

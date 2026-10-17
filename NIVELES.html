@@ -1938,7 +1938,6 @@ kbd{
 
       <div class="ex reveal" id="ex">
         <div class="ex-head">
-          <span class="ex-lvl" id="exLevel">Nivel 1</span>
           <span class="ex-num"><b id="exIndex">1</b> / 12</span>
           <div class="ex-progress"><span id="exProgress"></span></div>
           <span class="ex-score">Correctos: <b id="exScore">0</b></span>
@@ -2839,11 +2838,20 @@ kbd{
   ];
 
   if ($("#ex")) {
+    const shuffle = arr => {
+      const b = arr.slice();
+      for (let i = b.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = b[i]; b[i] = b[j]; b[j] = t;
+      }
+      return b;
+    };
+
+    let ORDER = shuffle(EX.map((_, i) => i));
     let idx = 0, score = 0, checked = false;
 
     function renderEx() {
-      const e = EX[idx];
-      $("#exLevel").textContent = "Nivel " + e.lvl + " · " + e.lvlName;
+      const e = EX[ORDER[idx]];
       $("#exIndex").textContent = idx + 1;
       $("#exProgress").style.width = ((idx) / EX.length) * 100 + "%";
       $("#exCase").textContent = e.case;
@@ -2862,7 +2870,7 @@ kbd{
         const key = m[1];
         const b = e.blanks[key];
         html += '<select class="ex-sel" data-k="' + key + '"><option value="">—</option>' +
-          b.opts.map(o => '<option value="' + o + '">' + o + "</option>").join("") + "</select>";
+          shuffle(b.opts).map(o => '<option value="' + o + '">' + o + "</option>").join("") + "</select>";
         last = re.lastIndex;
       }
       html += e.text.slice(last);
@@ -2872,7 +2880,7 @@ kbd{
     function verifyEx() {
       if (checked) return;
       checked = true;
-      const e = EX[idx];
+      const e = EX[ORDER[idx]];
       let allOk = true;
       const fixes = [];
       $$(".ex-sel").forEach(sel => {
@@ -2917,6 +2925,7 @@ kbd{
     $("#exNext").addEventListener("click", nextEx);
     $("#exReset").addEventListener("click", () => {
       idx = 0; score = 0; checked = false;
+      ORDER = shuffle(EX.map((_, i) => i));
       $("#exScore").textContent = "0";
       $("#exReset").textContent = "Reiniciar";
       renderEx();
