@@ -1,23 +1,34 @@
 # Niveles de investigación — deck interactivo
 
-Presentación web sobre los **seis niveles de investigación** (Supo, 2025), con foco en el **nivel explicativo**: pretest–postest, coeficientes beta y una **base de datos simulada de 30 casos** que se usa en vivo.
+Presentación web sobre los **seis niveles de investigación** (Supo, 2025) con **casos educativos simples** y una base de datos de **30 estudiantes** que se calcula en vivo.
 
-Tema claro con glassmorphism, tipografía sans (Inter) y navegación tipo presentación.
+Tema claro con glassmorphism, tipografía Inter y **navegación por niveles** desde el header.
 
-## Qué incluye
+## Cómo está organizado
 
-- 15 diapositivas con navegación por teclado, índice (`M`), barra de progreso y enlaces profundos (`#/8`).
-- **Base de datos de 30 estudiantes** (15 control / 15 experimental) visible al costado de la explicación.
-- **Diferencia de diferencias** calculada en vivo sobre esa base: efecto ingenuo vs. efecto neto, con interruptor para quitar el grupo control.
-- **Regresión con betas** calculada en vivo (mínimos cuadrados): la beta de *horas* cae de 0,92 a 0,48 al introducir asistencia y NSE.
-- Selección de fila para comparar predicción vs. valor real.
-- Clasificador de 8 casos con retroalimentación.
-- Tema claro, responsive, respeta `prefers-reduced-motion`.
+El botón **Niveles** del header (o la tecla `M`) abre el índice agrupado: cada nivel tiene sus propias páginas de teoría y ejemplo.
+
+| Grupo | Páginas |
+|---|---|
+| General | Portada · El criterio · El verbo manda |
+| 01 · Exploratorio | Teoría · Ejemplo (8 entrevistas) |
+| 02 · Descriptivo | Teoría · Ejemplo (autoestima del grupo) |
+| 03 · Relacional | Teoría · Ejemplo (r entre horas y rendimiento) |
+| 04 · Explicativo | Teoría · **Taller (pretest–postest)** · **Betas (regresión)** |
+| 05 · Predictivo | Teoría · Ejemplo (riesgo de reprobar) |
+| 06 · Aplicativo | Teoría · Ejemplo (sostener el taller) |
+| Cierre | Clasificador · Síntesis |
+
+## Los dos casos
+
+**Taller de autoestima.** 30 estudiantes, 15 con taller y 15 sin él, medidos antes y después. La página muestra la mejora en la **variable total** y en sus **tres dimensiones** (académica, social, emocional), más el **efecto neto** por diferencia de diferencias (+9,3 del grupo con taller vs +2,4 del control).
+
+**Regresión con betas.** Mismos 30 estudiantes: horas de estudio, gasto en materiales y número de hermanos sobre el rendimiento. El modelo 1 (solo horas) da β = 0,64; el modelo 2 (con controles) baja a 0,48 y añade gasto (0,008) y hermanos (−0,47). Los coeficientes se calculan por mínimos cuadrados en el navegador.
 
 ## Estructura
 
 ```
-index.html            deck completo
+index.html            deck completo (18 páginas)
 assets/styles.css     sistema visual (glass, tema claro)
 assets/app.js         navegación, base de datos, regresión, quiz
 vercel.json           configuración de despliegue estático
@@ -31,35 +42,10 @@ npx serve .
 
 ## Desplegar en Vercel
 
-**Opción A — panel (recomendada):**
+**Opción A — panel (recomendada):** <https://vercel.com/new> → importar `niveles-de-investigacion` → Framework **Other**, build vacío, output `.` → Deploy.
 
-1. <https://vercel.com/new>
-2. Importar `niveles-de-investigacion`.
-3. Framework preset: **Other**. Build command: vacío. Output directory: `.`
-4. Deploy.
+**Opción B — CLI:** `npm i -g vercel && vercel login && vercel --prod`
 
-**Opción B — CLI:**
+## Nota
 
-```bash
-npm i -g vercel
-vercel login
-vercel --prod
-```
-
-## Contenido
-
-| Sección | Diapositivas |
-|---|---|
-| Criterio y verbos | 2–3 |
-| Niveles 1–3 | 4–6 |
-| Nivel explicativo | 7–10 |
-| Niveles 5–6 | 11–12 |
-| Escalera, quiz y cierre | 13–15 |
-
-La base de datos es **simulada** y se usa solo con fines didácticos: los coeficientes se recalculan a partir de esas 30 filas, de modo que la tabla y los resultados siempre coinciden. Los casos citados (Proyecto STAR, aspirina, Mincer, Hanushek, Georgia State, Six Sigma) remiten a sus fuentes originales.
-
-## Referencias
-
-- Supo, J. A. (2025). *Niveles de investigación: una clasificación emergente fundamentada en el análisis de datos*. BIOESTADISTICO.
-- Hernández-Sampieri, R., & Mendoza, C. P. (2018). *Metodología de la investigación*. McGraw-Hill.
-- Valderrama Mendoza, S. (2018). *El desarrollo de la tesis descriptiva-comparativa, correlacional y cuasiexperimental*. San Marcos.
+La base de 30 estudiantes es **simulada** y se usa solo con fines didácticos: todos los estadísticos (medias, diferencia de diferencias, correlación, betas, R²) se recalculan a partir de esas filas, así que la tabla visible y los resultados siempre coinciden.
