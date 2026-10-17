@@ -525,18 +525,19 @@
 
       let txt = "";
       if (!isFinite(OR)) {
-        txt = "Hay una celda en cero: el OR no se puede calcular. Es lo que ocurre cuando un grupo no tiene ningún caso en una categoría.";
-      } else if (OR > 1) {
-        txt = "Las chances de autoestima alta son <strong>" + fmt(OR, 2) + " veces mayores</strong> en el grupo con taller. ";
-      } else if (OR < 1) {
-        txt = "Las chances de autoestima alta son <strong>" + fmt(1 / OR, 2) + " veces menores</strong> en el grupo con taller. ";
+        txt = "Hay una celda en cero: el OR no se puede calcular. Ocurre cuando un grupo no tiene ningún caso en una categoría.";
+      } else if (Math.abs(OR - 1) < 0.001) {
+        txt = "OR = 1: no hay asociación, la proporción de nota alta es la misma en mujeres y varones. ";
       } else {
-        txt = "OR = 1: no hay asociación entre el taller y la autoestima. ";
+        const mayor = OR > 1 ? "las mujeres" : "los varones";
+        const veces = OR > 1 ? OR : 1 / OR;
+        txt = "En palabras simples: las chances de tener <strong>nota alta</strong> son <strong>" +
+          fmt(veces, 2) + " veces mayores</strong> en " + mayor + ". ";
       }
       if (isFinite(OR)) {
         txt += p < 0.05
-          ? "El χ² alcanza significancia (p < 0,05) con n = " + n + "."
-          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: no se puede descartar el azar.";
+          ? "Y el χ² sí alcanza significancia (p < 0,05): la diferencia no parece obra del azar."
+          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: una diferencia así puede aparecer por azar.";
       }
       $("#calcRead").innerHTML = txt;
     }
@@ -777,13 +778,13 @@
       }
     },
     {
-      case: "Se quiere saber si la proporción con autoestima alta difiere entre quienes llevaron el taller y quienes no. Ambas variables son categóricas.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los grupos. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      case: "Se quiere saber si el nivel de nota (alta / baja) se asocia con el sexo (mujeres / varones). Ambas variables son categóricas. El análisis arrojó χ² = 1,83 y p = 0,18.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre mujeres y varones. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
       blanks: {
         test: { opts: ["χ² de homogeneidad", "t de Student independiente", "Wilcoxon", "ANOVA de medidas repetidas"], a: "χ² de homogeneidad" },
-        var: { opts: ["la proporción con autoestima alta", "la media de autoestima", "las horas de estudio"], a: "la proporción con autoestima alta" },
+        var: { opts: ["la proporción con nota alta", "la media de nota", "las horas de estudio"], a: "la proporción con nota alta" },
         h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
-        p: { opts: ["0,068", "0,006", "0,68"], a: "0,068" },
+        p: { opts: ["0,18", "0,018", "0,80"], a: "0,18" },
         sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
       }
     }

@@ -402,10 +402,10 @@
         <p class="kicker reveal"><span class="num">03</span> Relacional · técnicas</p>
         <h2 class="reveal">Chi² y odds ratio: <em>relacionar sin correlacionar</em></h2>
         <div class="study reveal">
-          <p class="study-t">«Taller de autoestima y autoestima alta (≥ 66): asociación en 30 estudiantes»</p>
-          <p class="study-ctx"><b>Tema:</b> asociación entre taller y autoestima alta · <b>Población:</b> los 30 estudiantes del estudio · <b>Muestra:</b> 30 (15 con taller, 15 sin taller) · <b>Contexto:</b> medición posterior al taller.</p>
+          <p class="study-t">«Sexo y nivel de nota: ¿están asociados?»</p>
+          <p class="study-ctx"><b>Tema:</b> asociación entre sexo y nota · <b>Población:</b> estudiantes de secundaria · <b>Muestra:</b> 30 estudiantes · <b>Contexto:</b> evaluación del primer bimestre.</p>
           <div class="study-meta">
-            <div><span>Variables</span><b>Taller (sí/no) · Autoestima alta (sí/no)</b></div>
+            <div><span>Variables</span><b>Sexo (mujer / varón) · Nota (alta / baja)</b></div>
             <div><span>Técnicas</span><b>χ² y odds ratio</b></div>
             <div><span>Diseño</span><b>No experimental, transversal</b></div>
           </div>
@@ -434,15 +434,15 @@
         <aside class="calc">
           <div class="calc-head"><b>Calculadora 2×2</b><span>n = 30</span></div>
           <table class="calc-table">
-            <thead><tr><th></th><th>Autoestima alta</th><th>No alta</th></tr></thead>
+            <thead><tr><th></th><th>Nota alta</th><th>Nota baja</th></tr></thead>
             <tbody>
-              <tr><th>Con taller</th>
-                <td><input id="cellA" type="number" value="10" min="0" max="30" aria-label="Con taller, autoestima alta"></td>
-                <td><input id="cellB" type="number" value="5" min="0" max="30" aria-label="Con taller, autoestima no alta"></td>
+              <tr><th>Mujeres</th>
+                <td><input id="cellA" type="number" value="12" min="0" max="30" aria-label="Mujeres con nota alta"></td>
+                <td><input id="cellB" type="number" value="6" min="0" max="30" aria-label="Mujeres con nota baja"></td>
               </tr>
-              <tr><th>Sin taller</th>
-                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Sin taller, autoestima alta"></td>
-                <td><input id="cellD" type="number" value="10" min="0" max="30" aria-label="Sin taller, autoestima no alta"></td>
+              <tr><th>Varones</th>
+                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Varones con nota alta"></td>
+                <td><input id="cellD" type="number" value="7" min="0" max="30" aria-label="Varones con nota baja"></td>
               </tr>
             </tbody>
           </table>
@@ -457,7 +457,8 @@
 
       <div class="callout reveal">
         <span class="callout-tag">La regla</span>
-        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances tiene un grupo; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+        <p style="margin-top:8px">La misma tabla sirve para cualquier par de variables categóricas: <strong>taller (sí/no) × autoestima alta (sí/no)</strong> se lee igual — cuántas veces más chances tiene un grupo respecto del otro.</p>
       </div>
     </div>
   </section>

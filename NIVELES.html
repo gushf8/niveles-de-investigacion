@@ -1304,10 +1304,10 @@ kbd{
         <p class="kicker reveal"><span class="num">03</span> Relacional · técnicas</p>
         <h2 class="reveal">Chi² y odds ratio: <em>relacionar sin correlacionar</em></h2>
         <div class="study reveal">
-          <p class="study-t">«Taller de autoestima y autoestima alta (≥ 66): asociación en 30 estudiantes»</p>
-          <p class="study-ctx"><b>Tema:</b> asociación entre taller y autoestima alta · <b>Población:</b> los 30 estudiantes del estudio · <b>Muestra:</b> 30 (15 con taller, 15 sin taller) · <b>Contexto:</b> medición posterior al taller.</p>
+          <p class="study-t">«Sexo y nivel de nota: ¿están asociados?»</p>
+          <p class="study-ctx"><b>Tema:</b> asociación entre sexo y nota · <b>Población:</b> estudiantes de secundaria · <b>Muestra:</b> 30 estudiantes · <b>Contexto:</b> evaluación del primer bimestre.</p>
           <div class="study-meta">
-            <div><span>Variables</span><b>Taller (sí/no) · Autoestima alta (sí/no)</b></div>
+            <div><span>Variables</span><b>Sexo (mujer / varón) · Nota (alta / baja)</b></div>
             <div><span>Técnicas</span><b>χ² y odds ratio</b></div>
             <div><span>Diseño</span><b>No experimental, transversal</b></div>
           </div>
@@ -1336,15 +1336,15 @@ kbd{
         <aside class="calc">
           <div class="calc-head"><b>Calculadora 2×2</b><span>n = 30</span></div>
           <table class="calc-table">
-            <thead><tr><th></th><th>Autoestima alta</th><th>No alta</th></tr></thead>
+            <thead><tr><th></th><th>Nota alta</th><th>Nota baja</th></tr></thead>
             <tbody>
-              <tr><th>Con taller</th>
-                <td><input id="cellA" type="number" value="10" min="0" max="30" aria-label="Con taller, autoestima alta"></td>
-                <td><input id="cellB" type="number" value="5" min="0" max="30" aria-label="Con taller, autoestima no alta"></td>
+              <tr><th>Mujeres</th>
+                <td><input id="cellA" type="number" value="12" min="0" max="30" aria-label="Mujeres con nota alta"></td>
+                <td><input id="cellB" type="number" value="6" min="0" max="30" aria-label="Mujeres con nota baja"></td>
               </tr>
-              <tr><th>Sin taller</th>
-                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Sin taller, autoestima alta"></td>
-                <td><input id="cellD" type="number" value="10" min="0" max="30" aria-label="Sin taller, autoestima no alta"></td>
+              <tr><th>Varones</th>
+                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Varones con nota alta"></td>
+                <td><input id="cellD" type="number" value="7" min="0" max="30" aria-label="Varones con nota baja"></td>
               </tr>
             </tbody>
           </table>
@@ -1359,7 +1359,8 @@ kbd{
 
       <div class="callout reveal">
         <span class="callout-tag">La regla</span>
-        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances tiene un grupo; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+        <p style="margin-top:8px">La misma tabla sirve para cualquier par de variables categóricas: <strong>taller (sí/no) × autoestima alta (sí/no)</strong> se lee igual — cuántas veces más chances tiene un grupo respecto del otro.</p>
       </div>
     </div>
   </section>
@@ -2514,18 +2515,19 @@ kbd{
 
       let txt = "";
       if (!isFinite(OR)) {
-        txt = "Hay una celda en cero: el OR no se puede calcular. Es lo que ocurre cuando un grupo no tiene ningún caso en una categoría.";
-      } else if (OR > 1) {
-        txt = "Las chances de autoestima alta son <strong>" + fmt(OR, 2) + " veces mayores</strong> en el grupo con taller. ";
-      } else if (OR < 1) {
-        txt = "Las chances de autoestima alta son <strong>" + fmt(1 / OR, 2) + " veces menores</strong> en el grupo con taller. ";
+        txt = "Hay una celda en cero: el OR no se puede calcular. Ocurre cuando un grupo no tiene ningún caso en una categoría.";
+      } else if (Math.abs(OR - 1) < 0.001) {
+        txt = "OR = 1: no hay asociación, la proporción de nota alta es la misma en mujeres y varones. ";
       } else {
-        txt = "OR = 1: no hay asociación entre el taller y la autoestima. ";
+        const mayor = OR > 1 ? "las mujeres" : "los varones";
+        const veces = OR > 1 ? OR : 1 / OR;
+        txt = "En palabras simples: las chances de tener <strong>nota alta</strong> son <strong>" +
+          fmt(veces, 2) + " veces mayores</strong> en " + mayor + ". ";
       }
       if (isFinite(OR)) {
         txt += p < 0.05
-          ? "El χ² alcanza significancia (p < 0,05) con n = " + n + "."
-          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: no se puede descartar el azar.";
+          ? "Y el χ² sí alcanza significancia (p < 0,05): la diferencia no parece obra del azar."
+          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: una diferencia así puede aparecer por azar.";
       }
       $("#calcRead").innerHTML = txt;
     }
@@ -2766,13 +2768,13 @@ kbd{
       }
     },
     {
-      case: "Se quiere saber si la proporción con autoestima alta difiere entre quienes llevaron el taller y quienes no. Ambas variables son categóricas.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los grupos. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      case: "Se quiere saber si el nivel de nota (alta / baja) se asocia con el sexo (mujeres / varones). Ambas variables son categóricas. El análisis arrojó χ² = 1,83 y p = 0,18.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre mujeres y varones. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
       blanks: {
         test: { opts: ["χ² de homogeneidad", "t de Student independiente", "Wilcoxon", "ANOVA de medidas repetidas"], a: "χ² de homogeneidad" },
-        var: { opts: ["la proporción con autoestima alta", "la media de autoestima", "las horas de estudio"], a: "la proporción con autoestima alta" },
+        var: { opts: ["la proporción con nota alta", "la media de nota", "las horas de estudio"], a: "la proporción con nota alta" },
         h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
-        p: { opts: ["0,068", "0,006", "0,68"], a: "0,068" },
+        p: { opts: ["0,18", "0,018", "0,80"], a: "0,18" },
         sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
       }
     }
