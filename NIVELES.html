@@ -110,7 +110,7 @@ body::before{
 .slide.is-active{opacity:1;visibility:visible;pointer-events:auto;transform:none}
 .slide::-webkit-scrollbar{width:9px}
 .slide::-webkit-scrollbar-thumb{background:rgba(15,23,42,.16);border-radius:99px}
-.wrap{width:100%;max-width:1220px;margin:auto}
+.wrap{width:100%;max-width:min(1660px,94vw);margin:auto}
 
 /* ---------- tipografía ---------- */
 .kicker{
@@ -829,6 +829,51 @@ kbd{
   .stats-row .stat b{font-size:1.1rem}
   .model-card p{font-size:.62rem}
   .split{gap:22px}
+}
+
+/* ---------- pantallas grandes: 1080p / proyector ---------- */
+@media (min-width:1600px) and (min-height:820px){
+  html{font-size:17.2px}
+  h1{font-size:clamp(3.1rem,4.4vw,4.5rem)}
+  h2{font-size:clamp(2rem,2.5vw,2.8rem)}
+  h2.big{font-size:clamp(2.5rem,3.8vw,3.7rem)}
+  .lede{font-size:1.12rem;max-width:86ch}
+  .kicker{font-size:.76rem}
+  .slide{padding-left:clamp(24px,2.4vw,48px);padding-right:clamp(24px,2.4vw,48px)}
+  .rail-item{padding:15px 14px}
+  .rail-item .rn{font-size:.93rem}
+  .rail-item em{font-size:.7rem}
+  .callout{padding:16px 20px}
+  .callout p{font-size:1rem}
+  .case{padding:15px 17px}
+  .case p{font-size:.9rem}
+  .tbl{font-size:.92rem}
+  .tbl th{font-size:.66rem}
+  .mini{padding:11px 13px}
+  .mini b{font-size:.87rem}
+  .mini span{font-size:.62rem}
+  .stats-row .stat b{font-size:1.5rem}
+  .data-card{max-height:380px}
+  .data-table{font-size:.76rem}
+  .verb{font-size:.92rem;padding:10px 17px}
+  .def{padding:13px 18px}
+  .def p{font-size:.95rem}
+  .study{padding:13px 17px 14px}
+  .study-t{font-size:.9rem}
+  .study-ctx{font-size:.73rem}
+  .study-meta b{font-size:.76rem}
+  .test-detail{min-height:310px}
+  .quiz{padding:28px}
+  .takeaways li{padding:13px 18px}
+  .takeaways p{font-size:.92rem}
+  .analogy h3{font-size:1.08rem}
+  .analogy p{font-size:.9rem}
+  .topbar{padding:18px clamp(24px,2.6vw,52px)}
+  .ln-trigger{font-size:.8rem;padding:9px 13px}
+  .navbar{bottom:22px;gap:14px;padding:9px 12px}
+  .progress{width:min(30vw,320px)}
+  .counter{font-size:.74rem}
+  .nav-btn{width:36px;height:36px}
 }
 
 /* ---------- accesibilidad ---------- */
