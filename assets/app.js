@@ -160,7 +160,7 @@
     $("#progressBar").style.width = (num / total) * 100 + "%";
     $("#prevBtn").disabled = index === 0;
     $("#nextBtn").disabled = index === total - 1;
-    history.replaceState(null, "", "#/" + num);
+    try { history.replaceState(null, "", "#/" + num); } catch (_) {}
 
     const active = slides[index];
     active.scrollTop = 0;
