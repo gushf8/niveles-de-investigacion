@@ -39,14 +39,14 @@
         <h1 class="reveal">Niveles de <em>investigación</em></h1>
         <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
         <div class="chips reveal">
-          <span class="chip">21 páginas</span>
+          <span class="chip">22 páginas</span>
           <span class="chip">6 niveles</span>
           <span class="chip">30 estudiantes</span>
           <span class="chip">Navegación por niveles</span>
         </div>
         <div class="hero-cta reveal">
           <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
-          <button class="btn btn-ghost" data-goto="12">Ver el taller</button>
+          <button class="btn btn-ghost" data-goto="13">Ver el taller</button>
         </div>
         <div class="hero-hint reveal">
           <kbd>←</kbd><kbd>→</kbd> navegar · clic en un nivel va a su teoría
@@ -452,8 +452,71 @@
     </div>
   </section>
 
+  <!-- 03D · correlación ≠ asociación -->
+  <section class="slide" data-slide="11" data-group="03 · Relacional" data-label="Correlación ≠ asociación">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">03</span> Relacional · precisión</p>
+        <h2 class="reveal">Correlación <em>≠</em> asociación</h2>
+        <p class="lede reveal">La correlación es <strong>un tipo</strong> de asociación, no al revés. Todo lo que aparece abajo pertenece al mismo nivel: <strong>relacional</strong>.</p>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <table class="tbl tbl-fam">
+            <thead><tr><th>Medida</th><th>Qué mide</th><th>Familia</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>r de Pearson · rho de Spearman · tau de Kendall</td>
+                <td>Grado y dirección en que dos variables se mueven juntas (−1 a 1)</td>
+                <td><span class="pill pill-soft">Correlación</span></td>
+              </tr>
+              <tr>
+                <td>χ²</td>
+                <td>Si dos variables categóricas se relacionan (sin dirección ni magnitud)</td>
+                <td><span class="pill pill-soft">Asociación</span></td>
+              </tr>
+              <tr>
+                <td>Odds ratio · riesgo relativo</td>
+                <td>Cuántas veces más chances tiene un grupo</td>
+                <td><span class="pill pill-soft">Asociación</span></td>
+              </tr>
+              <tr>
+                <td>Kappa · ICC</td>
+                <td>Si dos medidas coinciden entre sí</td>
+                <td><span class="pill pill-soft">Concordancia</span></td>
+              </tr>
+              <tr>
+                <td>t · U de Mann-Whitney · ANOVA · Kruskal-Wallis</td>
+                <td>Si difieren las medias o las distribuciones entre grupos</td>
+                <td><span class="pill pill-soft">Comparación</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="side">
+          <div class="keybox">
+            <span class="keybox-tag">Respuesta corta</span>
+            <p><strong>Correlación:</strong> Pearson, Spearman, Kendall (y punto-biserial).<br><br>
+               <strong>No correlación:</strong> el χ² y el OR también miden asociación, pero no son correlaciones.</p>
+          </div>
+          <div class="case">
+            <span class="case-tag">Por eso se llama relacional</span>
+            <p>La correlación es <strong>una</strong> de sus cuatro familias: comparación de grupos, asociación, concordancia y correlación.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Regla</span>
+        <p><strong>Toda correlación es asociación, pero no toda asociación es correlación.</strong> Si el estudio usa χ² u OR, es relacional; llamarlo «correlacional» es un error de nombre.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= 04 EXPLICATIVO ================= -->
-  <section class="slide" data-slide="11" data-group="04 · Explicativo" data-label="Teoría">
+  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Teoría">
     <div class="wrap center">
       <p class="kicker reveal"><span class="num">04</span> Explicativo · teoría</p>
       <h2 class="reveal big">¿Por qué <em>ocurre</em>?</h2>
@@ -528,7 +591,7 @@
   </section>
 
   <!-- 11 -->
-  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
+  <section class="slide" data-slide="13" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">04A</span> Explicativo · pretest–postest</p>
@@ -583,7 +646,7 @@
   </section>
 
   <!-- 12 -->
-  <section class="slide" data-slide="13" data-group="04 · Explicativo" data-label="Betas (regresión)">
+  <section class="slide" data-slide="14" data-group="04 · Explicativo" data-label="Betas (regresión)">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">04B</span> Explicativo · coeficientes beta</p>
@@ -634,7 +697,7 @@
   </section>
 
   <!-- 04D · puente explicativo → predictivo -->
-  <section class="slide" data-slide="14" data-group="04 · Explicativo" data-label="Pruebas y diseños">
+  <section class="slide" data-slide="15" data-group="04 · Explicativo" data-label="Pruebas y diseños">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">04</span> Explicativo · puente al predictivo</p>
@@ -663,7 +726,7 @@
   </section>
 
   <!-- ================= 05 PREDICTIVO ================= -->
-  <section class="slide" data-slide="15" data-group="05 · Predictivo" data-label="Teoría">
+  <section class="slide" data-slide="16" data-group="05 · Predictivo" data-label="Teoría">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">05</span> Predictivo · teoría</p>
@@ -693,7 +756,7 @@
   </section>
 
   <!-- 14 -->
-  <section class="slide" data-slide="16" data-group="05 · Predictivo" data-label="Ejemplo">
+  <section class="slide" data-slide="17" data-group="05 · Predictivo" data-label="Ejemplo">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">05</span> Predictivo · ejemplo</p>
@@ -751,7 +814,7 @@
   </section>
 
   <!-- 05C · modelos de clasificación -->
-  <section class="slide" data-slide="17" data-group="05 · Predictivo" data-label="Modelos de clasificación">
+  <section class="slide" data-slide="18" data-group="05 · Predictivo" data-label="Modelos de clasificación">
     <div class="wrap">
       <div class="slide-head">
         <p class="kicker reveal"><span class="num">05</span> Predictivo · modelos</p>
@@ -818,7 +881,7 @@
   </section>
 
   <!-- ================= 06 APLICATIVO ================= -->
-  <section class="slide" data-slide="18" data-group="06 · Aplicativo" data-label="Teoría">
+  <section class="slide" data-slide="19" data-group="06 · Aplicativo" data-label="Teoría">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · teoría</p>
@@ -851,7 +914,7 @@
   </section>
 
   <!-- 16 -->
-  <section class="slide" data-slide="19" data-group="06 · Aplicativo" data-label="Ejemplo">
+  <section class="slide" data-slide="20" data-group="06 · Aplicativo" data-label="Ejemplo">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
@@ -888,7 +951,7 @@
   </section>
 
   <!-- ================= CIERRE ================= -->
-  <section class="slide" data-slide="20" data-group="Cierre" data-label="Clasificador">
+  <section class="slide" data-slide="21" data-group="Cierre" data-label="Clasificador">
     <div class="wrap">
       <p class="kicker reveal">Ponte a prueba</p>
       <h2 class="reveal">Clasificador de <em>niveles</em></h2>
@@ -912,7 +975,7 @@
   </section>
 
   <!-- 18 -->
-  <section class="slide" data-slide="21" data-group="Cierre" data-label="Síntesis">
+  <section class="slide" data-slide="22" data-group="Cierre" data-label="Síntesis">
     <div class="wrap">
       <p class="kicker reveal">Para llevarse</p>
       <h2 class="reveal">Cinco ideas que <em>no se olvidan</em></h2>

@@ -13,7 +13,7 @@ La **barra del header** es la navegación: un clic en el nombre del nivel lleva 
 | General | Portada · El criterio · El verbo manda |
 | 01 · Exploratorio | Teoría · Ejemplo (8 entrevistas) |
 | 02 · Descriptivo | Teoría · Ejemplo (autoestima del grupo) |
-| 03 · Relacional | Teoría · Ejemplo (r entre horas y rendimiento) · Chi² y odds ratio |
+| 03 · Relacional | Teoría · Ejemplo (r entre horas y rendimiento) · Chi² y odds ratio · Correlación ≠ asociación |
 | 04 · Explicativo | Teoría · **Taller (pretest–postest)** · **Betas (regresión)** · **Pruebas y diseños** |
 | 05 · Predictivo | Teoría · Ejemplo (riesgo de reprobar) · Modelos de clasificación |
 | 06 · Aplicativo | Teoría · Ejemplo (sostener el taller) |
@@ -41,7 +41,7 @@ La portada incluye una **pirámide de niveles** (base Exploratorio, cima Aplicat
 ## Estructura
 
 ```
-index.html            deck completo (21 páginas)
+index.html            deck completo (22 páginas)
 assets/styles.css     sistema visual (glass, tema claro)
 assets/app.js         navegación, base de datos, regresión, quiz
 vercel.json           configuración de despliegue estático

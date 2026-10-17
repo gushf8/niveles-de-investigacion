@@ -621,6 +621,13 @@ kbd{
 .calc-read{margin:0;font-size:.68rem;color:var(--muted);line-height:1.45;min-height:38px}
 .calc-read strong{color:var(--ink-2)}
 
+/* ---------- correlación vs asociación ---------- */
+.tbl-fam td{padding-top:7px;padding-bottom:7px;vertical-align:middle;font-size:.74rem}
+.tbl-fam td:first-child{width:32%;font-weight:600;color:var(--ink-2)}
+.tbl-fam td:nth-child(2){width:46%}
+.tbl-fam td:last-child{width:22%}
+.tbl-fam .pill{font-size:.58rem;font-weight:700;letter-spacing:0;text-transform:none}
+
 /* ---------- modelos de clasificación ---------- */
 .model-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .model-card{

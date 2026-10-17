@@ -258,7 +258,7 @@
   });
 
   /* ---------------- filtro rápido del rail ---------------- */
-  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 15, aplicativo: 18 };
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 12, predictivo: 16, aplicativo: 19 };
   $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
 
   /* ---------------- verbos ---------------- */
