@@ -739,9 +739,9 @@ kbd{
 }
 .scatter-wrap{
   border-radius:12px;border:1px solid var(--glass-brd);background:rgba(255,255,255,.72);
-  padding:8px 10px;margin-bottom:11px;
+  padding:8px 10px;margin:0 auto 11px;max-width:340px;width:100%;
 }
-.scatter-wrap svg{display:block;width:100%;height:132px}
+.scatter-wrap svg{display:block;width:100%;height:158px}
 .quote p{margin:0 0 4px;font-size:.9rem;color:var(--ink-2);font-style:italic}
 .quote span{font-size:.66rem;color:var(--muted)}
 .tbl-dims td:first-child{width:26%}
@@ -1139,14 +1139,14 @@ kbd{
               <text x="14" y="62">M</text>
               <text x="82" y="28">O<tspan font-size="10" dy="4">x</tspan></text>
               <text x="82" y="98">O<tspan font-size="10" dy="4">z</tspan></text>
-              <text x="170" y="62">r</text>
+              <text x="146" y="66">r</text>
             </g>
             <g stroke="#0d9488" stroke-width="2" marker-end="url(#arC)" fill="none">
               <line x1="30" y1="55" x2="70" y2="30"/>
               <line x1="30" y1="59" x2="70" y2="88"/>
             </g>
             <g stroke="#0f172a" stroke-width="1.4" fill="none" marker-start="url(#arC)" marker-end="url(#arC)">
-              <line x1="160" y1="34" x2="160" y2="88"/>
+              <line x1="136" y1="38" x2="136" y2="86"/>
             </g>
           </svg>
           <span class="design-cap">Diseño correlacional · dos variables en la misma muestra</span>
@@ -1188,7 +1188,7 @@ kbd{
             <div class="stat"><span>n</span><b>30</b></div>
           </div>
           <div class="scatter-wrap">
-            <svg id="scatter" viewBox="0 0 320 150" preserveAspectRatio="none" aria-label="Diagrama de dispersión de horas de estudio y nota"></svg>
+            <svg id="scatter" viewBox="0 0 320 150" role="img" aria-label="Diagrama de dispersión de horas de estudio y nota"></svg>
           </div>
           <div class="keybox">
             <span class="keybox-tag">Interpretación correcta</span>
@@ -1369,22 +1369,27 @@ kbd{
             <span>Diseño: pre experimental</span>
           </div>
           <div class="design">
-            <svg viewBox="0 0 300 78" role="img" aria-label="Diseño pre test post test">
+            <svg viewBox="0 0 300 92" role="img" aria-label="Diseño pre test post test">
               <defs>
                 <marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                   <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
                 </marker>
+                <marker id="arAg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+                </marker>
               </defs>
               <g font-family="Georgia, serif" font-style="italic" font-size="17" fill="#0f172a">
-                <text x="8" y="26">G₁</text><text x="58" y="26">O₁</text><text x="146" y="26">X</text><text x="238" y="26">O₂</text>
-                <text x="8" y="62">G₂</text><text x="58" y="62">O₁</text><text x="146" y="62">—</text><text x="238" y="62">O₂</text>
+                <text x="10" y="30">G</text><text x="60" y="30">O₁</text><text x="150" y="30">X</text><text x="240" y="30">O₂</text>
+                <text x="10" y="76">G₂</text><text x="60" y="76">O₁</text><text x="150" y="76">—</text><text x="240" y="76">O₂</text>
               </g>
               <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#arA)" fill="none">
-                <line x1="78" y1="21" x2="136" y2="21"/><line x1="160" y1="21" x2="228" y2="21"/>
-                <line x1="78" y1="57" x2="136" y2="57"/><line x1="160" y1="57" x2="228" y2="57"/>
+                <line x1="82" y1="25" x2="140" y2="25"/><line x1="166" y1="25" x2="230" y2="25"/>
+              </g>
+              <g stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arAg)" fill="none" opacity=".85">
+                <line x1="82" y1="81" x2="230" y2="81"/>
               </g>
             </svg>
-            <span class="design-cap">Pre test – post test · con un grupo es pre experimental</span>
+            <span class="design-cap">Sin G₂: pre experimental · con G₂: cuasi experimental</span>
           </div>
         </div>
         <div class="path">

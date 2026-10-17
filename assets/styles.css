@@ -727,9 +727,9 @@ kbd{
 }
 .scatter-wrap{
   border-radius:12px;border:1px solid var(--glass-brd);background:rgba(255,255,255,.72);
-  padding:8px 10px;margin-bottom:11px;
+  padding:8px 10px;margin:0 auto 11px;max-width:340px;width:100%;
 }
-.scatter-wrap svg{display:block;width:100%;height:132px}
+.scatter-wrap svg{display:block;width:100%;height:158px}
 .quote p{margin:0 0 4px;font-size:.9rem;color:var(--ink-2);font-style:italic}
 .quote span{font-size:.66rem;color:var(--muted)}
 .tbl-dims td:first-child{width:26%}
