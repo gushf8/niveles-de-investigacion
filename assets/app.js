@@ -264,6 +264,7 @@
   /* ---------------- verbos ---------------- */
   const VERBS = {
     explorar:     { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Explorar las prácticas de estudio que aparecen en un contexto donde el tema no ha sido investigado.", note: "Explorar no estima parámetros ni prueba hipótesis: identifica categorías, describe el terreno y formula preguntas." },
+    analizar:     { level: "Depende del análisis", analysis: "El verbo no basta", ex: "«Analizar la autoestima de los estudiantes»: no dice si se describe, se relaciona o se explica.", note: "Analizar es una acción, no un nivel. Se analiza para describir, para relacionar o para explicar. Si el objetivo solo dice «analizar», el nivel queda indeterminado hasta saber qué se analiza y con qué análisis." },
     identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las situaciones en que los estudiantes dicen sentirse inseguros en clase." },
     interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar cómo los estudiantes explican su propia autoestima." },
     describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir el nivel de autoestima de los 30 estudiantes y sus tres dimensiones." },
