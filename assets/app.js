@@ -258,7 +258,7 @@
   });
 
   /* ---------------- filtro rápido del rail ---------------- */
-  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 14, aplicativo: 16 };
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 15, aplicativo: 17 };
   $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
 
   /* ---------------- verbos ---------------- */
@@ -540,6 +540,101 @@
 
     cells.forEach(i => i.addEventListener("input", updateCalc));
     updateCalc();
+  }
+
+  /* ---------------- página 14: matriz de pruebas ---------------- */
+  const TESTS = {
+    chi_bondad: { name:"χ² de bondad de ajuste", short:"χ² bondad", np:true, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"No paramétrica", variable:"Categórica",
+      q:"¿La distribución observada se ajusta a la esperada?", ej:"¿Los 30 estudiantes se reparten por igual entre las tres secciones?",
+      nota:"Es univariable: por eso es descriptivo, no relacional." },
+    binomial: { name:"Prueba binomial", short:"Binomial", np:true, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿La proporción observada difiere de un valor de referencia?", ej:"¿La proporción con autoestima alta supera el 50 %?" },
+    t_1m: { name:"t de Student para una muestra", short:"t · una muestra", np:false, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿La media difiere de un valor de referencia?", ej:"¿La nota media del grupo difiere de 14?",
+      nota:"Contrastar con un parámetro es un objetivo del nivel descriptivo." },
+    chi_homog: { name:"χ² de homogeneidad", short:"χ² homogeneidad", np:true, nivel:"Relacional", diseno:"Transversal · 2 o más grupos independientes", tipo:"No paramétrica", variable:"Nominal",
+      q:"¿La distribución del desenlace difiere entre grupos?", ej:"¿La proporción con autoestima alta difiere entre quienes llevaron el taller y quienes no?" },
+    yates: { name:"Corrección de Yates", short:"Yates", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Nominal dicotómica (2×2)",
+      q:"Igual que el χ², corregido para tablas 2×2.", ej:"Taller sí/no × autoestima alta sí/no, con pocos casos por celda." },
+    fisher: { name:"Test exacto de Fisher", short:"Fisher", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Nominal dicotómica (2×2)",
+      q:"¿Hay asociación cuando las frecuencias son muy pequeñas?", ej:"Tabla 2×2 con celdas menores de 5 casos." },
+    u_mann: { name:"U de Mann-Whitney", short:"U Mann-Whitney", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Difieren dos grupos en una variable ordinal?", ej:"¿La autoestima ordinal difiere entre dos secciones?" },
+    t_indep: { name:"t de Student para muestras independientes", short:"t · independientes", np:false, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Difieren las medias de dos grupos?", ej:"¿La nota media difiere entre quienes llevaron el taller y quienes no?",
+      nota:"Solo es explicativa si los grupos provienen de una intervención controlada." },
+    kruskal: { name:"H de Kruskal-Wallis", short:"Kruskal-Wallis", np:true, nivel:"Relacional", diseno:"Transversal · 3 o más grupos independientes", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Difieren tres o más grupos?", ej:"¿La autoestima difiere entre 3.º, 4.º y 5.º?" },
+    anova1: { name:"ANOVA de un factor", short:"ANOVA 1 factor", np:false, nivel:"Relacional", diseno:"Transversal · 3 o más grupos independientes", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Difieren las medias de tres o más grupos?", ej:"¿La nota media difiere entre tres secciones?" },
+    mcnemar: { name:"Prueba de McNemar", short:"McNemar", np:true, nivel:"Relacional", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿Cambió la proporción entre dos mediciones?", ej:"¿Cuántos pasaron de autoestima baja a alta tras el taller?",
+      nota:"Si compara antes y después de una intervención, el diseño es pre experimental y el nivel pasa a explicativo." },
+    cochran: { name:"Q de Cochran", short:"Q de Cochran", np:true, nivel:"Relacional", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿Cambia la proporción a lo largo de varias mediciones?", ej:"¿La proporción con autoestima alta cambió en tres bimestres?" },
+    wilcoxon: { name:"Wilcoxon de rangos con signo", short:"Wilcoxon", np:true, nivel:"Relacional", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Cambió la variable entre dos mediciones?", ej:"¿Subió la autoestima ordinal del pretest al postest?" },
+    t_rel: { name:"t de Student para muestras relacionadas", short:"t · relacionada", np:false, nivel:"Relacional / Explicativo", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Cambió la media entre dos mediciones?", ej:"¿La autoestima media subió del pretest al postest?",
+      nota:"Con grupo de comparación y una intervención, es el diseño pre experimental: nivel explicativo." },
+    friedman: { name:"Prueba de Friedman", short:"Friedman", np:true, nivel:"Relacional", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Cambió la variable en tres o más mediciones?", ej:"¿La autoestima ordinal cambió en tres bimestres?" },
+    anova_mr: { name:"ANOVA de medidas repetidas", short:"ANOVA medidas rep.", np:false, nivel:"Relacional / Explicativo", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Cambian las medias a lo largo del tiempo o entre grupos?", ej:"¿La autoestima media evolucionó en los seis bimestres?",
+      nota:"Es la prueba típica del nivel aplicativo cuando se monitorea una intervención." }
+  };
+
+  const MATRIX = [
+    { sec: "Transversal · un solo periodo" },
+    { row: "Un grupo", sub: "1 categoría", cells: [["chi_bondad", "binomial"], ["chi_bondad"], ["chi_bondad"], ["t_1m"]] },
+    { row: "Dos grupos", sub: "independientes", cells: [["chi_homog", "yates", "fisher"], ["chi_homog"], ["u_mann"], ["t_indep"]] },
+    { row: "Tres o más", sub: "independientes", cells: [["chi_homog"], ["chi_homog"], ["kruskal"], ["anova1"]] },
+    { sec: "Longitudinal · varios periodos" },
+    { row: "Dos medidas", sub: "relacionadas", cells: [["mcnemar"], ["cochran"], ["wilcoxon"], ["t_rel"]] },
+    { row: "Tres o más medidas", sub: "relacionadas", cells: [["cochran"], ["cochran"], ["friedman"], ["anova_mr"]] }
+  ];
+
+  if ($("#matrix")) {
+    const heads = ["", "Nom. dicotómica", "Nom. politómica", "Ordinal", "Numérica"];
+    let html = "<table class=\"mtx\"><thead><tr>" + heads.map((h, i) =>
+      "<th>" + (i === 0 ? "Variable fija / aleatoria" : h) + "</th>").join("") + "</tr></thead><tbody>";
+
+    MATRIX.forEach(r => {
+      if (r.sec) {
+        html += '<tr class="sec"><td colspan="5">' + r.sec + "</td></tr>";
+        return;
+      }
+      html += '<tr><td class="rowh">' + r.row + "<span>" + r.sub + "</span></td>" +
+        r.cells.map(cell =>
+          '<td class="cell">' + cell.map(id => {
+            const t = TESTS[id];
+            return '<button class="chip-test' + (t.np ? " np" : "") + '" data-t="' + id + '" title="' + t.name + '">' + t.short + "</button>";
+          }).join("") + "</td>"
+        ).join("") + "</tr>";
+    });
+    html += "</tbody></table>";
+    $("#matrix").innerHTML = html;
+
+    const panel = $("#testDetail");
+    const empty = '<p class="td-empty"><b>Elija una prueba.</b><br><br>Cada botón muestra el nivel, el diseño, si es paramétrica o no, y un ejemplo con los 30 estudiantes.</p>' +
+      '<p class="td-ej" style="margin-top:12px"><b>Observación:</b> la misma prueba puede cambiar de nivel según el diseño. Una t relacionada en un estudio transversal es relacional; en un pre–post con intervención, es explicativa.</p>';
+    panel.innerHTML = empty;
+
+    $("#matrix").addEventListener("click", e => {
+      const b = e.target.closest(".chip-test");
+      if (!b) return;
+      $$(".chip-test").forEach(x => x.classList.remove("is-active"));
+      b.classList.add("is-active");
+      const t = TESTS[b.dataset.t];
+      panel.innerHTML =
+        '<p class="td-name">' + t.name + "</p>" +
+        '<div class="td-pills"><span>Nivel: ' + t.nivel + '</span><span class="g">' + t.tipo + "</span></div>" +
+        '<p class="td-row"><b>Diseño</b>' + t.diseno + "</p>" +
+        '<p class="td-row"><b>Variable</b>' + t.variable + "</p>" +
+        '<p class="td-row"><b>Pregunta</b>' + t.q + "</p>" +
+        '<p class="td-ej"><b>Ejemplo:</b> ' + t.ej + "</p>" +
+        (t.nota ? '<p class="td-note">' + t.nota + "</p>" : "");
+    });
   }
 
   /* ---------------- página 14: riesgo estimado ---------------- */

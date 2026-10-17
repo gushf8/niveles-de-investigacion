@@ -621,6 +621,59 @@ kbd{
 .calc-read{margin:0;font-size:.68rem;color:var(--muted);line-height:1.45;min-height:38px}
 .calc-read strong{color:var(--ink-2)}
 
+/* ---------- matriz de pruebas ---------- */
+.test-layout{display:grid;grid-template-columns:1.42fr .95fr;gap:13px;align-items:start}
+.matrix-wrap{
+  border-radius:13px;border:1px solid var(--glass-brd);background:var(--glass);
+  backdrop-filter:blur(14px);padding:9px;overflow-x:auto;
+}
+.mtx{width:100%;border-collapse:separate;border-spacing:3px}
+.mtx th{
+  padding:5px 4px;font-size:.52rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--muted);font-weight:750;text-align:center;line-height:1.2;
+}
+.mtx th:first-child{text-align:left}
+.mtx tr.sec td{
+  background:rgba(37,99,235,.10);color:var(--accent);font-weight:750;text-align:center;
+  text-transform:uppercase;letter-spacing:.09em;font-size:.5rem;padding:4px;border-radius:6px;
+}
+.mtx td.rowh{
+  padding:5px 7px;background:rgba(255,255,255,.62);border-radius:7px;
+  font-size:.6rem;font-weight:700;color:var(--ink-2);white-space:nowrap;line-height:1.2;
+}
+.mtx td.rowh span{display:block;font-weight:500;font-size:.47rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.mtx td.cell{background:rgba(255,255,255,.5);border-radius:7px;padding:3px;vertical-align:top}
+.chip-test{
+  display:block;width:100%;text-align:left;margin:2px 0;padding:4px 6px;border-radius:6px;
+  border:1px solid transparent;background:rgba(37,99,235,.08);color:var(--ink-2);
+  font-family:inherit;font-size:.55rem;font-weight:650;cursor:pointer;line-height:1.2;transition:.14s;
+}
+.chip-test.np{background:rgba(13,148,136,.10)}
+.chip-test:hover,.chip-test.is-active{background:var(--accent);color:#fff;border-color:transparent}
+.chip-test.np:hover,.chip-test.np.is-active{background:var(--accent-2);color:#fff}
+
+.test-detail{
+  border-radius:13px;border:1px solid var(--glass-brd);background:var(--glass-2);
+  backdrop-filter:blur(16px);box-shadow:var(--shadow);padding:13px;min-height:262px;
+}
+.td-name{margin:0 0 7px;font-size:.88rem;font-weight:750;letter-spacing:-.015em;line-height:1.25}
+.td-pills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px}
+.td-pills span{
+  font-size:.53rem;font-weight:750;padding:3px 7px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent);letter-spacing:.02em;
+}
+.td-pills span.g{background:rgba(13,148,136,.12);color:var(--accent-2)}
+.td-row{display:flex;gap:6px;margin:0 0 5px;font-size:.66rem;color:var(--muted);line-height:1.45}
+.td-row b{color:var(--ink-2);min-width:48px;flex:none;font-weight:700}
+.td-ej{
+  margin:9px 0 0;padding:8px 10px;border-radius:8px;background:rgba(37,99,235,.06);
+  border-left:2px solid var(--accent);font-size:.66rem;color:var(--muted);line-height:1.45;
+}
+.td-ej b{color:var(--ink-2)}
+.td-note{margin:7px 0 0;font-size:.6rem;color:var(--warn);line-height:1.4}
+.td-empty{font-size:.72rem;color:var(--muted);line-height:1.5}
+.td-empty b{color:var(--ink-2)}
+
 /* ---------- stats y quote ---------- */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-bottom:14px}
 .stats-row .stat{
@@ -683,6 +736,9 @@ kbd{
   .takeaways li{padding:9px 12px}
 }
 @media (max-width:900px){
+  .test-layout{grid-template-columns:1fr}
+  .matrix-wrap{overflow-x:auto}
+  .mtx{min-width:520px}
   .workbench{grid-template-columns:1fr}
   .data-card{max-height:260px}
   .slide-hero .wrap{grid-template-columns:1fr}
