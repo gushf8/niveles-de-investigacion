@@ -266,7 +266,7 @@
     identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las situaciones en que los estudiantes dicen sentirse inseguros en clase." },
     interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar cómo los estudiantes explican su propia autoestima." },
     describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir el nivel de autoestima de los 30 estudiantes y sus tres dimensiones." },
-    estimar:      { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Estimar la autoestima media de toda la promoción, con su intervalo de confianza." },
+    estimar:      { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Estimar la autoestima media de toda la promoción, con su intervalo de confianza.", note: "Estimar un parámetro (una media o una proporción) es descriptivo. Estimar los betas de un modelo es explicativo; estimar un caso nuevo es predictivo." },
     comparar:     { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Comparar la autoestima entre quienes practican deporte y quienes no." },
     asociar:      { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Asociar las horas de estudio con el rendimiento académico." },
     evidenciar:   { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Evidenciar el efecto de las horas de estudio sobre la nota, controlando hermanos y gasto." },
@@ -285,7 +285,8 @@
     const d = VERBS[b.dataset.verb];
     $("#vrLevel").textContent = d.level;
     $("#vrAnalysis").textContent = d.analysis;
-    $("#vrExample").innerHTML = "<em>Objetivo modelo:</em> " + d.ex;
+    $("#vrExample").innerHTML = "<em>Objetivo modelo:</em> " + d.ex +
+      (d.note ? '<span class="vr-note">' + d.note + "</span>" : "");
   });
 
   /* ---------------- página 7: descriptivo ---------------- */

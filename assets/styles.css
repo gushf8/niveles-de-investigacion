@@ -370,6 +370,7 @@ kbd{
 .pill-soft{background:var(--accent-soft);border:1px solid rgba(37,99,235,.18);color:var(--accent)}
 .vr-example{margin:0;font-size:.85rem;color:var(--muted)}
 .vr-example em{color:var(--ink-2);font-style:italic}
+.vr-note{display:block;margin-top:7px;padding-top:7px;border-top:1px solid var(--line-2);font-size:.72rem;color:var(--warn);line-height:1.45}
 
 /* ---------- betas ---------- */
 .formula{
