@@ -215,8 +215,7 @@
     const num = isLevel ? code : "";
     const title = isLevel ? g.name.slice(4).trim() : g.name;
     return '<div class="ln-item' + (isLevel ? "" : " is-plain") + '" data-g="' + gi + '">' +
-      '<button class="ln-trigger" aria-expanded="false" aria-haspopup="true"' +
-        (ANALYSIS[code] ? ' title="' + title + " · " + ANALYSIS[code] + '"' : "") + ">" +
+      '<button class="ln-trigger" title="Ir a la teoría de ' + title + '">' +
         (num ? '<span class="ln-num">' + num + "</span>" : "") +
         '<span class="ln-name">' + title + "</span>" + caret +
       "</button>" +
@@ -230,7 +229,6 @@
 
   function closeAll() {
     $$(".ln-item").forEach(it => it.classList.remove("is-open"));
-    $$(".ln-trigger").forEach(t => t.setAttribute("aria-expanded", "false"));
   }
 
   nav.addEventListener("click", e => {
@@ -242,13 +240,10 @@
     }
     const trigger = e.target.closest(".ln-trigger");
     if (!trigger) return;
-    const item = trigger.parentElement;
-    const wasOpen = item.classList.contains("is-open");
+    const gi = +trigger.parentElement.dataset.g;
+    const first = groups[gi].items[0].n;
+    goTo(first + 1);
     closeAll();
-    if (!wasOpen) {
-      item.classList.add("is-open");
-      trigger.setAttribute("aria-expanded", "true");
-    }
   });
 
   document.addEventListener("click", e => {
