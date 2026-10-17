@@ -869,7 +869,12 @@ kbd{
   padding:22px;border-radius:var(--r);border:1px solid var(--glass-brd);
   background:var(--glass-2);backdrop-filter:blur(16px);box-shadow:var(--shadow);
 }
-.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:.72rem;color:var(--muted)}
+.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:.72rem;color:var(--muted);flex-wrap:wrap}
+.ex-lvl{
+  padding:4px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent);
+  border:1px solid rgba(37,99,235,.18);font-size:.62rem;font-weight:750;
+  letter-spacing:.03em;white-space:nowrap;
+}
 .ex-num b{color:var(--ink)}
 .ex-progress{flex:1;height:4px;border-radius:99px;background:rgba(15,23,42,.09);overflow:hidden}
 .ex-progress span{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .3s}

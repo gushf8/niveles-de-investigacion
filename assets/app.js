@@ -744,50 +744,102 @@
 
   /* ---------------- ejercicios de completar ---------------- */
   const EX = [
-    {
-      case: "Se comparan los minutos de uso del teléfono entre dos grupos independientes: control y experimental. La variable no sigue una distribución normal.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los dos grupos. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+    { lvl: 1, lvlName: "Exploratorio",
+      case: "Un investigador entrevista a 8 docentes para comprender cómo viven la evaluación formativa. No existen estudios previos sobre el tema en esa institución.",
+      text: "El estudio corresponde al nivel [[nivel]] porque el tema está poco investigado. El análisis es [[analisis]]: no se miden variables numéricas. Su objetivo es [[objetivo]] los significados que los docentes atribuyen a su práctica.",
       blanks: {
-        test: { opts: ["U de Mann-Whitney", "t de Student independiente", "ANOVA de un factor", "χ² de homogeneidad"], a: "U de Mann-Whitney" },
-        var: { opts: ["el tiempo de uso del teléfono", "la autoestima", "el rendimiento académico"], a: "el tiempo de uso del teléfono" },
-        h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
-        p: { opts: ["0,32", "0,05", "0,95"], a: "0,32" },
-        sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
-      }
-    },
-    {
-      case: "Se comparan las horas de ocio entre quienes trabajan y quienes no. La variable es ordinal y no se distribuye normalmente.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los grupos de la variable situación laboral. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+        nivel: { opts: ["Exploratorio", "Descriptivo", "Relacional"], a: "Exploratorio" },
+        analisis: { opts: ["no estadístico", "univariado", "bivariado"], a: "no estadístico" },
+        objetivo: { opts: ["interpretar", "predecir", "demostrar"], a: "interpretar" }
+      } },
+    { lvl: 1, lvlName: "Exploratorio",
+      case: "Se revisan documentos del colegio y se observan tres clases para identificar qué prácticas de estudio aparecen en un contexto donde no hay investigaciones previas.",
+      text: "El nivel es [[nivel]]. Los datos son [[tipo]] (texto y observación), por eso no se calculan medias. El producto del estudio son [[producto]] y preguntas para investigar después.",
       blanks: {
-        test: { opts: ["t de Student independiente", "U de Mann-Whitney", "Friedman", "χ² de bondad"], a: "U de Mann-Whitney" },
-        var: { opts: ["las horas de ocio", "la nota final", "la autoestima"], a: "las horas de ocio" },
-        h0: { opts: ["rechazada", "aceptada"], a: "rechazada" },
-        p: { opts: ["0,04", "0,40", "0,98"], a: "0,04" },
-        sig: { opts: ["significativas", "no significativas"], a: "significativas" }
-      }
-    },
-    {
-      case: "Se midió la autoestima de los mismos 30 estudiantes antes y después del taller. La variable es numérica y normal.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre las dos mediciones. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+        nivel: { opts: ["Exploratorio", "Descriptivo", "Explicativo"], a: "Exploratorio" },
+        tipo: { opts: ["cualitativos", "cuantitativos", "ordinales"], a: "cualitativos" },
+        producto: { opts: ["categorías", "coeficientes", "betas"], a: "categorías" }
+      } },
+    { lvl: 2, lvlName: "Descriptivo",
+      case: "Se aplica un cuestionario de autoestima (0 a 100) a 30 estudiantes y se reporta la media y la desviación estándar del grupo.",
+      text: "El nivel es [[nivel]] porque se describe una sola variable. La variable es [[tipo]] y el análisis es [[analisis]].",
       blanks: {
-        test: { opts: ["t de Student para muestras relacionadas", "t de Student independiente", "U de Mann-Whitney", "ANOVA de un factor"], a: "t de Student para muestras relacionadas" },
-        var: { opts: ["la autoestima", "el grupo", "la asistencia"], a: "la autoestima" },
-        h0: { opts: ["rechazada", "aceptada"], a: "rechazada" },
-        p: { opts: ["0,003", "0,30", "0,97"], a: "0,003" },
-        sig: { opts: ["significativas", "no significativas"], a: "significativas" }
-      }
-    },
-    {
-      case: "Se quiere saber si el nivel de nota (alta / baja) se asocia con el sexo (mujeres / varones). Ambas variables son categóricas. El análisis arrojó χ² = 1,83 y p = 0,18.",
-      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre mujeres y varones. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+        nivel: { opts: ["Descriptivo", "Relacional", "Explicativo"], a: "Descriptivo" },
+        tipo: { opts: ["cuantitativa", "cualitativa", "dicotómica"], a: "cuantitativa" },
+        analisis: { opts: ["univariado", "bivariado", "multivariado"], a: "univariado" }
+      } },
+    { lvl: 2, lvlName: "Descriptivo",
+      case: "Se informa que el 62 % de los docentes usa rúbricas, con un intervalo de confianza del 95 %.",
+      text: "El nivel es [[nivel]]: se estima un [[parametro]] de la población. No se compara con otro grupo ni se busca una causa, así que no es [[noes]].",
       blanks: {
-        test: { opts: ["χ² de homogeneidad", "t de Student independiente", "Wilcoxon", "ANOVA de medidas repetidas"], a: "χ² de homogeneidad" },
-        var: { opts: ["la proporción con nota alta", "la media de nota", "las horas de estudio"], a: "la proporción con nota alta" },
-        h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
-        p: { opts: ["0,18", "0,018", "0,80"], a: "0,18" },
-        sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
-      }
-    }
+        nivel: { opts: ["Descriptivo", "Relacional", "Predictivo"], a: "Descriptivo" },
+        parametro: { opts: ["parámetro", "beta", "odds ratio"], a: "parámetro" },
+        noes: { opts: ["relacional", "exploratorio", "aplicativo"], a: "relacional" }
+      } },
+    { lvl: 3, lvlName: "Relacional",
+      case: "Se comparan las notas medias de dos secciones con una t de Student para muestras independientes.",
+      text: "El nivel es [[nivel]] porque se ponen en juego dos variables. El análisis es [[analisis]]. La conclusión solo puede afirmar que las medias [[verbo]], no que una cause la otra.",
+      blanks: {
+        nivel: { opts: ["Relacional", "Explicativo", "Descriptivo"], a: "Relacional" },
+        analisis: { opts: ["bivariado", "univariado", "multivariado"], a: "bivariado" },
+        verbo: { opts: ["difieren", "causan", "predicen"], a: "difieren" }
+      } },
+    { lvl: 3, lvlName: "Relacional",
+      case: "Se aplica chi cuadrado entre sexo y nivel de nota (alta / baja).",
+      text: "El nivel es [[nivel]], pero el estudio no es [[noes]]: el chi² mide [[que]] entre dos variables categóricas, no un coeficiente de correlación.",
+      blanks: {
+        nivel: { opts: ["Relacional", "Correlacional", "Explicativo"], a: "Relacional" },
+        noes: { opts: ["correlacional", "relacional", "descriptivo"], a: "correlacional" },
+        que: { opts: ["asociación", "causalidad", "predicción"], a: "asociación" }
+      } },
+    { lvl: 4, lvlName: "Explicativo",
+      case: "Se aplica un taller de autoestima a un grupo y se mide antes y después, con otro grupo que no recibe el taller.",
+      text: "El nivel es [[nivel]]. La variable independiente es [[vi]] y la dependiente es [[vd]]. El diseño es [[diseno]].",
+      blanks: {
+        nivel: { opts: ["Explicativo", "Relacional", "Aplicativo"], a: "Explicativo" },
+        vi: { opts: ["el taller", "la autoestima", "la edad"], a: "el taller" },
+        vd: { opts: ["la autoestima", "el taller", "el colegio"], a: "la autoestima" },
+        diseno: { opts: ["pre experimental o cuasi experimental", "correlacional", "descriptivo"], a: "pre experimental o cuasi experimental" }
+      } },
+    { lvl: 4, lvlName: "Explicativo",
+      case: "Se estiman los betas de horas de estudio, gasto y número de hermanos sobre la nota final, controlando las demás variables.",
+      text: "El nivel es [[nivel]] y el tipo de investigación es [[tipo]]. El diseño se llama [[diseno]] porque no se manipula ninguna variable.",
+      blanks: {
+        nivel: { opts: ["Explicativo", "Predictivo", "Descriptivo"], a: "Explicativo" },
+        tipo: { opts: ["básico", "aplicado", "tecnológico"], a: "básico" },
+        diseno: { opts: ["explicativo o causal", "pre experimental", "exploratorio"], a: "explicativo o causal" }
+      } },
+    { lvl: 5, lvlName: "Predictivo",
+      case: "Se entrena un modelo para estimar la probabilidad de que cada estudiante repruebe el curso.",
+      text: "El nivel es [[nivel]]. Ya no se usan [[no]]: el modelo se evalúa con [[metrica]] y validación cruzada.",
+      blanks: {
+        nivel: { opts: ["Predictivo", "Explicativo", "Descriptivo"], a: "Predictivo" },
+        no: { opts: ["pruebas de hipótesis", "correlaciones", "medias"], a: "pruebas de hipótesis" },
+        metrica: { opts: ["AUC", "chi²", "p-valor"], a: "AUC" }
+      } },
+    { lvl: 5, lvlName: "Predictivo",
+      case: "Se proyecta la matrícula mensual de los próximos 12 meses con un modelo ARIMA.",
+      text: "El nivel es [[nivel]] y el objetivo es [[obj]]. El desempeño se mide con [[metrica]] fuera de la muestra.",
+      blanks: {
+        nivel: { opts: ["Predictivo", "Descriptivo", "Aplicativo"], a: "Predictivo" },
+        obj: { opts: ["proyectar", "explicar", "describir"], a: "proyectar" },
+        metrica: { opts: ["RMSE", "p-valor", "odds ratio"], a: "RMSE" }
+      } },
+    { lvl: 6, lvlName: "Aplicativo",
+      case: "Se implementa el taller y se monitorea cada bimestre la autoestima media con cartas de control.",
+      text: "El nivel es [[nivel]]. El objetivo es [[obj]] y el criterio no es el p-valor, sino que la mejora [[criterio]].",
+      blanks: {
+        nivel: { opts: ["Aplicativo", "Explicativo", "Predictivo"], a: "Aplicativo" },
+        obj: { opts: ["evaluar y sostener", "explicar", "predecir"], a: "evaluar y sostener" },
+        criterio: { opts: ["se mantenga en el tiempo", "sea significativa", "tenga betas altas"], a: "se mantenga en el tiempo" }
+      } },
+    { lvl: 6, lvlName: "Aplicativo",
+      case: "En una obra se controla la resistencia del concreto por lotes y se decide aceptar o rechazar cada uno con un criterio previo.",
+      text: "El nivel es [[nivel]]. La decisión se toma con un [[criterio]] definido antes de ver los resultados, no después.",
+      blanks: {
+        nivel: { opts: ["Aplicativo", "Descriptivo", "Relacional"], a: "Aplicativo" },
+        criterio: { opts: ["índice de capacidad (Cpk)", "coeficiente de Pearson", "p-valor"], a: "índice de capacidad (Cpk)" }
+      } }
   ];
 
   if ($("#ex")) {
@@ -795,6 +847,7 @@
 
     function renderEx() {
       const e = EX[idx];
+      $("#exLevel").textContent = "Nivel " + e.lvl + " · " + e.lvlName;
       $("#exIndex").textContent = idx + 1;
       $("#exProgress").style.width = ((idx) / EX.length) * 100 + "%";
       $("#exCase").textContent = e.case;
