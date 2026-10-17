@@ -161,36 +161,19 @@ kbd{
   background:var(--glass);backdrop-filter:blur(18px) saturate(1.3);
   box-shadow:var(--shadow);
 }
-.hero-card h3{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;font-weight:750}
-.hero-ladder{display:flex;align-items:flex-end;gap:8px;height:186px;position:relative;padding-bottom:2px}
-.hero-ladder::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(15,23,42,.12),transparent);
-}
-.hl-bar{
-  flex:1;height:var(--h);border-radius:9px 9px 4px 4px;position:relative;
-  background:linear-gradient(180deg,var(--c1,#a5f3fc),var(--c2,#06b6d4));
-  box-shadow:0 14px 22px -16px var(--c2,#06b6d4), inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(15,23,42,.06);
-  transform-origin:bottom;transform:scaleY(0);
-  transition:filter .2s;
-}
-.is-active .hl-bar{animation:grow .85s cubic-bezier(.22,.9,.25,1) forwards;animation-delay:calc(var(--i,0)*70ms + 150ms)}
-.hero-ladder .hl-bar:nth-child(1){--i:0}.hero-ladder .hl-bar:nth-child(2){--i:1}
-.hero-ladder .hl-bar:nth-child(3){--i:2}.hero-ladder .hl-bar:nth-child(4){--i:3}
-.hero-ladder .hl-bar:nth-child(5){--i:4}.hero-ladder .hl-bar:nth-child(6){--i:5}
-@keyframes grow{to{transform:scaleY(1)}}
-.hl-bar:hover{filter:saturate(1.15) brightness(1.03)}
-.hl-bar span{
-  position:absolute;bottom:-24px;left:50%;transform:translateX(-50%) rotate(-38deg);
-  transform-origin:left;font-size:.56rem;font-weight:600;color:var(--muted);white-space:nowrap;
-  letter-spacing:.02em;
-}
-.hl-bar.is-focus{
-  outline:2px solid rgba(109,40,217,.28);outline-offset:3px;
-  box-shadow:0 20px 30px -16px var(--c2,#6d28d9), inset 0 1px 0 rgba(255,255,255,.75);
-}
+.hero-card h3{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:750}
+.pyramid{display:grid;grid-template-columns:1fr 1.08fr;gap:13px;height:246px;align-items:stretch}
+.pyr-svg{width:100%;height:100%;display:block;filter:drop-shadow(0 14px 20px rgba(15,23,42,.16))}
+.pyr-band{transition:opacity .2s}
+.pyr-band:hover{opacity:.88}
+.pyr-legend{display:grid;grid-template-rows:repeat(6,1fr);align-content:stretch;min-width:0}
+.pyr-item{display:flex;align-items:center;gap:7px;min-height:0}
+.pyr-item i{width:9px;height:9px;border-radius:2.5px;flex:none;box-shadow:0 2px 4px -2px rgba(15,23,42,.45)}
+.pyr-item div{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.pyr-item b{font-size:.7rem;font-weight:700;letter-spacing:-.012em;color:var(--ink-2)}
+.pyr-item span{font-size:.53rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hero-cap{
-  margin:30px 0 0;font-size:.6rem;letter-spacing:.04em;color:var(--muted);
+  margin:26px 0 0;font-size:.6rem;letter-spacing:.04em;color:var(--muted);
   border-top:1px solid var(--line-2);padding-top:9px;
 }
 
@@ -559,10 +542,19 @@ kbd{
   padding:14px 16px;border-radius:12px;border-left:3px solid var(--accent-2);
   background:rgba(13,148,136,.07);margin:0 0 14px;
 }
+.scatter-wrap{
+  border-radius:12px;border:1px solid var(--glass-brd);background:rgba(255,255,255,.72);
+  padding:8px 10px;margin-bottom:11px;
+}
+.scatter-wrap svg{display:block;width:100%;height:132px}
 .quote p{margin:0 0 4px;font-size:.9rem;color:var(--ink-2);font-style:italic}
 .quote span{font-size:.66rem;color:var(--muted)}
 .tbl-dims td:first-child{width:26%}
 .tbl-dims td{font-variant-numeric:tabular-nums}
+.risk-high{color:var(--bad);font-weight:750}
+.tbl-matrix td:nth-child(2){color:var(--muted);font-style:italic}
+.tbl-matrix td:first-child{width:14%}
+.tbl-matrix td:last-child{width:30%;color:var(--ink-2);font-weight:600}
 
 /* ---------- pista de scroll ---------- */
 .scroll-hint{
@@ -592,7 +584,7 @@ kbd{
   h2{font-size:clamp(1.45rem,2.4vw,2rem)}
   h2.big{font-size:clamp(1.9rem,3.6vw,2.8rem)}
   h1{font-size:clamp(2rem,4.2vw,3.3rem)}
-  .hero-ladder{height:158px}
+  .pyramid{height:200px}
   .data-card{max-height:290px}
   .case p{font-size:.77rem}
   .callout{margin-top:12px;padding:12px 15px}

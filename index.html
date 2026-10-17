@@ -53,16 +53,9 @@
         </div>
       </div>
       <aside class="hero-card reveal" aria-hidden="true">
-        <h3>Del exploratorio al aplicativo</h3>
-        <div class="hero-ladder">
-          <div class="hl-bar" style="--h:16%;--c1:#a5f3fc;--c2:#06b6d4"><span>Exploratorio</span></div>
-          <div class="hl-bar" style="--h:32%;--c1:#67e8f9;--c2:#0891b2"><span>Descriptivo</span></div>
-          <div class="hl-bar" style="--h:50%;--c1:#c4b5fd;--c2:#7c3aed"><span>Relacional</span></div>
-          <div class="hl-bar is-focus" style="--h:68%;--c1:#a78bfa;--c2:#6d28d9"><span>Explicativo</span></div>
-          <div class="hl-bar" style="--h:84%;--c1:#6ee7b7;--c2:#059669"><span>Predictivo</span></div>
-          <div class="hl-bar" style="--h:100%;--c1:#34d399;--c2:#047857"><span>Aplicativo</span></div>
-        </div>
-        <p class="hero-cap">Seis niveles · tres familias de análisis · de menor a mayor profundidad</p>
+        <h3>Pirámide de niveles</h3>
+        <div class="pyramid" id="pyramid"></div>
+        <p class="hero-cap">Base: describir · Cima: intervenir</p>
       </aside>
     </div>
   </section>
@@ -162,19 +155,20 @@
         <p class="kicker reveal"><span class="num">01</span> Exploratorio · ejemplo</p>
         <h2 class="reveal">Ocho entrevistas <em>antes de medir</em></h2>
         <p class="lede reveal">Un colegio quiere trabajar la autoestima, pero nadie ha investigado cómo la viven sus estudiantes. Antes de aplicar un cuestionario, se entrevista a 8 alumnos.</p>
-        <div class="quote reveal">
-          <p>«En clase no levanto la mano porque mis compañeros se ríen. En mi casa sí hablo.»</p>
-          <span>Estudiante de 4.º de secundaria · entrevista 3</span>
-        </div>
-        <table class="tbl reveal">
-          <thead><tr><th>Categoría que emerge</th><th>Frecuencia en 8 entrevistas</th></tr></thead>
+        <table class="tbl tbl-matrix reveal">
+          <thead><tr><th>Código</th><th>Extracto de la entrevista</th><th>Categoría</th></tr></thead>
           <tbody>
-            <tr><td>Miedo al ridículo en clase</td><td>6 de 8</td></tr>
-            <tr><td>Comparación en redes sociales</td><td>5 de 8</td></tr>
-            <tr><td>Reconocimiento del docente</td><td>4 de 8</td></tr>
+            <tr><td>E-01</td><td>«No levanto la mano porque se ríen»</td><td>Miedo al ridículo</td></tr>
+            <tr><td>E-02</td><td>«En mi casa sí hablo, en el aula no»</td><td>Miedo al ridículo</td></tr>
+            <tr><td>E-03</td><td>«Comparo mis notas con lo que veo en redes»</td><td>Comparación social</td></tr>
+            <tr><td>E-04</td><td>«Si el profesor me felicita, me siento capaz»</td><td>Reconocimiento docente</td></tr>
+            <tr><td>E-05</td><td>«Prefiero no participar para no equivocarme»</td><td>Miedo al error</td></tr>
+            <tr><td>E-06</td><td>«Mis amigos me buscan para trabajar en grupo»</td><td>Reconocimiento entre pares</td></tr>
+            <tr><td>E-07</td><td>«En el colegio me siento invisible»</td><td>Reconocimiento docente</td></tr>
+            <tr><td>E-08</td><td>«Me da miedo que se rían de mi forma de hablar»</td><td>Miedo al ridículo</td></tr>
           </tbody>
         </table>
-        <p class="tiny reveal">El producto no es una conclusión: es un <strong>mapa de categorías</strong> y un problema delimitado para el siguiente nivel.</p>
+        <p class="tiny reveal">8 entrevistas · 4 categorías · el producto es un <strong>mapa de categorías</strong>, no una conclusión.</p>
       </div>
       <aside class="side reveal">
         <div class="case">
@@ -226,22 +220,38 @@
         <p class="lede reveal">Un cuestionario de 20 ítems mide la autoestima de 0 a 100 y tres dimensiones. Se describe el grupo completo: una tabla, una media y una desviación estándar.</p>
       </div>
 
-      <div class="stats-row reveal">
-        <div class="stat"><span>Media</span><b id="dMean">—</b></div>
-        <div class="stat"><span>Desviación estándar</span><b id="dSd">—</b></div>
-        <div class="stat"><span>Mínimo</span><b id="dMin">—</b></div>
-        <div class="stat"><span>Máximo</span><b id="dMax">—</b></div>
-        <div class="stat"><span>Bajo 55 puntos</span><b id="dLow">—</b></div>
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="stats-row">
+            <div class="stat"><span>Media</span><b id="dMean">—</b></div>
+            <div class="stat"><span>Desv. estándar</span><b id="dSd">—</b></div>
+            <div class="stat"><span>Mínimo</span><b id="dMin">—</b></div>
+            <div class="stat"><span>Máximo</span><b id="dMax">—</b></div>
+            <div class="stat"><span>Bajo 55</span><b id="dLow">—</b></div>
+          </div>
+          <table class="tbl tbl-dims">
+            <thead><tr><th>Dimensión</th><th>Media</th><th>DE</th><th>Mín.</th><th>Máx.</th><th>Lectura</th></tr></thead>
+            <tbody id="dimTable"></tbody>
+          </table>
+        </div>
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · autoestima</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Total</th><th>Acad.</th><th>Soc.</th><th>Emoc.</th></tr></thead>
+              <tbody id="tblDesc"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Puntajes de 0 a 100</span><b>30 registros</b></div>
+        </aside>
       </div>
-
-      <table class="tbl tbl-dims reveal">
-        <thead><tr><th>Dimensión</th><th>Media</th><th>DE</th><th>Mín.</th><th>Máx.</th><th>Lectura</th></tr></thead>
-        <tbody id="dimTable"></tbody>
-      </table>
 
       <div class="callout reveal">
         <span class="callout-tag">Qué se puede decir</span>
-        <p>«La autoestima promedio del grupo es de <strong id="dSay">—</strong> puntos, con una dimensión académica más baja que la social». Eso es todo. <strong>No</strong> se puede decir todavía si el taller funciona ni qué la causa.</p>
+        <p>«La autoestima promedio del grupo es de <strong id="dSay">—</strong> puntos, con la dimensión académica más baja que la social». Eso es todo. <strong>No</strong> se puede decir todavía si el taller funciona ni qué la causa.</p>
       </div>
     </div>
   </section>
@@ -277,28 +287,51 @@
 
   <!-- 9 -->
   <section class="slide" data-slide="9" data-group="03 · Relacional" data-label="Ejemplo">
-    <div class="wrap split">
-      <div>
+    <div class="wrap">
+      <div class="slide-head">
         <p class="kicker reveal"><span class="num">03</span> Relacional · ejemplo</p>
         <h2 class="reveal">Horas de estudio y rendimiento: <em>r = <span id="rVal">—</span></em></h2>
-        <p class="lede reveal">Con los mismos 30 estudiantes: ¿qué relación existe entre las horas de estudio semanales y la nota final?</p>
-        <div class="stats-row reveal">
-          <div class="stat"><span>Correlación (r)</span><b id="rBig">—</b></div>
-          <div class="stat"><span>Varianza explicada (r²)</span><b id="r2Big">—</b></div>
-          <div class="stat"><span>n</span><b>30</b></div>
-        </div>
-        <div class="keybox reveal">
-          <span class="keybox-tag">Interpretación correcta</span>
-          <p>«Existe una relación positiva y fuerte entre horas de estudio y rendimiento».<br><strong>No</strong> «estudiar más mejora el rendimiento»: eso exige controlar otras variables.</p>
-        </div>
+        <p class="lede reveal">Los mismos 30 estudiantes. ¿Qué relación existe entre las horas de estudio semanales y la nota final? Cada punto es un estudiante.</p>
       </div>
-      <aside class="side reveal">
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="stats-row">
+            <div class="stat"><span>Correlación (r)</span><b id="rBig">—</b></div>
+            <div class="stat"><span>Varianza explicada (r²)</span><b id="r2Big">—</b></div>
+            <div class="stat"><span>n</span><b>30</b></div>
+          </div>
+          <div class="scatter-wrap">
+            <svg id="scatter" viewBox="0 0 320 150" preserveAspectRatio="none" aria-label="Diagrama de dispersión de horas de estudio y nota"></svg>
+          </div>
+          <div class="keybox">
+            <span class="keybox-tag">Interpretación correcta</span>
+            <p>«Existe una relación positiva y fuerte entre horas de estudio y rendimiento».<br><strong>No</strong> «estudiar más mejora el rendimiento»: eso exige controlar otras variables.</p>
+          </div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · horas y nota</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Grupo</th><th>Horas</th><th>Nota</th></tr></thead>
+              <tbody id="tblRel"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Cada fila es un punto del gráfico</span><b>30 registros</b></div>
+        </aside>
+      </div>
+
+      <div class="grid-2 reveal">
         <div class="case">
           <span class="case-tag">Caso real</span>
-          <p><strong>PISA (OCDE).</strong> El índice socioeconómico se asocia con el rendimiento en todos los países participantes. La asociación es robusta y repetida… y no demuestra que el origen cause el puntaje.</p>
+          <p><strong>PISA (OCDE).</strong> Los estudiantes que dedican más tiempo a tareas escolares obtienen mejores resultados, pero la asociación se debilita al controlar el nivel socioeconómico. Esa debilidad es exactamente lo que estudia el nivel explicativo.</p>
         </div>
-        <div class="alert"><b>Alerta</b> r = 0,84 no autoriza a decir «causa». Puede haber una tercera variable: por ejemplo, el número de hermanos.</div>
-      </aside>
+        <div class="alert"><b>Alerta</b> r = <span id="rVal2">0,84</span> no autoriza a decir «causa». Puede haber una tercera variable: por ejemplo, el número de hermanos.</div>
+      </div>
     </div>
   </section>
 
@@ -446,31 +479,51 @@
 
   <!-- 14 -->
   <section class="slide" data-slide="14" data-group="05 · Predictivo" data-label="Ejemplo">
-    <div class="wrap split">
-      <div>
+    <div class="wrap">
+      <div class="slide-head">
         <p class="kicker reveal"><span class="num">05</span> Predictivo · ejemplo</p>
         <h2 class="reveal">¿Quién está en riesgo de <em>reprobar</em>?</h2>
-        <p class="lede reveal">Con asistencia, horas de estudio y autoestima se estima la probabilidad de reprobar de cada estudiante. El modelo no dice por qué: dice <strong>quién necesita ayuda ahora</strong>.</p>
-        <table class="tbl reveal">
-          <thead><tr><th>Estudiante</th><th>Probabilidad de reprobar</th><th>Decisión</th></tr></thead>
-          <tbody>
-            <tr><td>E03</td><td>0,78</td><td>Tutoría inmediata</td></tr>
-            <tr><td>C08</td><td>0,54</td><td>Seguimiento quincenal</td></tr>
-            <tr><td>C03</td><td>0,09</td><td>Sin intervención</td></tr>
-          </tbody>
-        </table>
-        <div class="callout reveal">
-          <span class="callout-tag">Cómo se juzga</span>
-          <p>No por el p-valor, sino por su acierto fuera de muestra: <strong>AUC = 0,81</strong>, con validación cruzada. Un modelo que solo acierta con los datos con que fue construido no sirve.</p>
-        </div>
+        <p class="lede reveal">Con las horas de estudio, la autoestima y la nota actual se calcula un <strong>índice de riesgo</strong> para cada estudiante. El modelo no dice por qué: dice <strong>quién necesita ayuda ahora</strong>.</p>
       </div>
-      <aside class="side reveal">
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <table class="tbl">
+            <thead><tr><th>Riesgo</th><th>Índice</th><th>Decisión</th></tr></thead>
+            <tbody>
+              <tr><td>Alto</td><td>70 – 100</td><td>Tutoría inmediata</td></tr>
+              <tr><td>Medio</td><td>40 – 69</td><td>Seguimiento quincenal</td></tr>
+              <tr><td>Bajo</td><td>0 – 39</td><td>Sin intervención</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-tag">Cómo se juzga</span>
+            <p>No por el p-valor, sino por su acierto fuera de muestra: <strong>AUC = 0,81</strong>, con validación cruzada. Un modelo que solo acierta con los datos con que fue construido no sirve.</p>
+          </div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · riesgo estimado</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Horas</th><th>Autoest.</th><th>Nota</th><th>Riesgo</th></tr></thead>
+              <tbody id="tblPred"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Índice orientativo del modelo</span><b>30 registros</b></div>
+        </aside>
+      </div>
+
+      <div class="grid-2 reveal">
         <div class="case">
-          <span class="case-tag">Diferencia clave</span>
-          <p>El nivel <strong>explicativo</strong> diría: «los hermanos reducen el rendimiento». El <strong>predictivo</strong> dice: «este estudiante tiene 78 % de probabilidad de reprobar». Distinto propósito, distinta métrica.</p>
+          <span class="case-tag">Caso real</span>
+          <p><strong>Georgia State University, GPS Advising.</strong> Un modelo sobre cientos de variables detectaba estudiantes en riesgo y un equipo de tutores intervenía. No explicaba el abandono: lo anticipaba para actuar a tiempo.</p>
         </div>
         <div class="alert"><b>Alerta</b> Predecir no es profecía: es una probabilidad con error. Y un modelo que no se valida fuera de la muestra es solo un recuerdo de los datos.</div>
-      </aside>
+      </div>
     </div>
   </section>
 
@@ -512,14 +565,16 @@
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
         <h2 class="reveal">Que el taller <em>no se quede</em> en un trimestre</h2>
-        <p class="lede reveal">El colegio decide institucionalizar el taller. Ya no se pregunta si funcionó una vez, sino si <strong>sigue funcionando</strong> y a qué costo.</p>
+        <p class="lede reveal">El colegio institucionaliza el taller. Ya no se pregunta si funcionó una vez, sino si <strong>sigue funcionando</strong>. Estos son los seis bimestres de monitoreo.</p>
         <table class="tbl reveal">
-          <thead><tr><th>Fase</th><th>Acción concreta</th><th>Indicador</th></tr></thead>
+          <thead><tr><th>Bimestre</th><th>Autoestima media</th><th>% bajo 55</th><th>Asistencia</th><th>Decisión</th></tr></thead>
           <tbody>
-            <tr><td>Evaluar</td><td>Línea base del primer bimestre</td><td>Autoestima media: 58,9</td></tr>
-            <tr><td>Calibrar</td><td>De 8 a 6 sesiones en 2.º grado</td><td>Asistencia ≥ 85 %</td></tr>
-            <tr><td>Controlar</td><td>Monitoreo bimestral en 3 secciones</td><td>Media ≥ 66 sostenida</td></tr>
-            <tr><td>Aceptar</td><td>Validar el protocolo para todo el nivel</td><td>Criterio cumplido 2 años</td></tr>
+            <tr><td>B1 · línea base</td><td>58,9</td><td>33 %</td><td>—</td><td>Iniciar taller</td></tr>
+            <tr><td>B2</td><td>64,1</td><td>21 %</td><td>88 %</td><td>Mantener 8 sesiones</td></tr>
+            <tr><td>B3</td><td>68,2</td><td>9 %</td><td>86 %</td><td>Meta alcanzada</td></tr>
+            <tr><td>B4</td><td>66,9</td><td>11 %</td><td>81 %</td><td>Calibrar: 6 sesiones</td></tr>
+            <tr><td>B5</td><td>67,4</td><td>10 %</td><td>87 %</td><td>Consolidar</td></tr>
+            <tr><td>B6</td><td>67,8</td><td>9 %</td><td>89 %</td><td>Aceptar el protocolo</td></tr>
           </tbody>
         </table>
       </div>

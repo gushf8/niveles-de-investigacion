@@ -107,6 +107,36 @@
   const M1 = ols(DATA.map(d => [1, d.horas]), Y);
   const M2 = ols(DATA.map(d => [1, d.horas, d.gasto, d.herm]), Y);
 
+  /* ---------------- pirámide de niveles ---------------- */
+  const PYRAMID = [
+    { n: "Aplicativo",   a: "Mejora continua", c: "#059669" },
+    { n: "Predictivo",   a: "Modelamiento",    c: "#10b981" },
+    { n: "Explicativo",  a: "Multivariado",    c: "#7c3aed" },
+    { n: "Relacional",   a: "Bivariado",       c: "#a78bfa" },
+    { n: "Descriptivo",  a: "Univariado",      c: "#0891b2" },
+    { n: "Exploratorio", a: "No estadístico",  c: "#22d3ee" }
+  ];
+
+  const pyramidEl = $("#pyramid");
+  if (pyramidEl) {
+    const W = 240, H = 300, CX = 120, HALF = 118, step = H / PYRAMID.length;
+    const bands = PYRAMID.map((lvl, i) => {
+      const y0 = i * step, y1 = (i + 1) * step;
+      const h0 = (y0 / H) * HALF, h1 = (y1 / H) * HALF;
+      const pts = CX + "," + y0 + " " + (CX + h0) + "," + y0 + " " +
+                  (CX + h1) + "," + y1 + " " + (CX - h1) + "," + y1 + " " +
+                  (CX - h0) + "," + y0;
+      return '<polygon class="pyr-band" points="' + pts + '" fill="' + lvl.c +
+             '" stroke="#ffffff" stroke-width="2.4" stroke-linejoin="round"></polygon>';
+    }).join("");
+
+    pyramidEl.innerHTML =
+      '<svg class="pyr-svg" viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" aria-hidden="true">' + bands + "</svg>" +
+      '<div class="pyr-legend">' + PYRAMID.map(l =>
+        '<div class="pyr-item"><i style="background:' + l.c + '"></i><div><b>' + l.n + "</b><span>" + l.a + "</span></div></div>"
+      ).join("") + "</div>";
+  }
+
   /* ---------------- deck ---------------- */
   const slides = $$(".slide");
   const total = slides.length;
@@ -283,14 +313,55 @@
         "</td><td>" + fmt(Math.min(...v), 1) + "</td><td>" + fmt(Math.max(...v), 1) +
         "</td><td>" + d.r + "</td></tr>";
     }).join("");
+
+    $("#tblDesc").innerHTML = DATA.map(d =>
+      "<tr><td>" + d.id + "</td><td>" + fmt(d.preT, 1) + "</td><td>" + fmt(d.preA, 1) +
+      "</td><td>" + fmt(d.preS, 1) + "</td><td>" + fmt(d.preE, 1) + "</td></tr>"
+    ).join("");
   }
 
   /* ---------------- página 9: relacional ---------------- */
   if ($("#rVal")) {
     const r = pearson(DATA.map(d => d.horas), DATA.map(d => d.rend));
     $("#rVal").textContent = fmt(r, 2);
+    $("#rVal2").textContent = fmt(r, 2);
     $("#rBig").textContent = fmt(r, 2);
     $("#r2Big").textContent = fmt(r * r, 2);
+
+    $("#tblRel").innerHTML = DATA.map(d =>
+      "<tr><td>" + d.id + '</td><td><span class="grp ' + (d.g === "Control" ? "c" : "e") + '">' +
+      (d.g === "Control" ? "Control" : "Exper.") + "</span></td><td>" + fmt(d.horas, 1) +
+      "</td><td>" + fmt(d.rend, 1) + "</td></tr>"
+    ).join("");
+
+    // dispersión + recta de mínimos cuadrados
+    const svg = $("#scatter");
+    if (svg) {
+      const W = 320, H = 150, PAD = 10;
+      const xs = DATA.map(d => d.horas), ys = DATA.map(d => d.rend);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs);
+      const y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const px = v => PAD + ((v - x0) / (x1 - x0)) * (W - 2 * PAD);
+      const py = v => H - PAD - ((v - y0) / (y1 - y0)) * (H - 2 * PAD);
+
+      const grid = [0.25, 0.5, 0.75].map(f =>
+        '<line x1="' + PAD + '" y1="' + (PAD + f * (H - 2 * PAD)) + '" x2="' + (W - PAD) +
+        '" y2="' + (PAD + f * (H - 2 * PAD)) + '" stroke="rgba(15,23,42,.09)" stroke-width="1"/>'
+      ).join("");
+
+      const dots = DATA.map(d =>
+        '<circle cx="' + px(d.horas).toFixed(1) + '" cy="' + py(d.rend).toFixed(1) +
+        '" r="3" fill="' + (d.g === "Control" ? "#0891b2" : "#7c3aed") +
+        '" fill-opacity=".62" stroke="#fff" stroke-width=".9"/>'
+      ).join("");
+
+      const sl = ols(DATA.map(d => [1, d.horas]), DATA.map(d => d.rend)).b;
+      const line = '<line x1="' + px(x0) + '" y1="' + py(sl[0] + sl[1] * x0) +
+        '" x2="' + px(x1) + '" y2="' + py(sl[0] + sl[1] * x1) +
+        '" stroke="#1d4ed8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>';
+
+      svg.innerHTML = grid + line + dots;
+    }
   }
 
   /* ---------------- página 11: pretest–postest ---------------- */
@@ -423,6 +494,17 @@
     }));
 
     renderBeta();
+  }
+
+  /* ---------------- página 14: riesgo estimado ---------------- */
+  const tblPred = $("#tblPred");
+  if (tblPred) {
+    tblPred.innerHTML = DATA.map(d => {
+      const score = 0.45 * (d.horas / 17) + 0.25 * (d.preT / 100) + 0.30 * (d.rend / 20);
+      const risk = Math.max(0, Math.min(100, Math.round((1 - score) * 100)));
+      return "<tr><td>" + d.id + "</td><td>" + fmt(d.horas, 1) + "</td><td>" + fmt(d.preT, 1) +
+        "</td><td>" + fmt(d.rend, 1) + '</td><td class="' + (risk >= 70 ? "risk-high" : "") + '">' + risk + "</td></tr>";
+    }).join("");
   }
 
   /* ---------------- quiz ---------------- */

@@ -25,6 +25,19 @@ La **barra del header** es la navegación: un clic en el nombre del nivel lleva 
 
 **Regresión con betas.** Mismos 30 estudiantes: horas de estudio, gasto en materiales y número de hermanos sobre el rendimiento. El modelo 1 (solo horas) da β = 0,64; el modelo 2 (con controles) baja a 0,48 y añade gasto (0,008) y hermanos (−0,47). Los coeficientes se calculan por mínimos cuadrados en el navegador.
 
+## Base de datos en cada nivel
+
+| Nivel | Qué se ve |
+|---|---|
+| Exploratorio | Matriz de 8 entrevistas (código, extracto, categoría) |
+| Descriptivo | 30 registros de autoestima + media, DE, mínimo, máximo |
+| Relacional | 30 pares horas–nota, dispersión, recta y r = 0,84 |
+| Explicativo | 30 casos de pretest–postest + 30 casos de regresión |
+| Predictivo | 30 casos con índice de riesgo por estudiante |
+| Aplicativo | Monitoreo de 6 bimestres con indicadores |
+
+La portada incluye una **pirámide de niveles** (base Exploratorio, cima Aplicativo) en cyan, violeta y esmeralda.
+
 ## Estructura
 
 ```
