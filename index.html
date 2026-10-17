@@ -37,12 +37,12 @@
       <div>
         <p class="kicker reveal">Metodología de la Investigación · Tarea 1</p>
         <h1 class="reveal">Niveles de <em>investigación</em></h1>
-        <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
+        <p class="lede reveal">Del primer acercamiento al fenómeno hasta la intervención que se sostiene en el tiempo. Qué exige cada nivel, con qué se demuestra y qué <strong>no</strong> se puede afirmar todavía.</p>
         <div class="chips reveal">
           <span class="chip">23 páginas</span>
           <span class="chip">6 niveles</span>
           <span class="chip">30 estudiantes</span>
-          <span class="chip">Navegación por niveles</span>
+          <span class="chip">Ejercicios corregidos al instante</span>
         </div>
         <div class="hero-cta reveal">
           <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
@@ -1022,24 +1022,25 @@
   </section>
 
   <!-- ================= CIERRE ================= -->
-  <section class="slide" data-slide="22" data-group="Cierre" data-label="Clasificador">
+  <section class="slide" data-slide="22" data-group="Cierre" data-label="Ejercicios">
     <div class="wrap">
       <p class="kicker reveal">Ponte a prueba</p>
-      <h2 class="reveal">Clasificador de <em>niveles</em></h2>
-      <p class="lede reveal">Ocho situaciones del caso. Elija el nivel: la retroalimentación explica el criterio.</p>
+      <h2 class="reveal">Completá el <em>análisis</em></h2>
+      <p class="lede reveal">Elija la prueba, decida sobre la hipótesis nula y concluya. Cada espacio se corrige al instante.</p>
 
-      <div class="quiz reveal" id="quiz">
-        <div class="quiz-head">
-          <span class="quiz-count"><b id="qIndex">1</b> / 8</span>
-          <div class="quiz-progress"><span id="qProgress"></span></div>
-          <span class="quiz-score">Aciertos: <b id="qScore">0</b></span>
+      <div class="ex reveal" id="ex">
+        <div class="ex-head">
+          <span class="ex-num"><b id="exIndex">1</b> / 4</span>
+          <div class="ex-progress"><span id="exProgress"></span></div>
+          <span class="ex-score">Correctos: <b id="exScore">0</b></span>
         </div>
-        <p class="quiz-q" id="qText">—</p>
-        <div class="quiz-options" id="qOptions"></div>
-        <div class="quiz-feedback" id="qFeedback" aria-live="polite"></div>
-        <div class="quiz-actions">
-          <button class="btn btn-ghost" id="qReset">Reiniciar</button>
-          <button class="btn btn-primary" id="qNext" disabled>Siguiente <span aria-hidden="true">→</span></button>
+        <p class="ex-case" id="exCase">—</p>
+        <div class="ex-body" id="exBody"></div>
+        <div class="ex-fix" id="exFix" aria-live="polite"></div>
+        <div class="ex-actions">
+          <button class="btn btn-ghost" id="exReset">Reiniciar</button>
+          <button class="btn btn-primary" id="exCheck">Verificar</button>
+          <button class="btn btn-primary" id="exNext" disabled>Siguiente <span aria-hidden="true">→</span></button>
         </div>
       </div>
     </div>

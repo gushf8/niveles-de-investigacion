@@ -741,85 +741,140 @@
     }).join("");
   }
 
-  /* ---------------- quiz ---------------- */
-  const QUIZ = [
-    { q: "¿Cuál es la autoestima promedio de los 30 estudiantes?", a: "Descriptivo", why: "Una sola variable, análisis univariado: media y desviación estándar." },
-    { q: "¿Cómo viven la autoestima los estudiantes de un colegio donde nunca se investigó?", a: "Exploratorio", why: "Comprender significados con análisis no estadístico: nivel exploratorio." },
-    { q: "¿Qué relación existe entre horas de estudio y rendimiento?", a: "Relacional", why: "Dos variables, análisis bivariado: correlación. Relación, no causa." },
-    { q: "¿El taller produjo la mejora de la autoestima, comparado con el grupo sin taller?", a: "Explicativo", why: "Hay intervención y grupo de comparación: inferencia causal." },
-    { q: "¿Qué probabilidad tiene cada estudiante de reprobar?", a: "Predictivo", why: "Se estima una probabilidad individual con un modelo; no se busca la causa." },
-    { q: "¿La mejora del taller se mantiene dos años después?", a: "Aplicativo", why: "Evaluar y sostener una intervención con indicadores es nivel aplicativo." },
-    { q: "Se aplica t de Student para comparar la autoestima de dos secciones. ¿Qué nivel?", a: "Relacional", why: "Comparar grupos es una técnica bivariada del nivel relacional." },
-    { q: "Se controla el número de hermanos para aislar el efecto de las horas. ¿Qué nivel?", a: "Explicativo", why: "El control de variables extrañas mediante análisis multivariado define el explicativo." }
+  /* ---------------- ejercicios de completar ---------------- */
+  const EX = [
+    {
+      case: "Se comparan los minutos de uso del teléfono entre dos grupos independientes: control y experimental. La variable no sigue una distribución normal.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los dos grupos. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      blanks: {
+        test: { opts: ["U de Mann-Whitney", "t de Student independiente", "ANOVA de un factor", "χ² de homogeneidad"], a: "U de Mann-Whitney" },
+        var: { opts: ["el tiempo de uso del teléfono", "la autoestima", "el rendimiento académico"], a: "el tiempo de uso del teléfono" },
+        h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
+        p: { opts: ["0,32", "0,05", "0,95"], a: "0,32" },
+        sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
+      }
+    },
+    {
+      case: "Se comparan las horas de ocio entre quienes trabajan y quienes no. La variable es ordinal y no se distribuye normalmente.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los grupos de la variable situación laboral. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      blanks: {
+        test: { opts: ["t de Student independiente", "U de Mann-Whitney", "Friedman", "χ² de bondad"], a: "U de Mann-Whitney" },
+        var: { opts: ["las horas de ocio", "la nota final", "la autoestima"], a: "las horas de ocio" },
+        h0: { opts: ["rechazada", "aceptada"], a: "rechazada" },
+        p: { opts: ["0,04", "0,40", "0,98"], a: "0,04" },
+        sig: { opts: ["significativas", "no significativas"], a: "significativas" }
+      }
+    },
+    {
+      case: "Se midió la autoestima de los mismos 30 estudiantes antes y después del taller. La variable es numérica y normal.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre las dos mediciones. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      blanks: {
+        test: { opts: ["t de Student para muestras relacionadas", "t de Student independiente", "U de Mann-Whitney", "ANOVA de un factor"], a: "t de Student para muestras relacionadas" },
+        var: { opts: ["la autoestima", "el grupo", "la asistencia"], a: "la autoestima" },
+        h0: { opts: ["rechazada", "aceptada"], a: "rechazada" },
+        p: { opts: ["0,003", "0,30", "0,97"], a: "0,003" },
+        sig: { opts: ["significativas", "no significativas"], a: "significativas" }
+      }
+    },
+    {
+      case: "Se quiere saber si la proporción con autoestima alta difiere entre quienes llevaron el taller y quienes no. Ambas variables son categóricas.",
+      text: "Se realizó la prueba [[test]] para estudiar si había diferencias en [[var]] entre los grupos. Los resultados mostraron que la hipótesis nula fue [[h0]] (p = [[p]]), por lo tanto las diferencias encontradas fueron [[sig]].",
+      blanks: {
+        test: { opts: ["χ² de homogeneidad", "t de Student independiente", "Wilcoxon", "ANOVA de medidas repetidas"], a: "χ² de homogeneidad" },
+        var: { opts: ["la proporción con autoestima alta", "la media de autoestima", "las horas de estudio"], a: "la proporción con autoestima alta" },
+        h0: { opts: ["aceptada", "rechazada"], a: "aceptada" },
+        p: { opts: ["0,068", "0,006", "0,68"], a: "0,068" },
+        sig: { opts: ["no significativas", "significativas"], a: "no significativas" }
+      }
+    }
   ];
-  const LEVELS = ["Exploratorio", "Descriptivo", "Relacional", "Explicativo", "Predictivo", "Aplicativo"];
 
-  if ($("#quiz")) {
-    let qi = 0, score = 0, answered = false;
-    const qText = $("#qText"), qOpts = $("#qOptions"), qFb = $("#qFeedback"),
-          qIdx = $("#qIndex"), qScore = $("#qScore"), qProg = $("#qProgress"), qNext = $("#qNext");
+  if ($("#ex")) {
+    let idx = 0, score = 0, checked = false;
 
-    function renderQ() {
-      if (qi >= QUIZ.length) {
-        qText.textContent = "Resultado final";
-        qOpts.innerHTML = "";
-        qFb.innerHTML = "<b>" + score + " de " + QUIZ.length + "</b> correctas. " +
-          (score === QUIZ.length
-            ? "Domina el criterio: el análisis decide el nivel."
-            : "Repase relacional–correlacional y la frontera explicativo–predictivo.");
-        qNext.textContent = "Reiniciar";
-        qNext.disabled = false;
-        qNext.onclick = reset;
-        qIdx.textContent = QUIZ.length;
-        qProg.style.width = "100%";
+    function renderEx() {
+      const e = EX[idx];
+      $("#exIndex").textContent = idx + 1;
+      $("#exProgress").style.width = ((idx) / EX.length) * 100 + "%";
+      $("#exCase").textContent = e.case;
+      $("#exFix").textContent = "";
+      $("#exNext").disabled = true;
+      $("#exNext").textContent = idx === EX.length - 1 ? "Ver resultado" : "Siguiente →";
+      $("#exCheck").disabled = false;
+      checked = false;
+
+      let html = "";
+      let last = 0;
+      const re = /\[\[(\w+)\]\]/g;
+      let m;
+      while ((m = re.exec(e.text)) !== null) {
+        html += e.text.slice(last, m.index);
+        const key = m[1];
+        const b = e.blanks[key];
+        html += '<select class="ex-sel" data-k="' + key + '"><option value="">—</option>' +
+          b.opts.map(o => '<option value="' + o + '">' + o + "</option>").join("") + "</select>";
+        last = re.lastIndex;
+      }
+      html += e.text.slice(last);
+      $("#exBody").innerHTML = html;
+    }
+
+    function verifyEx() {
+      if (checked) return;
+      checked = true;
+      const e = EX[idx];
+      let allOk = true;
+      const fixes = [];
+      $$(".ex-sel").forEach(sel => {
+        const b = e.blanks[sel.dataset.k];
+        const ok = sel.value === b.a;
+        sel.classList.toggle("ok", ok);
+        sel.classList.toggle("err", !ok);
+        if (!ok) {
+          allOk = false;
+          fixes.push("<b>" + sel.dataset.k + "</b>: " + b.a);
+        }
+      });
+      if (allOk) {
+        score++;
+        $("#exScore").textContent = score;
+        $("#exFix").innerHTML = '<span class="ex-good">Correcto: el análisis está bien planteado.</span>';
+      } else {
+        $("#exFix").innerHTML = '<span class="ex-bad">Revisar → </span>' + fixes.join(" · ");
+      }
+      $("#exCheck").disabled = true;
+      $("#exNext").disabled = false;
+    }
+
+    function nextEx() {
+      if (idx === EX.length - 1) {
+        $("#exCase").textContent = "Resultado final";
+        $("#exBody").innerHTML = '<p style="font-size:1rem;line-height:1.6">Acertaste <b>' + score + " de " + EX.length +
+          "</b> ejercicios. " + (score === EX.length
+            ? "Ya distingue qué prueba corresponde a cada diseño y cómo se lee el p-valor."
+            : "Repasá la página de pruebas y diseños: la clave es el tipo de variable y si las muestras son independientes o relacionadas.") + "</p>";
+        $("#exFix").textContent = "";
+        $("#exNext").disabled = true;
+        $("#exCheck").disabled = true;
+        $("#exReset").textContent = "Empezar de nuevo";
         return;
       }
-
-      answered = false;
-      const item = QUIZ[qi];
-      qText.textContent = item.q;
-      qFb.textContent = "";
-      qIdx.textContent = qi + 1;
-      qProg.style.width = (qi / QUIZ.length) * 100 + "%";
-      qNext.disabled = true;
-      qNext.textContent = "Siguiente →";
-      qNext.onclick = () => { qi++; renderQ(); };
-
-      qOpts.innerHTML = "";
-      LEVELS.forEach(lvl => {
-        const b = document.createElement("button");
-        b.className = "opt";
-        b.textContent = lvl;
-        b.addEventListener("click", () => answer(b, lvl, item));
-        qOpts.appendChild(b);
-      });
+      idx++;
+      renderEx();
     }
 
-    function answer(btn, lvl, item) {
-      if (answered) return;
-      answered = true;
-      const ok = lvl === item.a;
-      if (ok) score++;
-      $$(".opt", qOpts).forEach(b => {
-        b.disabled = true;
-        if (b.textContent === item.a) b.classList.add("correct");
-      });
-      if (!ok) btn.classList.add("wrong");
-      qScore.textContent = score;
-      qFb.innerHTML = (ok ? "<b>Correcto.</b> " : "<b>No exactamente.</b> ") + item.why;
-      qNext.disabled = false;
-    }
+    $("#exCheck").addEventListener("click", verifyEx);
+    $("#exNext").addEventListener("click", nextEx);
+    $("#exReset").addEventListener("click", () => {
+      idx = 0; score = 0; checked = false;
+      $("#exScore").textContent = "0";
+      $("#exReset").textContent = "Reiniciar";
+      renderEx();
+    });
 
-    function reset() {
-      qi = 0; score = 0;
-      qScore.textContent = "0";
-      renderQ();
-      qNext.onclick = () => { qi++; renderQ(); };
-    }
-
-    $("#qReset").addEventListener("click", reset);
-    renderQ();
+    renderEx();
   }
+
 
   /* ---------------- arranque ---------------- */
   window.addEventListener("hashchange", () => {
