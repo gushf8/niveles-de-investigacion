@@ -1,25 +1,29 @@
 # Niveles de investigación — deck interactivo
 
-Presentación web interactiva sobre los **seis niveles de investigación** (Supo, 2025), con foco en el **nivel explicativo**: pretest–postest, coeficientes beta y efectos reales.
+Presentación web sobre los **seis niveles de investigación** (Supo, 2025), con foco en el **nivel explicativo**: pretest–postest, coeficientes beta y una **base de datos simulada de 30 casos** que se usa en vivo.
 
-- 15 diapositivas, navegación con teclado, índice y enlaces profundos (`#/8`).
-- Simulador de **diferencia de diferencias** (pretest–postest con y sin grupo control).
-- Simulador de **regresión**: la beta de horas de estudio cambia al introducir controles.
+Tema claro con glassmorphism, tipografía sans (Inter) y navegación tipo presentación.
+
+## Qué incluye
+
+- 15 diapositivas con navegación por teclado, índice (`M`), barra de progreso y enlaces profundos (`#/8`).
+- **Base de datos de 30 estudiantes** (15 control / 15 experimental) visible al costado de la explicación.
+- **Diferencia de diferencias** calculada en vivo sobre esa base: efecto ingenuo vs. efecto neto, con interruptor para quitar el grupo control.
+- **Regresión con betas** calculada en vivo (mínimos cuadrados): la beta de *horas* cae de 0,92 a 0,48 al introducir asistencia y NSE.
+- Selección de fila para comparar predicción vs. valor real.
 - Clasificador de 8 casos con retroalimentación.
-- Tema claro/oscuro, responsive, respeta `prefers-reduced-motion`.
+- Tema claro, responsive, respeta `prefers-reduced-motion`.
 
 ## Estructura
 
 ```
 index.html            deck completo
-assets/styles.css     sistema visual (2 temas)
-assets/app.js         navegación, simuladores, quiz
+assets/styles.css     sistema visual (glass, tema claro)
+assets/app.js         navegación, base de datos, regresión, quiz
 vercel.json           configuración de despliegue estático
 ```
 
 ## Local
-
-Abrir `index.html` en el navegador, o servirlo:
 
 ```bash
 npx serve .
@@ -27,11 +31,11 @@ npx serve .
 
 ## Desplegar en Vercel
 
-**Opción A — desde el panel (recomendada):**
+**Opción A — panel (recomendada):**
 
-1. Entrar a <https://vercel.com/new>
-2. Importar el repositorio de GitHub `niveles-de-investigacion`.
-3. Framework preset: **Other**. Build command: vacío. Output directory: `.` (raíz).
+1. <https://vercel.com/new>
+2. Importar `niveles-de-investigacion`.
+3. Framework preset: **Other**. Build command: vacío. Output directory: `.`
 4. Deploy.
 
 **Opción B — CLI:**
@@ -52,7 +56,7 @@ vercel --prod
 | Niveles 5–6 | 11–12 |
 | Escalera, quiz y cierre | 13–15 |
 
-Los valores de los simuladores son ilustrativos y están construidos para enseñar el criterio; los casos citados remiten a sus fuentes originales.
+La base de datos es **simulada** y se usa solo con fines didácticos: los coeficientes se recalculan a partir de esas 30 filas, de modo que la tabla y los resultados siempre coinciden. Los casos citados (Proyecto STAR, aspirina, Mincer, Hanushek, Georgia State, Six Sigma) remiten a sus fuentes originales.
 
 ## Referencias
 
