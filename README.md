@@ -6,7 +6,7 @@ Tema claro con glassmorphism, tipografía Inter y **navegación por niveles** de
 
 ## Cómo está organizado
 
-La **barra del header** es la navegación: cada nivel muestra sus 2-3 páginas al pasar el cursor o hacer clic. Siempre visible, sin ventanas emergentes.
+La **barra del header** es la navegación: un clic en el nombre del nivel lleva directo a su página de teoría. Las páginas siguientes de ese nivel (ejemplo, taller, betas) se recorren con `←` `→` o con la barra inferior. Sin menús desplegables.
 
 | Nivel | Páginas |
 |---|---|

@@ -136,7 +136,6 @@
     active.scrollTop = 0;
     const gi = slideGroup[index];
     $$(".ln-item").forEach((it, i) => it.classList.toggle("is-active", i === gi));
-    $$(".ln-link").forEach(b => b.classList.toggle("is-current", +b.dataset.n === index));
     $("#topPage").textContent = String(num).padStart(2, "0") + " / " + total;
     document.title = (active.dataset.label || "Niveles") + " · " + (active.dataset.group || "");
 
@@ -171,7 +170,6 @@
       case "ArrowLeft":  case "PageUp":  e.preventDefault(); prev(); break;
       case "Home": e.preventDefault(); goTo(1); break;
       case "End":  e.preventDefault(); goTo(total); break;
-      case "Escape": closeAll(); break;
     }
   });
 
@@ -207,47 +205,26 @@
     slideGroup[i] = gi;
   });
 
-  const caret = '<svg class="ln-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  const caret = "";
 
   nav.innerHTML = groups.map((g, gi) => {
     const code = g.name.slice(0, 2);
     const isLevel = /^\d/.test(code);
     const num = isLevel ? code : "";
     const title = isLevel ? g.name.slice(4).trim() : g.name;
-    return '<div class="ln-item' + (isLevel ? "" : " is-plain") + '" data-g="' + gi + '">' +
-      '<button class="ln-trigger" title="Ir a la teoría de ' + title + '">' +
+    return '<div class="ln-item' + (isLevel ? "" : " is-plain") + '" data-g="' + gi + '" data-first="' + g.items[0].n + '">' +
+      '<button class="ln-trigger" title="Ir a ' + title + '">' +
         (num ? '<span class="ln-num">' + num + "</span>" : "") +
         '<span class="ln-name">' + title + "</span>" + caret +
       "</button>" +
-      '<div class="ln-menu" role="menu">' +
-        g.items.map(it =>
-          '<button class="ln-link" role="menuitem" data-n="' + it.n + '">' + it.label + "</button>"
-        ).join("") +
-      "</div>" +
     "</div>";
   }).join("");
 
-  function closeAll() {
-    $$(".ln-item").forEach(it => it.classList.remove("is-open"));
-  }
-
   nav.addEventListener("click", e => {
-    const link = e.target.closest(".ln-link");
-    if (link) {
-      goTo(+link.dataset.n + 1);
-      closeAll();
-      return;
-    }
     const trigger = e.target.closest(".ln-trigger");
     if (!trigger) return;
-    const gi = +trigger.parentElement.dataset.g;
-    const first = groups[gi].items[0].n;
-    goTo(first + 1);
-    closeAll();
-  });
-
-  document.addEventListener("click", e => {
-    if (!e.target.closest(".ln-item")) closeAll();
+    const item = trigger.parentElement;
+    goTo(+item.dataset.first + 1);
   });
 
   /* ---------------- filtro rápido del rail ---------------- */
