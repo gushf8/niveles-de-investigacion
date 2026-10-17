@@ -258,7 +258,7 @@
   });
 
   /* ---------------- filtro rápido del rail ---------------- */
-  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 15, aplicativo: 17 };
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 11, predictivo: 15, aplicativo: 18 };
   $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
 
   /* ---------------- verbos ---------------- */
@@ -625,7 +625,27 @@
     prophet: { name:"Prophet", short:"Prophet", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · tendencia y estacionalidad", tipo:"Paramétrica", variable:"Serie temporal",
       q:"¿Cuál será el valor futuro de la serie?", ej:"Proyección de matrícula con feriados y vacaciones" },
     vvar: { name:"VAR (vectores autorregresivos)", short:"VAR", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · varias series", tipo:"Paramétrica", variable:"Varias series temporales",
-      q:"¿Cómo se influyen mutuamente varias series en el tiempo?", ej:"Matrícula y deserción mes a mes" }
+      q:"¿Cómo se influyen mutuamente varias series en el tiempo?", ej:"Matrícula y deserción mes a mes" },
+    tree: { name:"Árbol de decisión", short:"Árbol", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Qué reglas separan mejor las clases?", ej:"Si falta más de 20 % y estudia menos de 5 h, riesgo alto",
+      nota:"Muy interpretable, pero se sobreajusta si no se poda." },
+    rf: { name:"Random Forest", short:"Random Forest", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · conjunto de árboles", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Cuál es la clase más votada por cientos de árboles?", ej:"Riesgo de reprobar a partir de asistencia, horas y autoestima",
+      nota:"Robusto y estable; entrega importancia de variables." },
+    gbm: { name:"Gradient Boosting (XGBoost / LightGBM)", short:"Boosting", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · boosting", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Qué modelo maximiza el acierto fuera de muestra?", ej:"Mejor AUC en la predicción de abandono",
+      nota:"Suele ganar en datos tabulares; menos interpretable." },
+    svm: { name:"Máquinas de vectores de soporte (SVM)", short:"SVM", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · margen máximo", tipo:"Aprendizaje automático", variable:"Predictores numéricos escalados",
+      q:"¿Qué frontera separa mejor las clases?", ej:"Pocos casos y muchas variables", nota:"Requiere escalar las variables." },
+    knn: { name:"k vecinos más cercanos (kNN)", short:"kNN", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · instancias", tipo:"Aprendizaje automático", variable:"Predictores numéricos escalados",
+      q:"¿A qué clase se parecen más los vecinos de este caso?", ej:"Estudiantes con perfil similar que reprobaron",
+      nota:"Simple e intuitivo; sufre con muchas variables." },
+    nb: { name:"Naive Bayes", short:"Naive Bayes", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · probabilístico", tipo:"Aprendizaje automático", variable:"Predictores categóricos o texto",
+      q:"¿Qué clase es más probable dadas las características?", ej:"Clasificar comentarios de tutoría por riesgo",
+      nota:"Asume independencia entre predictores; funciona bien en texto." },
+    mlp: { name:"Red neuronal (perceptrón multicapa)", short:"Red neuronal", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · red profunda", tipo:"Aprendizaje automático", variable:"Predictores numéricos",
+      q:"¿Qué patrón no lineal separa las clases?", ej:"Grandes volúmenes de datos de plataformas educativas",
+      nota:"Necesita muchos datos; es una caja negra." }
   };
 
   const MATRIX = [
@@ -685,7 +705,8 @@
     { row: "Correlación", sub: "nivel relacional", items: ["pearson", "spearman", "kendall", "biserial"] },
     { row: "Normalidad", sub: "supuesto previo, no es nivel", items: ["shapiro", "ks", "anderson"] },
     { row: "Regresión", sub: "explicativo o predictivo", items: ["reg_simple", "reg_multiple", "reg_log", "reg_poisson", "cox"] },
-    { row: "Series de tiempo", sub: "nivel predictivo", items: ["arima", "holt", "prophet", "vvar"] }
+    { row: "Series de tiempo", sub: "nivel predictivo", items: ["arima", "holt", "prophet", "vvar"] },
+    { row: "Clasificación", sub: "nivel predictivo · ML", items: ["tree", "rf", "gbm", "svm", "knn", "nb", "mlp"] }
   ];
 
   if ($("#block2")) {

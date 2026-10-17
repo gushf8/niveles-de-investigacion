@@ -39,7 +39,7 @@
         <h1 class="reveal">Niveles de <em>investigación</em></h1>
         <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
         <div class="chips reveal">
-          <span class="chip">20 páginas</span>
+          <span class="chip">21 páginas</span>
           <span class="chip">6 niveles</span>
           <span class="chip">30 estudiantes</span>
           <span class="chip">Navegación por niveles</span>
@@ -644,7 +644,7 @@
 
       <div class="test-tabs reveal">
         <button class="tt is-active" data-block="1" role="tab">Comparación de grupos</button>
-        <button class="tt" data-block="2" role="tab">Correlación · regresión · series</button>
+        <button class="tt" data-block="2" role="tab">Correlación · modelos · series</button>
       </div>
 
       <div class="test-layout reveal">
@@ -750,8 +750,75 @@
     </div>
   </section>
 
+  <!-- 05C · modelos de clasificación -->
+  <section class="slide" data-slide="17" data-group="05 · Predictivo" data-label="Modelos de clasificación">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · modelos</p>
+        <h2 class="reveal">Los modelos de <em>clasificación</em>, en orden de uso</h2>
+        <p class="lede reveal">Clasificar es predecir una <strong>categoría</strong>: aprueba o reprueba, deserta o se queda, en riesgo o sin riesgo. Estos son los modelos que se usan, del más simple al más potente.</p>
+      </div>
+
+      <div class="model-grid reveal">
+        <div class="model-card">
+          <span class="mo-n">01</span>
+          <h3>Regresión logística</h3>
+          <p>El punto de partida. Devuelve probabilidades y sus coeficientes se leen como odds ratios.</p>
+          <span class="mo-use">Cuando necesitas interpretar</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">02</span>
+          <h3>Árbol de decisión</h3>
+          <p>Reglas legibles: «si falta más de 20 % y estudia menos de 5 h, riesgo alto». Se sobreajusta con facilidad.</p>
+          <span class="mo-use">Cuando necesitas explicar la regla</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">03</span>
+          <h3>Random Forest</h3>
+          <p>Cientos de árboles que votan. Robusto, tolera datos sucios y entrega importancia de variables.</p>
+          <span class="mo-use">Uso general en datos tabulares</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">04</span>
+          <h3>Gradient Boosting</h3>
+          <p>XGBoost, LightGBM, CatBoost. Suele ganar en tabulares; más potente y menos interpretable.</p>
+          <span class="mo-use">Cuando buscas la mejor métrica</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">05</span>
+          <h3>Máquinas de vectores (SVM)</h3>
+          <p>Traza el margen que mejor separa las clases. Bueno con pocos casos y muchas variables.</p>
+          <span class="mo-use">Muestras pequeñas, muchas variables</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">06</span>
+          <h3>k vecinos (kNN)</h3>
+          <p>Clasifica según los casos más parecidos. Simple e intuitivo; exige escalar las variables.</p>
+          <span class="mo-use">Para entender la idea de similitud</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">07</span>
+          <h3>Naive Bayes</h3>
+          <p>Rápido y sorprendentemente bueno con texto. Asume independencia entre predictores.</p>
+          <span class="mo-use">Textos y datos de alta dimensión</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">08</span>
+          <h3>Red neuronal (MLP)</h3>
+          <p>Capta relaciones no lineales complejas. Necesita muchos datos y es una caja negra.</p>
+          <span class="mo-use">Muchos datos, patrones complejos</span>
+        </div>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Cómo se elige y se juzga</span>
+        <p>No por el p-valor: se separa <strong>entrenamiento / validación / prueba</strong>, se usa <strong>validación cruzada</strong> y se reporta <strong>AUC-ROC</strong>, exactitud, sensibilidad, especificidad y F1, con su <strong>matriz de confusión</strong>. Con clases desbalanceadas (80 % aprueba, 20 % reprueba), la exactitud engaña: un modelo que dice «todos aprueban» acierta el 80 %.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= 06 APLICATIVO ================= -->
-  <section class="slide" data-slide="17" data-group="06 · Aplicativo" data-label="Teoría">
+  <section class="slide" data-slide="18" data-group="06 · Aplicativo" data-label="Teoría">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · teoría</p>
@@ -784,7 +851,7 @@
   </section>
 
   <!-- 16 -->
-  <section class="slide" data-slide="18" data-group="06 · Aplicativo" data-label="Ejemplo">
+  <section class="slide" data-slide="19" data-group="06 · Aplicativo" data-label="Ejemplo">
     <div class="wrap split">
       <div>
         <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
@@ -821,7 +888,7 @@
   </section>
 
   <!-- ================= CIERRE ================= -->
-  <section class="slide" data-slide="19" data-group="Cierre" data-label="Clasificador">
+  <section class="slide" data-slide="20" data-group="Cierre" data-label="Clasificador">
     <div class="wrap">
       <p class="kicker reveal">Ponte a prueba</p>
       <h2 class="reveal">Clasificador de <em>niveles</em></h2>
@@ -845,7 +912,7 @@
   </section>
 
   <!-- 18 -->
-  <section class="slide" data-slide="20" data-group="Cierre" data-label="Síntesis">
+  <section class="slide" data-slide="21" data-group="Cierre" data-label="Síntesis">
     <div class="wrap">
       <p class="kicker reveal">Para llevarse</p>
       <h2 class="reveal">Cinco ideas que <em>no se olvidan</em></h2>
