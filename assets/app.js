@@ -214,7 +214,7 @@
     const isLevel = /^\d/.test(code);
     const num = isLevel ? code : "";
     const title = isLevel ? g.name.slice(4).trim() : g.name;
-    return '<div class="ln-item" data-g="' + gi + '">' +
+    return '<div class="ln-item' + (isLevel ? "" : " is-plain") + '" data-g="' + gi + '">' +
       '<button class="ln-trigger" aria-expanded="false" aria-haspopup="true"' +
         (ANALYSIS[code] ? ' title="' + title + " · " + ANALYSIS[code] + '"' : "") + ">" +
         (num ? '<span class="ln-num">' + num + "</span>" : "") +
