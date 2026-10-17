@@ -25,13 +25,8 @@
     </span>
     <span class="brand-text">Metodología de la Investigación</span>
   </div>
-  <div class="topbar-actions">
-    <button class="nav-levels" id="menuBtn" aria-haspopup="dialog" aria-label="Abrir navegación por niveles">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-      <span>Niveles</span>
-      <kbd>M</kbd>
-    </button>
-  </div>
+  <nav class="levelnav" id="levelNav" aria-label="Navegación por niveles"></nav>
+  <span class="top-page" id="topPage">01 / 18</span>
 </header>
 
 <main class="deck" id="deck">
@@ -51,10 +46,10 @@
         </div>
         <div class="hero-cta reveal">
           <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
-          <button class="btn btn-ghost" id="heroLevels">Ver los seis niveles</button>
+          <button class="btn btn-ghost" data-goto="11">Ver el taller</button>
         </div>
         <div class="hero-hint reveal">
-          <kbd>←</kbd><kbd>→</kbd> navegar · <kbd>M</kbd> niveles · clic en cualquier página del índice
+          <kbd>←</kbd><kbd>→</kbd> navegar · los niveles están arriba · clic en cada uno para ver sus páginas
         </div>
       </div>
       <aside class="hero-card reveal" aria-hidden="true">
@@ -598,21 +593,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
   </button>
 </nav>
-
-<div class="menu" id="menu" aria-hidden="true">
-  <div class="menu-panel" role="dialog" aria-label="Navegación por niveles">
-    <div class="menu-head">
-      <div>
-        <h3>Navegación por niveles</h3>
-        <p class="menu-sub">Cada nivel tiene su teoría y sus ejemplos. Elija una página.</p>
-      </div>
-      <button class="icon-btn" id="menuClose" aria-label="Cerrar índice">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="nav-groups" id="menuGrid"></div>
-  </div>
-</div>
 
 <script src="assets/app.js" defer></script>
 </body>

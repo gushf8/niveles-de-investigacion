@@ -6,9 +6,9 @@ Tema claro con glassmorphism, tipografía Inter y **navegación por niveles** de
 
 ## Cómo está organizado
 
-El botón **Niveles** del header (o la tecla `M`) abre el índice agrupado: cada nivel tiene sus propias páginas de teoría y ejemplo.
+La **barra del header** es la navegación: cada nivel muestra sus 2-3 páginas al pasar el cursor o hacer clic. Siempre visible, sin ventanas emergentes.
 
-| Grupo | Páginas |
+| Nivel | Páginas |
 |---|---|
 | General | Portada · El criterio · El verbo manda |
 | 01 · Exploratorio | Teoría · Ejemplo (8 entrevistas) |

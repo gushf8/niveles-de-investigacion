@@ -134,7 +134,10 @@
 
     const active = slides[index];
     active.scrollTop = 0;
-    $$(".nav-link").forEach(b => b.classList.toggle("is-current", +b.dataset.n === index));
+    const gi = slideGroup[index];
+    $$(".ln-item").forEach((it, i) => it.classList.toggle("is-active", i === gi));
+    $$(".ln-link").forEach(b => b.classList.toggle("is-current", +b.dataset.n === index));
+    $("#topPage").textContent = String(num).padStart(2, "0") + " / " + total;
     document.title = (active.dataset.label || "Niveles") + " · " + (active.dataset.group || "");
 
     const updateHint = () => {
@@ -160,10 +163,6 @@
   $$("[data-goto]").forEach(b => b.addEventListener("click", () => goTo(+b.dataset.goto)));
 
   document.addEventListener("keydown", e => {
-    if ($("#menu").classList.contains("is-open")) {
-      if (e.key === "Escape") closeMenu();
-      return;
-    }
     const tag = (e.target.tagName || "").toLowerCase();
     if (tag === "input" || tag === "textarea" || tag === "select") return;
 
@@ -172,8 +171,7 @@
       case "ArrowLeft":  case "PageUp":  e.preventDefault(); prev(); break;
       case "Home": e.preventDefault(); goTo(1); break;
       case "End":  e.preventDefault(); goTo(total); break;
-      case "m": case "M": e.preventDefault(); toggleMenu(); break;
-      case "Escape": closeMenu(); break;
+      case "Escape": closeAll(); break;
     }
   });
 
@@ -190,9 +188,8 @@
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) (dx < 0 ? next : prev)();
   });
 
-  /* ---------------- navegación por niveles ---------------- */
-  const menu = $("#menu");
-  const grid = $("#menuGrid");
+  /* ---------------- navegación por niveles en el header ---------------- */
+  const nav = $("#levelNav");
 
   const ANALYSIS = {
     "General": "", "Cierre": "",
@@ -201,45 +198,62 @@
   };
 
   const groups = [];
+  const slideGroup = [];
   slides.forEach((s, i) => {
     const g = s.dataset.group || "General";
-    let grp = groups.find(x => x.name === g);
-    if (!grp) { grp = { name: g, items: [] }; groups.push(grp); }
-    grp.items.push({ n: i + 1, label: s.dataset.label || "Página" });
+    let gi = groups.findIndex(x => x.name === g);
+    if (gi === -1) { groups.push({ name: g, items: [] }); gi = groups.length - 1; }
+    groups[gi].items.push({ n: i, label: s.dataset.label || "Página" });
+    slideGroup[i] = gi;
   });
 
-  grid.innerHTML = groups.map(g => {
+  const caret = '<svg class="ln-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+  nav.innerHTML = groups.map((g, gi) => {
     const code = g.name.slice(0, 2);
-    const num = /^\d/.test(code) ? code : "";
-    const title = num ? g.name.slice(4).trim() : g.name;
-    const analysis = ANALYSIS[code] || "";
-    return '<div class="nav-group">' +
-      '<div class="nav-group-head">' +
-        (num ? "<span>" + num + "</span>" : "") +
-        "<b>" + title + "</b>" +
-        (analysis ? "<em>" + analysis + "</em>" : "") +
+    const isLevel = /^\d/.test(code);
+    const num = isLevel ? code : "";
+    const title = isLevel ? g.name.slice(4).trim() : g.name;
+    return '<div class="ln-item" data-g="' + gi + '">' +
+      '<button class="ln-trigger" aria-expanded="false" aria-haspopup="true"' +
+        (ANALYSIS[code] ? ' title="' + title + " · " + ANALYSIS[code] + '"' : "") + ">" +
+        (num ? '<span class="ln-num">' + num + "</span>" : "") +
+        '<span class="ln-name">' + title + "</span>" + caret +
+      "</button>" +
+      '<div class="ln-menu" role="menu">' +
+        g.items.map(it =>
+          '<button class="ln-link" role="menuitem" data-n="' + it.n + '">' + it.label + "</button>"
+        ).join("") +
       "</div>" +
-      g.items.map(it =>
-        '<button class="nav-link" data-n="' + (it.n - 1) + '">' + it.label + "</button>"
-      ).join("") +
     "</div>";
   }).join("");
 
-  grid.addEventListener("click", e => {
-    const b = e.target.closest(".nav-link");
-    if (!b) return;
-    goTo(+b.dataset.n + 1);
-    closeMenu();
+  function closeAll() {
+    $$(".ln-item").forEach(it => it.classList.remove("is-open"));
+    $$(".ln-trigger").forEach(t => t.setAttribute("aria-expanded", "false"));
+  }
+
+  nav.addEventListener("click", e => {
+    const link = e.target.closest(".ln-link");
+    if (link) {
+      goTo(+link.dataset.n + 1);
+      closeAll();
+      return;
+    }
+    const trigger = e.target.closest(".ln-trigger");
+    if (!trigger) return;
+    const item = trigger.parentElement;
+    const wasOpen = item.classList.contains("is-open");
+    closeAll();
+    if (!wasOpen) {
+      item.classList.add("is-open");
+      trigger.setAttribute("aria-expanded", "true");
+    }
   });
 
-  function openMenu()  { menu.classList.add("is-open"); menu.setAttribute("aria-hidden", "false"); }
-  function closeMenu() { menu.classList.remove("is-open"); menu.setAttribute("aria-hidden", "true"); }
-  function toggleMenu() { menu.classList.contains("is-open") ? closeMenu() : openMenu(); }
-
-  $("#menuBtn").addEventListener("click", openMenu);
-  $("#heroLevels")?.addEventListener("click", openMenu);
-  $("#menuClose").addEventListener("click", closeMenu);
-  menu.addEventListener("click", e => { if (e.target === menu) closeMenu(); });
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".ln-item")) closeAll();
+  });
 
   /* ---------------- filtro rápido del rail ---------------- */
   const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 10, predictivo: 13, aplicativo: 15 };
