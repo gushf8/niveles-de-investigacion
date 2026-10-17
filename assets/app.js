@@ -263,6 +263,7 @@
 
   /* ---------------- verbos ---------------- */
   const VERBS = {
+    explorar:     { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Explorar las prácticas de estudio que aparecen en un contexto donde el tema no ha sido investigado.", note: "Explorar no estima parámetros ni prueba hipótesis: identifica categorías, describe el terreno y formula preguntas." },
     identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las situaciones en que los estudiantes dicen sentirse inseguros en clase." },
     interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar cómo los estudiantes explican su propia autoestima." },
     describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir el nivel de autoestima de los 30 estudiantes y sus tres dimensiones." },
