@@ -642,8 +642,16 @@
         <p class="lede reveal">Elija una prueba de la matriz: verá su nivel, su diseño, si es paramétrica y un ejemplo con los 30 estudiantes.</p>
       </div>
 
+      <div class="test-tabs reveal">
+        <button class="tt is-active" data-block="1" role="tab">Comparación de grupos</button>
+        <button class="tt" data-block="2" role="tab">Correlación · regresión · series</button>
+      </div>
+
       <div class="test-layout reveal">
-        <div class="matrix-wrap" id="matrix"></div>
+        <div class="matrix-wrap">
+          <div id="block1"></div>
+          <div id="block2" hidden></div>
+        </div>
         <aside class="test-detail" id="testDetail"></aside>
       </div>
 

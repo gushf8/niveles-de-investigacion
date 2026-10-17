@@ -581,7 +581,51 @@
       q:"¿Cambió la variable en tres o más mediciones?", ej:"¿La autoestima ordinal cambió en tres bimestres?" },
     anova_mr: { name:"ANOVA de medidas repetidas", short:"ANOVA medidas rep.", np:false, nivel:"Relacional / Explicativo", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"Paramétrica", variable:"Numérica",
       q:"¿Cambian las medias a lo largo del tiempo o entre grupos?", ej:"¿La autoestima media evolucionó en los seis bimestres?",
-      nota:"Es la prueba típica del nivel aplicativo cuando se monitorea una intervención." }
+      nota:"Es la prueba típica del nivel aplicativo cuando se monitorea una intervención." },
+    pearson: { name:"Coeficiente de correlación de Pearson", short:"Pearson", np:false, nivel:"Relacional", diseno:"Transversal · dos variables numéricas", tipo:"Paramétrica", variable:"Numérica × Numérica",
+      q:"¿Cuánto y en qué dirección se relacionan linealmente?", ej:"Horas de estudio y nota: r = 0,84",
+      nota:"Mide relación lineal; no implica causalidad y falla si la relación es curva." },
+    spearman: { name:"rho de Spearman", short:"Spearman", np:true, nivel:"Relacional", diseno:"Transversal · dos variables ordinales", tipo:"No paramétrica", variable:"Ordinal × Ordinal",
+      q:"¿Se relacionan de forma monótona?", ej:"Autoestima ordinal y nota final",
+      nota:"Alternativa a Pearson con escalas ordinales, outliers o distribuciones no normales." },
+    kendall: { name:"tau de Kendall", short:"Kendall", np:true, nivel:"Relacional", diseno:"Transversal · dos variables ordinales", tipo:"No paramétrica", variable:"Ordinal × Ordinal",
+      q:"¿Concuerdan los rangos de las dos variables?", ej:"Orden de mérito de dos evaluadores",
+      nota:"Más estable que Spearman con muestras pequeñas y muchos empates." },
+    biserial: { name:"Correlación punto-biserial", short:"Punto-biserial", np:false, nivel:"Relacional", diseno:"Transversal · numérica y dicotómica", tipo:"Paramétrica", variable:"Numérica × Dicotómica",
+      q:"¿Hay relación entre una variable numérica y una dicotómica?", ej:"Nota final y condición de becario",
+      nota:"Equivale a comparar las medias de dos grupos con una t independiente." },
+    shapiro: { name:"Shapiro-Wilk", short:"Shapiro-Wilk", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se distribuye normal?", ej:"¿La nota final sigue una distribución normal?",
+      nota:"No es un nivel de investigación: es el requisito para elegir entre pruebas paramétricas y no paramétricas." },
+    ks: { name:"Kolmogorov-Smirnov con corrección de Lilliefors", short:"K-S Lilliefors", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se ajusta a una distribución teórica?", ej:"¿Los 30 puntajes de autoestima son normales?",
+      nota:"Se prefiere con muestras grandes; con n < 50 suele usarse Shapiro-Wilk." },
+    anderson: { name:"Anderson-Darling", short:"Anderson-Darling", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se ajusta a una distribución teórica, con más peso en las colas?", ej:"Verificación previa antes de elegir ANOVA",
+      nota:"Sensible a las colas de la distribución; no confirma normalidad, solo no la rechaza." },
+    reg_simple: { name:"Regresión lineal simple", short:"Lineal simple", np:false, nivel:"Explicativo", diseno:"Transversal · una variable independiente", tipo:"Paramétrica", variable:"Y numérica × X numérica",
+      q:"¿Cuánto cambia Y por cada unidad de X?", ej:"Nota = 6,27 + 0,64 × horas de estudio",
+      nota:"Es predictiva si el objetivo es pronosticar; explicativa si busca el efecto controlando otras variables." },
+    reg_multiple: { name:"Regresión lineal múltiple", short:"Lineal múltiple", np:false, nivel:"Explicativo", diseno:"Transversal · varias variables independientes", tipo:"Paramétrica", variable:"Y numérica",
+      q:"¿Cuánto aporta cada X, manteniendo las demás constantes?", ej:"Horas, gasto y hermanos sobre la nota",
+      nota:"Es el modelo de las betas: aísla el aporte de cada factor." },
+    reg_log: { name:"Regresión logística binaria", short:"Logística", np:false, nivel:"Explicativo / Predictivo", diseno:"Transversal o longitudinal · Y dicotómica", tipo:"Paramétrica", variable:"Y dicotómica",
+      q:"¿Qué factores se asocian con la probabilidad del evento?", ej:"Probabilidad de reprobar según horas y autoestima",
+      nota:"Devuelve odds ratios; en el nivel predictivo se evalúa con AUC y validación cruzada." },
+    reg_poisson: { name:"Regresión de Poisson", short:"Poisson", np:false, nivel:"Explicativo / Predictivo", diseno:"Transversal o longitudinal · Y de conteo", tipo:"Paramétrica", variable:"Y de conteo",
+      q:"¿Qué factores explican el número de eventos?", ej:"Número de faltas por estudiante en el semestre" },
+    cox: { name:"Regresión de Cox", short:"Cox", np:false, nivel:"Predictivo", diseno:"Longitudinal · tiempo hasta el evento", tipo:"Paramétrica", variable:"Tiempo hasta el evento",
+      q:"¿Qué factores aceleran o retrasan el evento?", ej:"Tiempo hasta el abandono, con tutoría como predictor",
+      nota:"Modela el riesgo en el tiempo, no una probabilidad puntual." },
+    arima: { name:"ARIMA / SARIMA", short:"ARIMA", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · varios periodos", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el próximo valor de la serie?", ej:"Matrícula mensual de los próximos 12 meses",
+      nota:"Se juzga por RMSE o MAE fuera de muestra, no por p-valores." },
+    holt: { name:"Suavizamiento exponencial (Holt-Winters)", short:"Holt-Winters", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · tendencia y estacionalidad", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el próximo valor, con tendencia y estacionalidad?", ej:"Asistencia mensual con caída en exámenes" },
+    prophet: { name:"Prophet", short:"Prophet", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · tendencia y estacionalidad", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el valor futuro de la serie?", ej:"Proyección de matrícula con feriados y vacaciones" },
+    vvar: { name:"VAR (vectores autorregresivos)", short:"VAR", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · varias series", tipo:"Paramétrica", variable:"Varias series temporales",
+      q:"¿Cómo se influyen mutuamente varias series en el tiempo?", ej:"Matrícula y deserción mes a mes" }
   };
 
   const MATRIX = [
@@ -594,7 +638,7 @@
     { row: "Tres o más medidas", sub: "relacionadas", cells: [["cochran"], ["cochran"], ["friedman"], ["anova_mr"]] }
   ];
 
-  if ($("#matrix")) {
+  if ($("#block1")) {
     const heads = ["", "Nom. dicotómica", "Nom. politómica", "Ordinal", "Numérica"];
     let html = "<table class=\"mtx\"><thead><tr>" + heads.map((h, i) =>
       "<th>" + (i === 0 ? "Variable fija / aleatoria" : h) + "</th>").join("") + "</tr></thead><tbody>";
@@ -613,14 +657,14 @@
         ).join("") + "</tr>";
     });
     html += "</tbody></table>";
-    $("#matrix").innerHTML = html;
+    $("#block1").innerHTML = html;
 
     const panel = $("#testDetail");
     const empty = '<p class="td-empty"><b>Elija una prueba.</b><br><br>Cada botón muestra el nivel, el diseño, si es paramétrica o no, y un ejemplo con los 30 estudiantes.</p>' +
       '<p class="td-ej" style="margin-top:12px"><b>Observación:</b> la misma prueba puede cambiar de nivel según el diseño. Una t relacionada en un estudio transversal es relacional; en un pre–post con intervención, es explicativa.</p>';
     panel.innerHTML = empty;
 
-    $("#matrix").addEventListener("click", e => {
+    document.querySelector(".matrix-wrap").addEventListener("click", e => {
       const b = e.target.closest(".chip-test");
       if (!b) return;
       $$(".chip-test").forEach(x => x.classList.remove("is-active"));
@@ -635,6 +679,31 @@
         '<p class="td-ej"><b>Ejemplo:</b> ' + t.ej + "</p>" +
         (t.nota ? '<p class="td-note">' + t.nota + "</p>" : "");
     });
+  }
+
+  const MATRIX2 = [
+    { row: "Correlación", sub: "nivel relacional", items: ["pearson", "spearman", "kendall", "biserial"] },
+    { row: "Normalidad", sub: "supuesto previo, no es nivel", items: ["shapiro", "ks", "anderson"] },
+    { row: "Regresión", sub: "explicativo o predictivo", items: ["reg_simple", "reg_multiple", "reg_log", "reg_poisson", "cox"] },
+    { row: "Series de tiempo", sub: "nivel predictivo", items: ["arima", "holt", "prophet", "vvar"] }
+  ];
+
+  if ($("#block2")) {
+    $("#block2").innerHTML = '<table class="mtx mtx-groups"><thead><tr><th>Familia</th><th>Técnica</th></tr></thead><tbody>' +
+      MATRIX2.map(r =>
+        '<tr><td class="rowh">' + r.row + "<span>" + r.sub + "</span></td>" +
+        '<td class="cell chips-row">' + r.items.map(id => {
+          const t = TESTS[id];
+          return '<button class="chip-test' + (t.np ? " np" : "") + '" data-t="' + id + '" title="' + t.name + '">' + t.short + "</button>";
+        }).join("") + "</td></tr>").join("") +
+      "</tbody></table>";
+
+    $$(".tt").forEach(b => b.addEventListener("click", () => {
+      $$(".tt").forEach(x => x.classList.toggle("is-active", x === b));
+      const n = b.dataset.block;
+      $("#block1").hidden = n !== "1";
+      $("#block2").hidden = n !== "2";
+    }));
   }
 
   /* ---------------- página 14: riesgo estimado ---------------- */

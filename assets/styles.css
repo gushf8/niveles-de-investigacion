@@ -621,6 +621,18 @@ kbd{
 .calc-read{margin:0;font-size:.68rem;color:var(--muted);line-height:1.45;min-height:38px}
 .calc-read strong{color:var(--ink-2)}
 
+/* ---------- pestañas de la matriz ---------- */
+.test-tabs{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}
+.tt{
+  padding:7px 14px;border-radius:9px;border:1px solid var(--glass-brd);background:var(--glass);
+  color:var(--muted);font-family:inherit;font-size:.72rem;font-weight:650;cursor:pointer;transition:.16s;
+}
+.tt:hover{background:var(--glass-2);color:var(--ink)}
+.tt.is-active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 14px -8px rgba(37,99,235,.9)}
+.chips-row{display:flex;flex-wrap:wrap;gap:3px;padding:4px}
+.chips-row .chip-test{width:auto;margin:0;padding:5px 8px}
+.mtx-groups td.rowh{white-space:normal;min-width:110px}
+
 /* ---------- matriz de pruebas ---------- */
 .test-layout{display:grid;grid-template-columns:1.42fr .95fr;gap:13px;align-items:start}
 .matrix-wrap{
