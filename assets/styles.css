@@ -621,6 +621,9 @@ kbd{
 .calc-read{margin:0;font-size:.68rem;color:var(--muted);line-height:1.45;min-height:38px}
 .calc-read strong{color:var(--ink-2)}
 
+.tbl td.ok{color:var(--good);font-weight:700}
+.tbl td.bad{color:var(--bad);font-weight:700}
+
 /* ---------- correlación vs asociación ---------- */
 .tbl-fam td{padding-top:7px;padding-bottom:7px;vertical-align:middle;font-size:.74rem}
 .tbl-fam td:first-child{width:32%;font-weight:600;color:var(--ink-2)}

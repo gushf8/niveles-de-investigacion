@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Niveles de investigación · Metodología de la Investigación</title>
+<meta name="description" content="Deck interactivo sobre los seis niveles de investigación con casos educativos: taller de autoestima, pretest-postest y regresión con betas." />
+<meta name="theme-color" content="#eef2f9" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   Niveles de investigación — deck interactivo
+   Tema claro · glassmorphism · tipografía sans
+   =========================================================== */
+
+:root{
+  --bg:#eef2f9;
+  --ink:#0f172a;
+  --ink-2:#2b3a52;
+  --muted:#5b6b83;
+  --line:rgba(15,23,42,.10);
+  --line-2:rgba(15,23,42,.06);
+  --glass:rgba(255,255,255,.62);
+  --glass-2:rgba(255,255,255,.86);
+  --glass-brd:rgba(255,255,255,.75);
+  --accent:#2563eb;
+  --accent-2:#0d9488;
+  --accent-soft:rgba(37,99,235,.09);
+  --good:#059669;
+  --warn:#b45309;
+  --bad:#dc2626;
+  --shadow:0 18px 40px -24px rgba(15,23,42,.35);
+  --shadow-soft:0 8px 24px -16px rgba(15,23,42,.28);
+  --r:16px;
+  --nav-h:62px;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:15.5px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow:hidden;
+}
+
+/* ---------- fondo ---------- */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(58vw 46vw at 12% -6%, rgba(37,99,235,.16), transparent 62%),
+    radial-gradient(46vw 40vw at 92% 8%, rgba(13,148,136,.14), transparent 62%),
+    radial-gradient(52vw 44vw at 78% 102%, rgba(139,92,246,.12), transparent 62%),
+    linear-gradient(180deg,#f8fafd 0%,#eef3fb 55%,#e8eef8 100%);
+}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;opacity:.55}
+.orb-a{width:44vw;height:44vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(59,130,246,.30),transparent 65%)}
+.orb-b{width:40vw;height:40vw;right:-12vw;bottom:-14vw;background:radial-gradient(circle,rgba(20,184,166,.26),transparent 65%)}
+.grain{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(15,23,42,.055) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(ellipse at 50% 40%,#000 10%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 10%,transparent 72%);
+}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,3vw,30px);pointer-events:none;
+}
+.topbar > *{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:650}
+.brand-mark{
+  width:26px;height:26px;display:grid;place-items:center;border-radius:8px;
+  background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;
+  box-shadow:0 4px 12px -6px rgba(37,99,235,.8);
+}
+.brand-mark svg{width:15px;height:15px}
+.topbar-actions{display:flex;gap:8px}
+.icon-btn{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+  border:1px solid var(--glass-brd);background:var(--glass);color:var(--ink);
+  cursor:pointer;transition:.18s;backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:var(--shadow-soft);
+}
+.icon-btn:hover{background:var(--glass-2);transform:translateY(-1px)}
+.icon-btn svg{width:17px;height:17px}
+
+/* ---------- deck ---------- */
+.deck{position:fixed;inset:0;z-index:10}
+.slide{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(var(--nav-h) + 26px) clamp(16px,3.4vw,44px) calc(var(--nav-h) + 10px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transform:translate3d(0,14px,0);
+  transition:opacity .42s ease,transform .5s cubic-bezier(.22,.8,.3,1),visibility .42s;
+  overflow-y:auto;overflow-x:hidden;
+}
+.slide.is-active{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.slide::-webkit-scrollbar{width:9px}
+.slide::-webkit-scrollbar-thumb{background:rgba(15,23,42,.16);border-radius:99px}
+.wrap{width:100%;max-width:1220px;margin:auto}
+
+/* ---------- tipografía ---------- */
+.kicker{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  margin:0 0 10px;font-size:.7rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);
+}
+.kicker .num{
+  display:inline-grid;place-items:center;min-width:32px;height:23px;padding:0 9px;
+  border-radius:7px;background:var(--accent-soft);color:var(--accent);
+  border:1px solid rgba(37,99,235,.18);font-size:.68rem;letter-spacing:.06em;
+}
+h1,h2,h3{margin:0 0 .45em;font-family:var(--font);font-weight:750;line-height:1.1;letter-spacing:-.028em;color:var(--ink)}
+h1{font-size:clamp(2.2rem,4.6vw,3.9rem)}
+h2{font-size:clamp(1.55rem,2.7vw,2.3rem)}
+h2.big{font-size:clamp(2rem,4vw,3.2rem)}
+h3{font-size:1rem;font-weight:650;letter-spacing:-.015em}
+h1 em,h2 em{font-style:normal;color:var(--accent)}
+.lede{font-size:clamp(.95rem,1.15vw,1.05rem);color:var(--muted);max-width:78ch;margin:0 0 20px}
+.lede strong{color:var(--ink-2);font-weight:650}
+.tiny{font-size:.78rem;color:var(--muted);margin-top:14px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
+.slide-head{max-width:100%}
+
+/* ---------- animaciones ---------- */
+.reveal{opacity:0;transform:translateY(14px)}
+.is-active .reveal{animation:rise .55s cubic-bezier(.22,.85,.3,1) forwards;animation-delay:calc(var(--i,0) * 55ms + 40ms)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ---------- portada ---------- */
+.slide-hero .wrap{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(22px,4vw,60px);align-items:center}
+.slide-hero h1{margin-bottom:.3em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.chip{
+  padding:6px 12px;border-radius:99px;border:1px solid var(--glass-brd);
+  background:var(--glass);font-size:.74rem;font-weight:600;color:var(--muted);
+  backdrop-filter:blur(10px);
+}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:inherit;font-size:.86rem;font-weight:650;
+  padding:11px 19px;border-radius:11px;border:1px solid transparent;
+  transition:transform .16s ease,background .2s,border-color .2s,box-shadow .2s;
+}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 10px 22px -12px rgba(37,99,235,.9)}
+.btn-primary:hover{background:#1d4ed8;transform:translateY(-2px)}
+.btn-ghost{border-color:var(--glass-brd);background:var(--glass);color:var(--ink)}
+.btn-ghost:hover{background:var(--glass-2);transform:translateY(-2px)}
+.hero-hint{font-size:.74rem;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+kbd{
+  display:inline-grid;place-items:center;min-width:21px;height:20px;padding:0 5px;
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+  background:var(--glass-2);font-family:inherit;font-size:.7rem;color:var(--ink-2);
+}
+
+.hero-card{
+  padding:20px;border-radius:20px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:var(--shadow);
+}
+.hero-card h3{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:750}
+.pyramid{display:grid;grid-template-columns:1fr 1.08fr;gap:13px;height:246px;align-items:stretch}
+.pyr-svg{width:100%;height:100%;display:block;filter:drop-shadow(0 14px 20px rgba(15,23,42,.16))}
+.pyr-band{transition:opacity .2s}
+.pyr-band:hover{opacity:.88}
+.pyr-legend{display:grid;grid-template-rows:repeat(6,1fr);align-content:stretch;min-width:0}
+.pyr-item{display:flex;align-items:center;gap:7px;min-height:0}
+.pyr-item i{width:9px;height:9px;border-radius:2.5px;flex:none;box-shadow:0 2px 4px -2px rgba(15,23,42,.45)}
+.pyr-item div{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.pyr-item b{font-size:.7rem;font-weight:700;letter-spacing:-.012em;color:var(--ink-2)}
+.pyr-item span{font-size:.53rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-cap{
+  margin:26px 0 0;font-size:.6rem;letter-spacing:.04em;color:var(--muted);
+  border-top:1px solid var(--line-2);padding-top:9px;
+}
+
+/* ---------- layouts ---------- */
+.split{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(20px,3vw,44px);align-items:start}
+.side{display:flex;flex-direction:column;gap:12px}
+.center{text-align:center;display:flex;flex-direction:column;align-items:center}
+.center .lede{margin-left:auto;margin-right:auto}
+
+/* ---------- superficies ---------- */
+.glass{
+  border-radius:var(--r);border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(16px) saturate(1.25);
+  box-shadow:var(--shadow-soft);
+}
+.rail{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:0 0 18px}
+.rail-item{
+  text-align:left;padding:12px 11px;border-radius:12px;cursor:pointer;
+  border:1px solid var(--glass-brd);background:var(--glass);color:var(--ink);
+  display:flex;flex-direction:column;gap:2px;transition:.18s;font-family:inherit;
+  backdrop-filter:blur(12px);
+}
+.rail-item b{font-size:.72rem;color:var(--accent);letter-spacing:.08em;font-weight:750}
+.rail-item .rn{font-size:.79rem;font-weight:650}
+.rail-item em{font-style:normal;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.rail-item:hover{transform:translateY(-2px);background:var(--glass-2);border-color:rgba(37,99,235,.35)}
+
+.callout{
+  margin-top:16px;padding:16px 18px;border-radius:14px;
+  border:1px solid var(--glass-brd);border-left:3px solid var(--accent);
+  background:var(--glass);backdrop-filter:blur(12px);
+}
+.callout-tag{display:inline-block;margin-bottom:6px;font-size:.64rem;font-weight:750;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+.callout p{margin:0;font-size:.9rem;color:var(--muted);max-width:94ch}
+.callout strong{color:var(--ink-2)}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}
+.case{
+  padding:13px 15px;border-radius:13px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(12px);box-shadow:var(--shadow-soft);
+}
+.case-tag{font-size:.62rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2)}
+.case p{margin:5px 0 0;font-size:.8rem;color:var(--muted);line-height:1.55}
+.case strong{color:var(--ink-2)}
+
+.analogy{
+  padding:17px;border-radius:var(--r);border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(14px);box-shadow:var(--shadow-soft);
+}
+.analogy-icon{font-size:1.45rem;display:block;margin-bottom:6px}
+.analogy h3{margin:0 0 5px;font-size:.95rem}
+.analogy p{margin:0;font-size:.82rem;color:var(--muted)}
+.alert{
+  padding:12px 14px;border-radius:11px;font-size:.76rem;line-height:1.5;
+  border:1px solid rgba(180,83,9,.22);background:rgba(251,191,36,.13);color:#7c4a03;
+}
+.alert b{color:var(--warn);display:block;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:2px}
+.keybox{
+  padding:16px;border-radius:var(--r);border:1px solid rgba(13,148,136,.28);
+  background:linear-gradient(160deg,rgba(13,148,136,.10),rgba(255,255,255,.6));
+}
+.keybox-tag{font-size:.62rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-2)}
+.keybox p{margin:6px 0 0;font-size:.8rem;color:var(--muted)}
+.keybox strong{color:var(--ink-2)}
+
+.mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 0 14px}
+.mini-grid.four{grid-template-columns:repeat(2,1fr)}
+.mini{
+  padding:9px 11px;border-radius:10px;border:1px solid var(--glass-brd);
+  background:var(--glass);display:flex;flex-direction:column;gap:1px;backdrop-filter:blur(10px);
+}
+.mini span{font-size:.57rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.mini b{font-size:.76rem;font-weight:650}
+
+/* ---------- tablas ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:.81rem;margin:0 0 14px}
+.tbl th{text-align:left;padding:8px 10px;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);font-weight:700}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--line-2);color:var(--muted);vertical-align:top}
+.tbl td:first-child{color:var(--ink-2);font-weight:600;width:36%}
+.tbl tr:last-child td{border-bottom:none}
+.tbl-wide{font-size:.76rem}
+.tbl-wide td:first-child{width:15%}
+.tbl-scroll{overflow-x:auto}
+
+/* ---------- workbench (texto + base de datos) ---------- */
+.workbench{display:grid;grid-template-columns:1.02fr 1fr;gap:14px;align-items:start}
+.wb-main{display:flex;flex-direction:column;gap:11px}
+.stat-strip{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{
+  padding:11px 13px;border-radius:12px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:1px;
+}
+.stat span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.stat .nums{display:flex;align-items:baseline;gap:6px;font-size:.9rem;color:var(--muted)}
+.stat b{font-size:1.05rem;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat em{font-style:normal;font-size:.76rem;font-weight:700;color:var(--accent);margin-left:auto}
+.stat em.pos{color:var(--good)}
+
+.effect-panel{
+  padding:13px 15px;border-radius:13px;border:1px solid var(--glass-brd);
+  background:var(--glass-2);backdrop-filter:blur(14px);box-shadow:var(--shadow-soft);
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;
+}
+.eff{display:flex;flex-direction:column;gap:1px}
+.eff span{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.eff b{font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-.02em}
+.eff-main b{color:var(--good)}
+.effect-panel p{grid-column:1/-1;margin:0;font-size:.68rem;color:var(--muted);line-height:1.45}
+.toggle-row{display:flex;align-items:center;gap:9px;font-size:.74rem;color:var(--muted);flex-wrap:wrap}
+.switch{
+  width:42px;height:23px;border-radius:99px;border:1px solid var(--line);
+  background:#fff;position:relative;cursor:pointer;padding:0;transition:.2s;box-shadow:inset 0 1px 2px rgba(15,23,42,.08);
+}
+.switch .knob{position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#94a3b8;transition:.22s}
+.switch[aria-checked="true"]{background:rgba(37,99,235,.16);border-color:rgba(37,99,235,.45)}
+.switch[aria-checked="true"] .knob{left:21px;background:var(--accent)}
+.toggle-state{color:var(--accent);font-weight:700;font-size:.7rem}
+
+/* base de datos */
+.data-card{
+  border-radius:14px;border:1px solid var(--glass-brd);background:var(--glass-2);
+  backdrop-filter:blur(16px);box-shadow:var(--shadow);overflow:hidden;
+  display:flex;flex-direction:column;max-height:338px;
+}
+.data-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 12px;border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.7);
+}
+.data-head b{font-size:.72rem;letter-spacing:.02em}
+.data-head .badge{
+  font-size:.58rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);
+  border:1px solid rgba(37,99,235,.18);white-space:nowrap;
+}
+.data-scroll{overflow:auto;flex:1}
+.data-scroll::-webkit-scrollbar{width:7px;height:7px}
+.data-scroll::-webkit-scrollbar-thumb{background:rgba(15,23,42,.18);border-radius:99px}
+.data-table{width:100%;border-collapse:collapse;font-size:.68rem;font-variant-numeric:tabular-nums}
+.data-table th{
+  position:sticky;top:0;z-index:2;text-align:right;padding:6px 8px;
+  font-size:.55rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+  background:rgba(248,250,253,.96);border-bottom:1px solid var(--line);font-weight:750;
+  backdrop-filter:blur(8px);
+}
+.data-table th:first-child,.data-table td:first-child{text-align:left}
+.data-table td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+.data-table tbody tr{cursor:default;transition:background .12s}
+.data-table tbody tr:hover{background:rgba(37,99,235,.06)}
+.data-table tbody tr.is-sel{background:rgba(37,99,235,.12);box-shadow:inset 2px 0 0 var(--accent)}
+.grp{
+  display:inline-block;padding:1px 6px;border-radius:99px;font-size:.55rem;
+  font-weight:750;letter-spacing:.04em;
+}
+.grp.c{background:rgba(100,116,139,.16);color:#475569}
+.grp.e{background:rgba(37,99,235,.14);color:#1d4ed8}
+.delta{color:var(--good);font-weight:650}
+.data-foot{
+  padding:6px 12px;border-top:1px solid var(--line);font-size:.6rem;color:var(--muted);
+  display:flex;justify-content:space-between;gap:8px;background:rgba(255,255,255,.6);
+}
+.data-foot b{color:var(--ink-2)}
+
+/* ---------- simulador antiguo (se conserva por compatibilidad) ---------- */
+.sim{display:grid;grid-template-columns:270px 1fr 210px;gap:16px;align-items:end;padding:16px;border-radius:var(--r);border:1px solid var(--glass-brd);background:var(--glass)}
+.sim-chart{display:flex;gap:24px;justify-content:center;align-items:flex-end;min-height:180px}
+.group{display:flex;flex-direction:column;align-items:center;gap:6px;transition:opacity .3s}
+.group[data-group="control"].is-off{opacity:.2;filter:grayscale(1)}
+.bars{display:flex;gap:9px;align-items:flex-end;height:160px}
+.bar-wrap{display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+.bar{width:42px;height:calc(var(--v) * 1.55px);border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,rgba(100,116,139,.55),rgba(100,116,139,.2));transition:height .4s}
+.bar-post{background:linear-gradient(180deg,var(--accent),rgba(37,99,235,.25))}
+.group[data-group="control"] .bar-post{background:linear-gradient(180deg,#94a3b8,rgba(148,163,184,.2))}
+.bar-val{font-size:.68rem;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:650}
+.bar-lab{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.group-lab{font-size:.68rem;color:var(--muted)}
+
+/* ---------- verbos ---------- */
+.verb-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.verb{
+  padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;
+  border:1px solid var(--glass-brd);background:var(--glass);color:var(--ink-2);
+  font-size:.8rem;font-weight:600;transition:.16s;backdrop-filter:blur(10px);
+}
+.verb:hover{background:var(--glass-2);transform:translateY(-2px);border-color:rgba(37,99,235,.35)}
+.verb.is-active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 8px 18px -10px rgba(37,99,235,.9)}
+.verb-result{
+  padding:16px 18px;border-radius:14px;border:1px solid var(--glass-brd);
+  background:var(--glass-2);backdrop-filter:blur(14px);min-height:96px;box-shadow:var(--shadow-soft);
+}
+.vr-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+.vr-level{font-size:1.2rem;font-weight:750;letter-spacing:-.02em;text-transform:capitalize}
+.pill{padding:3px 9px;border-radius:99px;font-size:.63rem;font-weight:650}
+.pill-soft{background:var(--accent-soft);border:1px solid rgba(37,99,235,.18);color:var(--accent)}
+.vr-example{margin:0;font-size:.85rem;color:var(--muted)}
+.vr-example em{color:var(--ink-2);font-style:italic}
+
+/* ---------- betas ---------- */
+.formula{
+  text-align:center;padding:12px;border-radius:12px;margin-bottom:12px;
+  border:1px dashed rgba(37,99,235,.35);background:rgba(37,99,235,.05);
+}
+.formula .fx{font-family:ui-monospace,Menlo,monospace;font-size:clamp(.76rem,1.3vw,.95rem);color:var(--ink-2)}
+.beta-sim{display:flex;flex-direction:column;gap:12px}
+.beta-controls{display:flex;flex-direction:column;gap:9px}
+.model-switch{display:flex;gap:4px;background:rgba(255,255,255,.7);padding:4px;border-radius:10px;border:1px solid var(--glass-brd)}
+.seg{
+  flex:1;padding:7px 9px;border-radius:7px;border:none;background:transparent;cursor:pointer;
+  font-family:inherit;font-size:.7rem;font-weight:650;color:var(--muted);transition:.18s;
+}
+.seg.is-active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -6px rgba(37,99,235,.9)}
+.beta-big{display:flex;align-items:baseline;gap:10px}
+.beta-big span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.beta-big b{font-size:1.6rem;font-weight:750;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.beta-eq{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;color:var(--muted);padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.75);border:1px solid var(--line)}
+.beta-read{margin:0;font-size:.8rem;color:var(--muted)}
+.beta-read strong{color:var(--ink-2)}
+.beta-note{font-size:.68rem;color:var(--warn);min-height:1em;line-height:1.4}
+.beta-table{width:100%;border-collapse:collapse;font-size:.7rem;font-variant-numeric:tabular-nums}
+.beta-table th{text-align:right;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:5px 7px;border-bottom:1px solid var(--line)}
+.beta-table th:first-child,.beta-table td:first-child{text-align:left}
+.beta-table td{padding:5px 7px;text-align:right;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+.beta-table tr.is-key td{color:var(--accent);font-weight:700;background:rgba(37,99,235,.06)}
+.beta-table tr.is-drop td:nth-child(2){color:var(--good);font-weight:700}
+
+/* ---------- dos rutas ---------- */
+.two-paths{display:flex;align-items:stretch;gap:12px;justify-content:center;margin:22px 0 6px;width:100%;max-width:900px}
+.path{
+  flex:1;padding:20px;border-radius:var(--r);border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(14px);text-align:left;position:relative;box-shadow:var(--shadow-soft);
+}
+.path-n{
+  position:absolute;top:-13px;left:20px;width:26px;height:26px;border-radius:8px;
+  display:grid;place-items:center;font-size:.78rem;font-weight:750;
+  background:var(--accent);color:#fff;box-shadow:0 6px 14px -8px rgba(37,99,235,.9);
+}
+.path h3{margin:4px 0 5px;font-size:1rem}
+.path p{margin:0 0 10px;font-size:.81rem;color:var(--muted)}
+.path-tags{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 9px}
+.path-tags span{
+  font-size:.55rem;font-weight:700;letter-spacing:.03em;padding:3px 7px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent);border:1px solid rgba(37,99,235,.16);white-space:nowrap;
+}
+.design{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.62);padding:7px 9px;max-width:340px}
+.design svg{display:block;width:100%;height:auto}
+.design-cap{
+  display:block;margin-top:3px;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);text-align:center;line-height:1.3;
+}
+.path-tag{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;color:var(--accent)}
+
+/* ---------- escalera ---------- */
+.ladder{margin-bottom:14px}
+.ladder-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.lt{
+  padding:7px 13px;border-radius:9px;border:1px solid var(--glass-brd);background:var(--glass);
+  color:var(--muted);font-family:inherit;font-size:.75rem;font-weight:650;cursor:pointer;transition:.16s;
+}
+.lt:hover{background:var(--glass-2);color:var(--ink)}
+.lt.is-active{background:var(--accent);color:#fff;border-color:transparent}
+.ladder-panels{min-height:220px}
+.lp{
+  display:none;grid-template-columns:1.05fr 1fr;gap:16px;padding:18px;border-radius:var(--r);
+  border:1px solid var(--glass-brd);background:var(--glass-2);backdrop-filter:blur(14px);
+  box-shadow:var(--shadow-soft);
+}
+.lp.is-active{display:grid;animation:rise .35s ease both}
+.lp h3{margin:0 0 6px;font-size:1rem}
+.lp .q{font-size:.86rem;color:var(--ink-2);margin:0 0 12px;font-style:italic}
+.lp dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:0;font-size:.76rem}
+.lp dt{color:var(--muted);text-transform:uppercase;font-size:.57rem;letter-spacing:.09em;align-self:center;font-weight:700}
+.lp dd{margin:0;color:var(--ink-2)}
+.lp .out{
+  padding:12px;border-radius:11px;background:rgba(5,150,105,.08);
+  border:1px solid rgba(5,150,105,.22);font-size:.78rem;color:var(--muted);align-self:start;
+}
+.lp .out b{display:block;font-size:.57rem;text-transform:uppercase;letter-spacing:.11em;color:var(--good);margin-bottom:4px}
+
+/* ---------- quiz ---------- */
+.quiz{
+  padding:20px;border-radius:var(--r);border:1px solid var(--glass-brd);
+  background:var(--glass-2);backdrop-filter:blur(16px);box-shadow:var(--shadow);
+}
+.quiz-head{display:flex;align-items:center;gap:12px;margin-bottom:13px;font-size:.71rem;color:var(--muted)}
+.quiz-count b{color:var(--ink)}
+.quiz-progress{flex:1;height:4px;border-radius:99px;background:rgba(15,23,42,.09);overflow:hidden}
+.quiz-progress span{display:block;height:100%;width:12.5%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .3s}
+.quiz-score b{color:var(--accent)}
+.quiz-q{font-size:clamp(1rem,1.7vw,1.22rem);font-weight:650;letter-spacing:-.015em;margin:0 0 14px;line-height:1.4}
+.quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.opt{
+  padding:10px 11px;border-radius:9px;border:1px solid var(--glass-brd);background:#fff;
+  color:var(--ink-2);font-family:inherit;font-size:.77rem;font-weight:600;cursor:pointer;transition:.16s;text-align:left;
+}
+.opt:hover:not(:disabled){background:var(--glass);transform:translateY(-1px);border-color:rgba(37,99,235,.3)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:rgba(5,150,105,.55);background:rgba(5,150,105,.12);color:var(--good)}
+.opt.wrong{border-color:rgba(220,38,38,.45);background:rgba(220,38,38,.08);color:var(--bad)}
+.quiz-feedback{min-height:40px;font-size:.76rem;color:var(--muted);line-height:1.5}
+.quiz-feedback b{color:var(--ink-2)}
+.quiz-actions{display:flex;justify-content:space-between;gap:8px;margin-top:6px}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+
+/* ---------- cierre ---------- */
+.takeaways{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:8px}
+.takeaways li{
+  display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;
+  padding:11px 14px;border-radius:11px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(10px);
+}
+.takeaways li span{font-size:.72rem;font-weight:750;color:var(--accent);padding-top:2px;font-variant-numeric:tabular-nums}
+.takeaways p{margin:0;font-size:.82rem;color:var(--muted)}
+.takeaways strong{color:var(--ink-2)}
+.refs{border-top:1px solid var(--line);padding-top:12px}
+.refs h3{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.refs p{margin:0 0 4px;font-size:.7rem;color:var(--muted);line-height:1.5}
+.refs-note{font-size:.65rem !important;opacity:.8;margin-top:8px !important}
+
+/* ---------- navbar ---------- */
+.navbar{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:60;
+  display:flex;align-items:center;gap:11px;padding:7px 9px;
+  border-radius:99px;border:1px solid var(--glass-brd);
+  background:rgba(255,255,255,.72);backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 30px -18px rgba(15,23,42,.55);
+}
+.nav-btn{
+  width:33px;height:33px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:.16s;
+}
+.nav-btn:hover:not(:disabled){background:var(--accent);color:#fff;border-color:transparent;transform:scale(1.05)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.nav-btn svg{width:15px;height:15px}
+.progress{width:min(28vw,210px);height:3px;border-radius:99px;background:rgba(15,23,42,.10);overflow:hidden}
+.progress span{display:block;height:100%;width:6.6%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .35s cubic-bezier(.22,.9,.3,1)}
+.counter{font-size:.67rem;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.05em;min-width:50px;text-align:center}
+.counter b{color:var(--ink)}
+
+/* ---------- navegación por niveles en el header ---------- */
+.levelnav{
+  display:flex;align-items:center;gap:2px;flex:1 1 auto;justify-content:center;
+  min-width:0;overflow:visible;padding:2px 6px;
+}
+.ln-item{position:relative;flex:0 0 auto}
+.ln-item:hover,.ln-item:focus-within,.ln-item.is-open{z-index:80}
+.ln-trigger{
+  display:flex;align-items:center;gap:6px;padding:8px 11px;border-radius:9px;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  font-family:inherit;font-size:.72rem;font-weight:600;cursor:pointer;
+  transition:.16s;white-space:nowrap;
+}
+.ln-trigger:hover{background:rgba(255,255,255,.7);color:var(--ink)}
+.ln-num{
+  font-size:.58rem;font-weight:750;letter-spacing:.04em;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.ln-item.is-active .ln-trigger{
+  background:var(--accent-soft);border-color:rgba(37,99,235,.25);color:var(--accent);
+}
+.ln-item.is-active .ln-num{color:var(--accent)}
+.ln-caret{display:none}
+.top-page{
+  font-size:.66rem;color:var(--muted);font-variant-numeric:tabular-nums;
+  letter-spacing:.05em;white-space:nowrap;min-width:56px;text-align:right;font-weight:600;
+}
+
+/* ---------- ficha del estudio ---------- */
+.study{
+  padding:11px 14px 12px;border-radius:12px;margin:0 0 16px;
+  border:1px solid var(--glass-brd);border-left:3px solid var(--accent);
+  background:linear-gradient(120deg,rgba(37,99,235,.07),rgba(255,255,255,.62));
+  backdrop-filter:blur(12px);
+}
+.study-t{
+  margin:0 0 8px;font-size:.8rem;font-style:italic;color:var(--ink-2);
+  letter-spacing:-.008em;line-height:1.35;
+}
+.study-t::before{content:"Estudio: ";font-style:normal;font-weight:750;font-size:.62rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:4px;}
+.study-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px 10px}
+.study-meta div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.study-meta span{font-size:.51rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:750}
+.study-meta b{font-size:.68rem;font-weight:650;color:var(--ink-2);line-height:1.3}
+.study-ctx{margin:0 0 9px;font-size:.65rem;color:var(--muted);line-height:1.6}
+.study-ctx b{color:var(--ink-2);font-weight:700}
+
+/* ---------- definición formal ---------- */
+.def{
+  margin:0 0 15px;padding:11px 15px;border-radius:12px;
+  border:1px solid rgba(13,148,136,.22);border-left:3px solid var(--accent-2);
+  background:linear-gradient(120deg,rgba(13,148,136,.09),rgba(255,255,255,.55));
+}
+.def-lbl{
+  display:block;font-size:.53rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:4px;
+}
+.def p{margin:0;font-size:.84rem;color:var(--ink-2);line-height:1.55}
+.center .def{max-width:860px;text-align:left}
+
+/* ---------- calculadora 2x2 ---------- */
+.def-card{
+  padding:13px 15px;border-radius:12px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(12px);box-shadow:var(--shadow-soft);
+}
+.def-tag{
+  display:inline-block;margin-bottom:5px;font-size:.62rem;font-weight:750;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+}
+.def-card p{margin:0 0 6px;font-size:.8rem;color:var(--muted);line-height:1.55}
+.def-card strong{color:var(--ink-2)}
+.def-use{font-size:.62rem;color:var(--muted);opacity:.9;letter-spacing:.02em}
+
+.calc{
+  border-radius:14px;border:1px solid var(--glass-brd);background:var(--glass-2);
+  backdrop-filter:blur(16px);box-shadow:var(--shadow);padding:13px;align-self:start;
+}
+.calc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.calc-head b{font-size:.74rem}
+.calc-head span{font-size:.6rem;color:var(--muted);font-weight:700;letter-spacing:.06em}
+.calc-table{width:100%;border-collapse:collapse;font-size:.66rem;margin-bottom:10px}
+.calc-table th{
+  padding:6px 7px;font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--muted);font-weight:750;text-align:center;border-bottom:1px solid var(--line);
+}
+.calc-table th:first-child{text-align:left}
+.calc-table tbody th{
+  text-align:left;border-bottom:none;font-size:.66rem;letter-spacing:0;text-transform:none;
+  color:var(--ink-2);font-weight:650;padding-right:4px;
+}
+.calc-table td{padding:3px;border-bottom:none;text-align:center}
+.calc-table input{
+  width:100%;max-width:62px;padding:5px 4px;text-align:center;
+  border:1px solid var(--line);border-radius:7px;background:#fff;
+  font-family:inherit;font-size:.78rem;font-weight:650;color:var(--ink);
+  font-variant-numeric:tabular-nums;outline:none;transition:.15s;
+}
+.calc-table input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.calc-out div{
+  padding:7px 8px;border-radius:9px;background:rgba(37,99,235,.07);
+  border:1px solid rgba(37,99,235,.16);display:flex;flex-direction:column;gap:1px;
+}
+.calc-out span{font-size:.52rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:750}
+.calc-out b{font-size:1rem;font-variant-numeric:tabular-nums;color:var(--accent);letter-spacing:-.02em}
+.calc-read{margin:0;font-size:.68rem;color:var(--muted);line-height:1.45;min-height:38px}
+.calc-read strong{color:var(--ink-2)}
+
+.tbl td.ok{color:var(--good);font-weight:700}
+.tbl td.bad{color:var(--bad);font-weight:700}
+
+/* ---------- correlación vs asociación ---------- */
+.tbl-fam td{padding-top:7px;padding-bottom:7px;vertical-align:middle;font-size:.74rem}
+.tbl-fam td:first-child{width:32%;font-weight:600;color:var(--ink-2)}
+.tbl-fam td:nth-child(2){width:46%}
+.tbl-fam td:last-child{width:22%}
+.tbl-fam .pill{font-size:.58rem;font-weight:700;letter-spacing:0;text-transform:none}
+
+/* ---------- modelos de clasificación ---------- */
+.model-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.model-card{
+  padding:11px 12px;border-radius:12px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(12px);box-shadow:var(--shadow-soft);
+  display:flex;flex-direction:column;gap:3px;
+}
+.mo-n{font-size:.56rem;font-weight:750;letter-spacing:.08em;color:var(--accent)}
+.model-card h3{margin:1px 0 2px;font-size:.76rem;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.model-card p{margin:0;font-size:.66rem;color:var(--muted);line-height:1.45}
+.mo-use{
+  margin-top:4px;font-size:.52rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--accent-2);font-weight:750;
+}
+@media (max-width:1000px){.model-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- pestañas de la matriz ---------- */
+.test-tabs{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}
+.tt{
+  padding:7px 14px;border-radius:9px;border:1px solid var(--glass-brd);background:var(--glass);
+  color:var(--muted);font-family:inherit;font-size:.72rem;font-weight:650;cursor:pointer;transition:.16s;
+}
+.tt:hover{background:var(--glass-2);color:var(--ink)}
+.tt.is-active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 14px -8px rgba(37,99,235,.9)}
+.chips-row{display:flex;flex-wrap:wrap;gap:3px;padding:4px}
+.chips-row .chip-test{width:auto;margin:0;padding:5px 8px}
+.mtx-groups td.rowh{white-space:normal;min-width:110px}
+
+/* ---------- matriz de pruebas ---------- */
+.test-layout{display:grid;grid-template-columns:1.42fr .95fr;gap:13px;align-items:start}
+.matrix-wrap{
+  border-radius:13px;border:1px solid var(--glass-brd);background:var(--glass);
+  backdrop-filter:blur(14px);padding:9px;overflow-x:auto;
+}
+.mtx{width:100%;border-collapse:separate;border-spacing:3px}
+.mtx th{
+  padding:5px 4px;font-size:.52rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--muted);font-weight:750;text-align:center;line-height:1.2;
+}
+.mtx th:first-child{text-align:left}
+.mtx tr.sec td{
+  background:rgba(37,99,235,.10);color:var(--accent);font-weight:750;text-align:center;
+  text-transform:uppercase;letter-spacing:.09em;font-size:.5rem;padding:4px;border-radius:6px;
+}
+.mtx td.rowh{
+  padding:5px 7px;background:rgba(255,255,255,.62);border-radius:7px;
+  font-size:.6rem;font-weight:700;color:var(--ink-2);white-space:nowrap;line-height:1.2;
+}
+.mtx td.rowh span{display:block;font-weight:500;font-size:.47rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.mtx td.cell{background:rgba(255,255,255,.5);border-radius:7px;padding:3px;vertical-align:top}
+.chip-test{
+  display:block;width:100%;text-align:left;margin:2px 0;padding:4px 6px;border-radius:6px;
+  border:1px solid transparent;background:rgba(37,99,235,.08);color:var(--ink-2);
+  font-family:inherit;font-size:.55rem;font-weight:650;cursor:pointer;line-height:1.2;transition:.14s;
+}
+.chip-test.np{background:rgba(13,148,136,.10)}
+.chip-test:hover,.chip-test.is-active{background:var(--accent);color:#fff;border-color:transparent}
+.chip-test.np:hover,.chip-test.np.is-active{background:var(--accent-2);color:#fff}
+
+.test-detail{
+  border-radius:13px;border:1px solid var(--glass-brd);background:var(--glass-2);
+  backdrop-filter:blur(16px);box-shadow:var(--shadow);padding:13px;min-height:262px;
+}
+.td-name{margin:0 0 7px;font-size:.88rem;font-weight:750;letter-spacing:-.015em;line-height:1.25}
+.td-pills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:9px}
+.td-pills span{
+  font-size:.53rem;font-weight:750;padding:3px 7px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent);letter-spacing:.02em;
+}
+.td-pills span.g{background:rgba(13,148,136,.12);color:var(--accent-2)}
+.td-row{display:flex;gap:6px;margin:0 0 5px;font-size:.66rem;color:var(--muted);line-height:1.45}
+.td-row b{color:var(--ink-2);min-width:48px;flex:none;font-weight:700}
+.td-ej{
+  margin:9px 0 0;padding:8px 10px;border-radius:8px;background:rgba(37,99,235,.06);
+  border-left:2px solid var(--accent);font-size:.66rem;color:var(--muted);line-height:1.45;
+}
+.td-ej b{color:var(--ink-2)}
+.td-note{margin:7px 0 0;font-size:.6rem;color:var(--warn);line-height:1.4}
+.td-empty{font-size:.72rem;color:var(--muted);line-height:1.5}
+.td-empty b{color:var(--ink-2)}
+
+/* ---------- stats y quote ---------- */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-bottom:14px}
+.stats-row .stat{
+  padding:10px 13px;border-radius:12px;border:1px solid var(--glass-brd);
+  background:var(--glass);backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:1px;
+}
+.stats-row .stat span{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.stats-row .stat b{font-size:1.25rem;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.quote{
+  padding:14px 16px;border-radius:12px;border-left:3px solid var(--accent-2);
+  background:rgba(13,148,136,.07);margin:0 0 14px;
+}
+.scatter-wrap{
+  border-radius:12px;border:1px solid var(--glass-brd);background:rgba(255,255,255,.72);
+  padding:8px 10px;margin-bottom:11px;
+}
+.scatter-wrap svg{display:block;width:100%;height:132px}
+.quote p{margin:0 0 4px;font-size:.9rem;color:var(--ink-2);font-style:italic}
+.quote span{font-size:.66rem;color:var(--muted)}
+.tbl-dims td:first-child{width:26%}
+.tbl-dims td{font-variant-numeric:tabular-nums}
+.risk-high{color:var(--bad);font-weight:750}
+.tbl-matrix td:nth-child(2){color:var(--muted);font-style:italic}
+.tbl-matrix td:first-child{width:14%}
+.tbl-matrix td:last-child{width:30%;color:var(--ink-2);font-weight:600}
+
+/* ---------- pista de scroll ---------- */
+.scroll-hint{
+  position:fixed;left:24px;bottom:22px;z-index:60;display:flex;align-items:center;gap:6px;
+  font-size:.65rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;
+  opacity:0;transform:translateY(5px);transition:.3s;pointer-events:none;
+}
+.scroll-hint.is-on{opacity:.85;transform:none}
+.scroll-hint span{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1250px){
+  .brand-text{display:none}
+}
+@media (max-width:1050px){
+  .ln-name{display:none}
+  .ln-item.is-active .ln-name,
+  .ln-item.is-plain .ln-name{display:inline}
+  .ln-item.is-active .ln-name{max-width:104px;overflow:hidden;text-overflow:ellipsis}
+  .ln-trigger{padding:8px 9px}
+  .top-page{display:none}
+}
+@media (max-height:840px){
+  .slide{padding-top:calc(var(--nav-h) + 18px);padding-bottom:calc(var(--nav-h) + 4px)}
+  .lede{margin-bottom:14px;font-size:.95rem}
+  h2{font-size:clamp(1.45rem,2.4vw,2rem)}
+  h2.big{font-size:clamp(1.9rem,3.6vw,2.8rem)}
+  h1{font-size:clamp(2rem,4.2vw,3.3rem)}
+  .pyramid{height:200px}
+  .data-card{max-height:290px}
+  .case p{font-size:.77rem}
+  .callout{margin-top:12px;padding:12px 15px}
+  .quiz{padding:16px}
+  .takeaways li{padding:9px 12px}
+}
+@media (max-width:900px){
+  .test-layout{grid-template-columns:1fr}
+  .matrix-wrap{overflow-x:auto}
+  .mtx{min-width:520px}
+  .workbench{grid-template-columns:1fr}
+  .data-card{max-height:260px}
+  .slide-hero .wrap{grid-template-columns:1fr}
+  .beta-sim{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .split{grid-template-columns:1fr}
+  .rail{grid-template-columns:repeat(3,1fr)}
+  .grid-2{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:repeat(2,1fr)}
+  .lp{grid-template-columns:1fr}
+  .two-paths{flex-direction:column}
+  .path-join{display:none}
+  .mini-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-strip{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  body{font-size:15px}
+  .brand-text{display:none}
+  .rail{grid-template-columns:repeat(2,1fr)}
+  .quiz-options{grid-template-columns:1fr}
+  .progress{width:32vw}
+  .takeaways li{grid-template-columns:30px 1fr}
+}
+
+/* ---------- portátiles de 1000-1100 px ---------- */
+@media (max-width:1100px){
+  body{font-size:14.6px}
+  .lede{font-size:.92rem;line-height:1.5}
+  h2{font-size:clamp(1.4rem,2.5vw,1.95rem)}
+  h2.big{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+  .def p{font-size:.8rem}
+  .case p{font-size:.76rem}
+  .study-t{font-size:.75rem}
+  .tbl td,.tbl th{padding-top:6px;padding-bottom:6px}
+  .stats-row .stat b{font-size:1.1rem}
+  .model-card p{font-size:.62rem}
+  .split{gap:22px}
+}
+
+/* ---------- accesibilidad ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}
+  .reveal{opacity:1;transform:none}
+  .hl-bar{transform:none}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Cpath d='M25 70 L45 50 L60 60 L78 28' stroke='white' stroke-width='9' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="orb orb-a" aria-hidden="true"></div>
+<div class="orb orb-b" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg>
+    </span>
+    <span class="brand-text">Metodología de la Investigación</span>
+  </div>
+  <nav class="levelnav" id="levelNav" aria-label="Navegación por niveles"></nav>
+  <span class="top-page" id="topPage">01 / 18</span>
+</header>
+
+<main class="deck" id="deck">
+
+  <!-- ================= GENERAL ================= -->
+  <section class="slide slide-hero is-active" data-slide="1" data-group="General" data-label="Portada">
+    <div class="wrap">
+      <div>
+        <p class="kicker reveal">Metodología de la Investigación · Tarea 1</p>
+        <h1 class="reveal">Niveles de <em>investigación</em></h1>
+        <p class="lede reveal">Seis niveles y un solo criterio: <strong>el tipo de análisis</strong>. Con casos educativos reales de aula: un taller de autoestima con 30 estudiantes y una regresión con betas.</p>
+        <div class="chips reveal">
+          <span class="chip">23 páginas</span>
+          <span class="chip">6 niveles</span>
+          <span class="chip">30 estudiantes</span>
+          <span class="chip">Navegación por niveles</span>
+        </div>
+        <div class="hero-cta reveal">
+          <button class="btn btn-primary" data-goto="2">Empezar <span aria-hidden="true">→</span></button>
+          <button class="btn btn-ghost" data-goto="13">Ver el taller</button>
+        </div>
+        <div class="hero-hint reveal">
+          <kbd>←</kbd><kbd>→</kbd> navegar · clic en un nivel va a su teoría
+        </div>
+      </div>
+      <aside class="hero-card reveal" aria-hidden="true">
+        <h3>Pirámide de niveles</h3>
+        <div class="pyramid" id="pyramid"></div>
+        <p class="hero-cap">Base: describir · Cima: intervenir</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-slide="2" data-group="General" data-label="El criterio">
+    <div class="wrap">
+      <p class="kicker reveal">La idea que ordena todo</p>
+      <h2 class="reveal">El nivel no se elige. <em>Se demuestra en el análisis.</em></h2>
+      <p class="lede reveal">Cada nivel exige un <strong>tipo de análisis distinto</strong> y, por lo tanto, un objetivo distinto. Declarar el nivel sin ejecutarlo es una incoherencia.</p>
+
+      <div class="rail reveal" id="levelRail">
+        <button class="rail-item" data-level="exploratorio"><b>01</b><span class="rn">Exploratorio</span><em>No estadístico</em></button>
+        <button class="rail-item" data-level="descriptivo"><b>02</b><span class="rn">Descriptivo</span><em>Univariado</em></button>
+        <button class="rail-item" data-level="relacional"><b>03</b><span class="rn">Relacional</span><em>Bivariado</em></button>
+        <button class="rail-item" data-level="explicativo"><b>04</b><span class="rn">Explicativo</span><em>Multivariado</em></button>
+        <button class="rail-item" data-level="predictivo"><b>05</b><span class="rn">Predictivo</span><em>Modelamiento</em></button>
+        <button class="rail-item" data-level="aplicativo"><b>06</b><span class="rn">Aplicativo</span><em>Mejora continua</em></button>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">El caso de la sesión</span>
+        <p>Un taller de 8 sesiones para mejorar la autoestima en <strong>30 estudiantes</strong>. Con ese mismo caso veremos los seis niveles: qué se puede decir en cada uno y qué <strong>no</strong> se puede decir todavía.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-slide="3" data-group="General" data-label="El verbo manda">
+    <div class="wrap">
+      <p class="kicker reveal">Prueba rápida</p>
+      <h2 class="reveal">El verbo del objetivo <em>ya eligió el nivel</em></h2>
+      <p class="lede reveal">Toque un verbo. Verá el nivel, el análisis que exige y un objetivo aplicado al taller de autoestima.</p>
+
+      <div class="verb-grid reveal" id="verbGrid">
+        <button class="verb" data-verb="identificar">identificar</button>
+        <button class="verb" data-verb="interpretar">interpretar</button>
+        <button class="verb" data-verb="describir">describir</button>
+        <button class="verb" data-verb="estimar">estimar</button>
+        <button class="verb" data-verb="comparar">comparar</button>
+        <button class="verb" data-verb="asociar">asociar</button>
+        <button class="verb" data-verb="evidenciar">evidenciar</button>
+        <button class="verb" data-verb="demostrar">demostrar</button>
+        <button class="verb" data-verb="predecir">predecir</button>
+        <button class="verb" data-verb="pronosticar">pronosticar</button>
+        <button class="verb" data-verb="evaluar">evaluar</button>
+        <button class="verb" data-verb="controlar">controlar</button>
+      </div>
+
+      <div class="verb-result reveal" id="verbResult" aria-live="polite">
+        <div class="vr-head">
+          <span class="vr-level" id="vrLevel">—</span>
+          <span class="pill pill-soft" id="vrAnalysis">—</span>
+        </div>
+        <p class="vr-example" id="vrExample">Elija un verbo para comenzar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 01 EXPLORATORIO ================= -->
+  <section class="slide" data-slide="4" data-group="01 · Exploratorio" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">01</span> Exploratorio · teoría</p>
+        <h2 class="reveal">Cuando <em>todavía no hay</em> nada que medir</h2>
+        <p class="lede reveal">Análisis <strong>no estadístico</strong>: entrevistas, observación, documentos. No busca conclusiones, busca <strong>preguntas</strong>.</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se reúnen datos preliminares sobre un fenómeno poco conocido, mediante análisis no estadístico —entrevistas, observación, análisis documental—, con el fin de identificar, interpretar, determinar o definir el objeto de estudio y generar preguntas o hipótesis para investigaciones posteriores.</p></div>
+        <div class="mini-grid reveal">
+          <div class="mini"><span>Objetivo</span><b>identificar</b></div>
+          <div class="mini"><span>Objetivo</span><b>interpretar</b></div>
+          <div class="mini"><span>Objetivo</span><b>determinar</b></div>
+          <div class="mini"><span>Objetivo</span><b>definir</b></div>
+        </div>
+        <table class="tbl reveal">
+          <thead><tr><th>Método</th><th>Qué produce</th></tr></thead>
+          <tbody>
+            <tr><td>Entrevista en profundidad</td><td>Significados y categorías</td></tr>
+            <tr><td>Observación de aula</td><td>Registro de prácticas</td></tr>
+            <tr><td>Análisis documental</td><td>Marco y antecedentes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="side reveal">
+        <div class="analogy">
+          <span class="analogy-icon" aria-hidden="true">🔦</span>
+          <h3>La linterna</h3>
+          <p>Entra a un cuarto a oscuras y barre la sala. No describió el cuarto ni explicó su distribución: <strong>reconoció el terreno</strong>.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Si ya existen 40 estudios sobre el tema, no es exploratorio: es falta de revisión de literatura.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-slide="5" data-group="01 · Exploratorio" data-label="Ejemplo">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">01</span> Exploratorio · ejemplo</p>
+        <h2 class="reveal">Ocho entrevistas <em>antes de medir</em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Cómo viven la autoestima los estudiantes de 4.º de secundaria»</p>
+          <p class="study-ctx"><b>Tema:</b> vivencia de la autoestima · <b>Población:</b> estudiantes de 4.º de secundaria de un colegio público · <b>Muestra:</b> 8 entrevistados · <b>Contexto:</b> institución sin investigaciones previas, 2026.</p>
+          <div class="study-meta">
+            <div><span>Objeto de estudio</span><b>Significados y situaciones (cualitativo)</b></div>
+            <div><span>Técnica</span><b>8 entrevistas semiestructuradas</b></div>
+            <div><span>Contexto</span><b>Colegio sin investigaciones previas</b></div>
+          </div>
+        </div>
+        <table class="tbl tbl-matrix reveal">
+          <thead><tr><th>Código</th><th>Extracto de la entrevista</th><th>Categoría</th></tr></thead>
+          <tbody>
+            <tr><td>E-01</td><td>«No levanto la mano porque se ríen»</td><td>Miedo al ridículo</td></tr>
+            <tr><td>E-02</td><td>«En mi casa sí hablo, en el aula no»</td><td>Miedo al ridículo</td></tr>
+            <tr><td>E-03</td><td>«Comparo mis notas con lo que veo en redes»</td><td>Comparación social</td></tr>
+            <tr><td>E-04</td><td>«Si el profesor me felicita, me siento capaz»</td><td>Reconocimiento docente</td></tr>
+            <tr><td>E-05</td><td>«Prefiero no participar para no equivocarme»</td><td>Miedo al error</td></tr>
+            <tr><td>E-06</td><td>«Mis amigos me buscan para trabajar en grupo»</td><td>Reconocimiento entre pares</td></tr>
+            <tr><td>E-07</td><td>«En el colegio me siento invisible»</td><td>Reconocimiento docente</td></tr>
+            <tr><td>E-08</td><td>«Me da miedo que se rían de mi forma de hablar»</td><td>Miedo al ridículo</td></tr>
+          </tbody>
+        </table>
+        <p class="tiny reveal">8 entrevistas · 4 categorías · el producto es un <strong>mapa de categorías</strong>, no una conclusión.</p>
+      </div>
+      <aside class="side reveal">
+        <div class="case">
+          <span class="case-tag">Caso real</span>
+          <p><strong>Whyte (1943), <em>Street Corner Society</em>.</strong> Tres años de observación participante en un barrio de Boston. No midió nada: construyó categorías sobre liderazgo y redes que ninguna encuesta previa había formulado.</p>
+        </div>
+        <div class="alert"><b>No se puede concluir</b> «la autoestima es baja en el colegio». Con 8 entrevistas se afirma qué categorías existen, no cuánto ni por qué.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= 02 DESCRIPTIVO ================= -->
+  <section class="slide" data-slide="6" data-group="02 · Descriptivo" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">02</span> Descriptivo · teoría</p>
+        <h2 class="reveal">El retrato <em>fiel</em> del grupo</h2>
+        <p class="lede reveal">Análisis <strong>univariado</strong>: una variable a la vez, con su distribución, su centro y su dispersión.</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se caracteriza el fenómeno mediante análisis univariado: se describe, se estima un parámetro o se contrasta con un valor de referencia, sin relacionar variables ni atribuir causas.</p></div>
+        <table class="tbl reveal">
+          <thead><tr><th>Objetivo</th><th>Qué produce</th><th>Técnica</th></tr></thead>
+          <tbody>
+            <tr><td>Describir / caracterizar</td><td>Perfil de la variable</td><td>%, media, DE</td></tr>
+            <tr><td>Estimar un parámetro</td><td>Valor poblacional</td><td>Estimación + IC</td></tr>
+            <tr><td>Contrastar con un parámetro</td><td>Comparación con referencia</td><td>Prueba de una muestra</td></tr>
+          </tbody>
+        </table>
+        <div class="case reveal">
+          <span class="case-tag">Caso real</span>
+          <p><strong>ENAHO (INEI).</strong> Reporta el porcentaje de hogares con internet por departamento. Es un retrato preciso del país… y no dice por qué unos acceden y otros no.</p>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="analogy">
+          <span class="analogy-icon" aria-hidden="true">📷</span>
+          <h3>La fotografía</h3>
+          <p>Tres sillones, una mesa, dos lámparas. La foto es fiel, pero no explica por qué la sala está así.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Describir no es tabular. Y usar pruebas de significancia para comparar grupos ya lo saca del nivel descriptivo.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" data-slide="7" data-group="02 · Descriptivo" data-label="Ejemplo">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">02</span> Descriptivo · ejemplo</p>
+        <h2 class="reveal">La autoestima de los 30 estudiantes, <em>sin cruzar nada</em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Nivel de autoestima y sus dimensiones en 30 estudiantes de secundaria»</p>
+          <p class="study-ctx"><b>Tema:</b> autoestima y sus dimensiones · <b>Población:</b> estudiantes de secundaria de un colegio público de Huancavelica · <b>Muestra:</b> 30 estudiantes · <b>Contexto:</b> medición de inicio de año, 2026.</p>
+          <div class="study-meta">
+            <div><span>Variable</span><b>Autoestima (0–100) + 3 dimensiones</b></div>
+            <div><span>Instrumento</span><b>Cuestionario de 20 ítems</b></div>
+            <div><span>Diseño</span><b>No experimental, transversal</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="stats-row">
+            <div class="stat"><span>Media</span><b id="dMean">—</b></div>
+            <div class="stat"><span>Desv. estándar</span><b id="dSd">—</b></div>
+            <div class="stat"><span>Mínimo</span><b id="dMin">—</b></div>
+            <div class="stat"><span>Máximo</span><b id="dMax">—</b></div>
+            <div class="stat"><span>Bajo 55</span><b id="dLow">—</b></div>
+          </div>
+          <table class="tbl tbl-dims">
+            <thead><tr><th>Dimensión</th><th>Media</th><th>DE</th><th>Mín.</th><th>Máx.</th><th>Lectura</th></tr></thead>
+            <tbody id="dimTable"></tbody>
+          </table>
+        </div>
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · autoestima</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Total</th><th>Acad.</th><th>Soc.</th><th>Emoc.</th></tr></thead>
+              <tbody id="tblDesc"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Puntajes de 0 a 100</span><b>30 registros</b></div>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Qué se puede decir</span>
+        <p>«La autoestima promedio del grupo es de <strong id="dSay">—</strong> puntos, con la dimensión académica más baja que la social». Eso es todo. <strong>No</strong> se puede decir todavía si el taller funciona ni qué la causa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 RELACIONAL ================= -->
+  <section class="slide" data-slide="8" data-group="03 · Relacional" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">03</span> Relacional · teoría</p>
+        <h2 class="reveal">Dos variables, <em>una relación</em></h2>
+        <p class="lede reveal">Análisis <strong>bivariado</strong>. Compare grupos, asocie o mida la fuerza de la asociación. Todavía no hay causa.</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se analiza la relación entre dos o más variables mediante técnicas bivariadas —comparación de grupos, asociación, concordancia o correlación—, sin pretender establecer una relación causal.</p></div>
+        <div class="mini-grid four reveal">
+          <div class="mini"><span>Comparar</span><b>grupos independientes</b></div>
+          <div class="mini"><span>Comparar</span><b>medidas repetidas</b></div>
+          <div class="mini"><span>Asociar</span><b>y correlacionar</b></div>
+          <div class="mini"><span>Medir</span><b>fuerza (OR, RR)</b></div>
+        </div>
+        <div class="keybox reveal">
+          <span class="keybox-tag">Precisión obligatoria</span>
+          <p><strong>El nivel relacional no es correlacional.</strong> Correlacionar es <em>una</em> de sus técnicas. Un chi cuadrado o un odds ratio son relacionales, no correlacionales.</p>
+        </div>
+        <div class="design reveal" style="margin-top:8px">
+          <svg viewBox="0 0 230 112" role="img" aria-label="Diseño correlacional: dos variables medidas en la misma muestra">
+            <defs>
+              <marker id="arC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0d9488"/>
+              </marker>
+            </defs>
+            <g font-family="Georgia, serif" font-style="italic" font-size="16" fill="#0f172a">
+              <text x="14" y="62">M</text>
+              <text x="82" y="28">O<tspan font-size="10" dy="4">x</tspan></text>
+              <text x="82" y="98">O<tspan font-size="10" dy="4">z</tspan></text>
+              <text x="170" y="62">r</text>
+            </g>
+            <g stroke="#0d9488" stroke-width="2" marker-end="url(#arC)" fill="none">
+              <line x1="30" y1="55" x2="70" y2="30"/>
+              <line x1="30" y1="59" x2="70" y2="88"/>
+            </g>
+            <g stroke="#0f172a" stroke-width="1.4" fill="none" marker-start="url(#arC)" marker-end="url(#arC)">
+              <line x1="160" y1="34" x2="160" y2="88"/>
+            </g>
+          </svg>
+          <span class="design-cap">Diseño correlacional · dos variables en la misma muestra</span>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="analogy">
+          <span class="analogy-icon" aria-hidden="true">💡</span>
+          <h3>Las dos luces</h3>
+          <p>Enciendes la luz del pasillo y también se ilumina la sala. Verdadero y repetible. Pero ambas podrían depender de un mismo interruptor.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> «Influye» es un verbo explicativo. En relacional se escribe «se asocia», «se relaciona», «difiere entre grupos».</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" data-slide="9" data-group="03 · Relacional" data-label="Ejemplo">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">03</span> Relacional · ejemplo</p>
+        <h2 class="reveal">Horas de estudio y rendimiento: <em>r = <span id="rVal">—</span></em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Horas de estudio y rendimiento académico en 30 estudiantes»</p>
+          <p class="study-ctx"><b>Tema:</b> hábitos de estudio y rendimiento · <b>Población:</b> estudiantes de 4.º y 5.º de secundaria · <b>Muestra:</b> los mismos 30 estudiantes · <b>Contexto:</b> segundo semestre, 2026.</p>
+          <div class="study-meta">
+            <div><span>Variables</span><b>Horas por semana y nota final (0–20)</b></div>
+            <div><span>Estadístico</span><b>r de Pearson</b></div>
+            <div><span>Diseño</span><b>No experimental, transversal</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="stats-row">
+            <div class="stat"><span>Correlación (r)</span><b id="rBig">—</b></div>
+            <div class="stat"><span>Varianza explicada (r²)</span><b id="r2Big">—</b></div>
+            <div class="stat"><span>n</span><b>30</b></div>
+          </div>
+          <div class="scatter-wrap">
+            <svg id="scatter" viewBox="0 0 320 150" preserveAspectRatio="none" aria-label="Diagrama de dispersión de horas de estudio y nota"></svg>
+          </div>
+          <div class="keybox">
+            <span class="keybox-tag">Interpretación correcta</span>
+            <p>«Existe una relación positiva y fuerte entre horas de estudio y rendimiento».<br><strong>No</strong> «estudiar más mejora el rendimiento»: eso exige controlar otras variables.</p>
+          </div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · horas y nota</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Grupo</th><th>Horas</th><th>Nota</th></tr></thead>
+              <tbody id="tblRel"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Cada fila es un punto del gráfico</span><b>30 registros</b></div>
+        </aside>
+      </div>
+
+      <div class="grid-2 reveal">
+        <div class="case">
+          <span class="case-tag">Caso real</span>
+          <p><strong>PISA (OCDE).</strong> Los estudiantes que dedican más tiempo a tareas escolares obtienen mejores resultados, pero la asociación se debilita al controlar el nivel socioeconómico. Esa debilidad es exactamente lo que estudia el nivel explicativo.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> r = <span id="rVal2">0,84</span> no autoriza a decir «causa». Puede haber una tercera variable: por ejemplo, el número de hermanos.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03C · técnicas relacionales -->
+  <section class="slide" data-slide="10" data-group="03 · Relacional" data-label="Chi² y odds ratio">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">03</span> Relacional · técnicas</p>
+        <h2 class="reveal">Chi² y odds ratio: <em>relacionar sin correlacionar</em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Taller de autoestima y autoestima alta (≥ 66): asociación en 30 estudiantes»</p>
+          <p class="study-ctx"><b>Tema:</b> asociación entre taller y autoestima alta · <b>Población:</b> los 30 estudiantes del estudio · <b>Muestra:</b> 30 (15 con taller, 15 sin taller) · <b>Contexto:</b> medición posterior al taller.</p>
+          <div class="study-meta">
+            <div><span>Variables</span><b>Taller (sí/no) · Autoestima alta (sí/no)</b></div>
+            <div><span>Técnicas</span><b>χ² y odds ratio</b></div>
+            <div><span>Diseño</span><b>No experimental, transversal</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="def-card">
+            <span class="def-tag">Chi cuadrado (χ²)</span>
+            <p>Compara las frecuencias <strong>observadas</strong> con las que se esperarían si no hubiera asociación. Responde <strong>si</strong> hay asociación (con su p), pero no su dirección ni su tamaño.</p>
+            <span class="def-use">Dos variables categóricas · «¿se asocian?»</span>
+          </div>
+          <div class="def-card">
+            <span class="def-tag">Odds ratio (OR)</span>
+            <p>En una tabla 2×2 compara las <strong>chances</strong> del desenlace entre dos grupos. OR = 1 significa que no hay asociación; OR = 2,5 significa que el grupo expuesto tiene 2,5 veces más chances.</p>
+            <span class="def-use">Dos variables binarias · «¿cuánto más probable?»</span>
+          </div>
+          <div class="def-card">
+            <span class="def-tag">r de Pearson · rho de Spearman</span>
+            <p>Mide <strong>cuánto y en qué dirección</strong> cambian juntas dos variables continuas u ordinales, de −1 a 1. Es la única de las tres que es <em>correlacional</em>.</p>
+            <span class="def-use">Dos variables continuas · «¿cuánto se mueven juntas?»</span>
+          </div>
+        </div>
+
+        <aside class="calc">
+          <div class="calc-head"><b>Calculadora 2×2</b><span>n = 30</span></div>
+          <table class="calc-table">
+            <thead><tr><th></th><th>Autoestima alta</th><th>No alta</th></tr></thead>
+            <tbody>
+              <tr><th>Con taller</th>
+                <td><input id="cellA" type="number" value="10" min="0" max="30" aria-label="Con taller, autoestima alta"></td>
+                <td><input id="cellB" type="number" value="5" min="0" max="30" aria-label="Con taller, autoestima no alta"></td>
+              </tr>
+              <tr><th>Sin taller</th>
+                <td><input id="cellC" type="number" value="5" min="0" max="30" aria-label="Sin taller, autoestima alta"></td>
+                <td><input id="cellD" type="number" value="10" min="0" max="30" aria-label="Sin taller, autoestima no alta"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="calc-out">
+            <div><span>OR</span><b id="orVal">—</b></div>
+            <div><span>χ²</span><b id="chiVal">—</b></div>
+            <div><span>p aprox.</span><b id="pVal">—</b></div>
+          </div>
+          <p class="calc-read" id="calcRead">—</p>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">La regla</span>
+        <p>El <strong>χ²</strong> dice <em>si</em> hay asociación; el <strong>OR</strong>, <em>cuántas veces</em> más chances; la <strong>r</strong>, <em>cuánto y en qué dirección</em> cambian juntas dos variables continuas. Las tres son <strong>relacionales</strong>; solo la <strong>r</strong> es correlacional.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03D · correlación ≠ asociación -->
+  <section class="slide" data-slide="11" data-group="03 · Relacional" data-label="Correlación ≠ asociación">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">03</span> Relacional · precisión</p>
+        <h2 class="reveal">Correlación <em>≠</em> asociación</h2>
+        <p class="lede reveal">La correlación es <strong>un tipo</strong> de asociación, no al revés. Todo lo que aparece abajo pertenece al mismo nivel: <strong>relacional</strong>.</p>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <table class="tbl tbl-fam">
+            <thead><tr><th>Medida</th><th>Qué mide</th><th>Familia</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>r de Pearson · rho de Spearman · tau de Kendall</td>
+                <td>Grado y dirección en que dos variables se mueven juntas (−1 a 1)</td>
+                <td><span class="pill pill-soft">Correlación</span></td>
+              </tr>
+              <tr>
+                <td>χ²</td>
+                <td>Si dos variables categóricas se relacionan (sin dirección ni magnitud)</td>
+                <td><span class="pill pill-soft">Asociación</span></td>
+              </tr>
+              <tr>
+                <td>Odds ratio · riesgo relativo</td>
+                <td>Cuántas veces más chances tiene un grupo</td>
+                <td><span class="pill pill-soft">Asociación</span></td>
+              </tr>
+              <tr>
+                <td>Kappa · ICC</td>
+                <td>Si dos medidas coinciden entre sí</td>
+                <td><span class="pill pill-soft">Concordancia</span></td>
+              </tr>
+              <tr>
+                <td>t · U de Mann-Whitney · ANOVA · Kruskal-Wallis</td>
+                <td>Si difieren las medias o las distribuciones entre grupos</td>
+                <td><span class="pill pill-soft">Comparación</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="side">
+          <div class="keybox">
+            <span class="keybox-tag">Respuesta corta</span>
+            <p><strong>Correlación:</strong> Pearson, Spearman, Kendall (y punto-biserial).<br><br>
+               <strong>No correlación:</strong> el χ² y el OR también miden asociación, pero no son correlaciones.</p>
+          </div>
+          <div class="case">
+            <span class="case-tag">Por eso se llama relacional</span>
+            <p>La correlación es <strong>una</strong> de sus cuatro familias: comparación de grupos, asociación, concordancia y correlación.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Regla</span>
+        <p><strong>Toda correlación es asociación, pero no toda asociación es correlación.</strong> Si el estudio usa χ² u OR, es relacional; llamarlo «correlacional» es un error de nombre.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 EXPLICATIVO ================= -->
+  <section class="slide" data-slide="12" data-group="04 · Explicativo" data-label="Teoría">
+    <div class="wrap center">
+      <p class="kicker reveal"><span class="num">04</span> Explicativo · teoría</p>
+      <h2 class="reveal big">¿Por qué <em>ocurre</em>?</h2>
+      <p class="lede reveal">Análisis <strong>multivariado</strong>. Se descartan explicaciones rivales por dos caminos que no compiten:</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se busca establecer relaciones causales mediante análisis multivariado, controlando variables extrañas para aislar el efecto de una o varias variables independientes sobre una variable dependiente.</p></div>
+      <div class="two-paths reveal">
+        <div class="path">
+          <span class="path-n">A</span>
+          <h3>Manipular</h3>
+          <p>Se aplica el taller y se mide antes y después, con un grupo de comparación.</p>
+          <div class="path-tags">
+            <span>Nivel: explicativo</span>
+            <span>Tipo: aplicado</span>
+            <span>Diseño: pre experimental</span>
+          </div>
+          <div class="design">
+            <svg viewBox="0 0 300 78" role="img" aria-label="Diseño pre test post test">
+              <defs>
+                <marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+                </marker>
+              </defs>
+              <g font-family="Georgia, serif" font-style="italic" font-size="17" fill="#0f172a">
+                <text x="8" y="26">G₁</text><text x="58" y="26">O₁</text><text x="146" y="26">X</text><text x="238" y="26">O₂</text>
+                <text x="8" y="62">G₂</text><text x="58" y="62">O₁</text><text x="146" y="62">—</text><text x="238" y="62">O₂</text>
+              </g>
+              <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#arA)" fill="none">
+                <line x1="78" y1="21" x2="136" y2="21"/><line x1="160" y1="21" x2="228" y2="21"/>
+                <line x1="78" y1="57" x2="136" y2="57"/><line x1="160" y1="57" x2="228" y2="57"/>
+              </g>
+            </svg>
+            <span class="design-cap">Pre test – post test · con un grupo es pre experimental</span>
+          </div>
+        </div>
+        <div class="path">
+          <span class="path-n">B</span>
+          <h3>Controlar</h3>
+          <p>No se interviene: se aísla el aporte de cada factor con un modelo.</p>
+          <div class="path-tags">
+            <span>Nivel: explicativo</span>
+            <span>Tipo: básico</span>
+            <span>Diseño: explicativo / causal</span>
+          </div>
+          <div class="design">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Diseño explicativo o causal">
+              <defs>
+                <marker id="arB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+                </marker>
+              </defs>
+              <g font-family="Georgia, serif" font-style="italic" font-size="17" fill="#0f172a">
+                <text x="10" y="70">M</text><text x="86" y="70">O</text>
+                <text x="158" y="32">X₁</text><text x="158" y="70">X₂</text><text x="155" y="108">Xₙ</text>
+                <text x="272" y="70">Y</text>
+              </g>
+              <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#arB)" fill="none">
+                <line x1="28" y1="64" x2="76" y2="64"/>
+                <line x1="100" y1="62" x2="146" y2="36"/>
+                <line x1="100" y1="64" x2="146" y2="64"/>
+                <line x1="100" y1="66" x2="146" y2="96"/>
+                <line x1="186" y1="30" x2="262" y2="62"/>
+                <line x1="186" y1="64" x2="262" y2="64"/>
+                <line x1="186" y1="102" x2="262" y2="66"/>
+              </g>
+            </svg>
+            <span class="design-cap">Explicativo / causal · M = muestra, O = observación, X = causas, Y = efecto</span>
+          </div>
+        </div>
+      </div>
+      <p class="tiny reveal">Uno responde «¿el taller funcionó?»; el otro, «¿cuánto aporta cada factor al rendimiento?».</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide" data-slide="13" data-group="04 · Explicativo" data-label="Taller (pretest–postest)">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">04A</span> Explicativo · pretest–postest</p>
+        <h2 class="reveal">El taller de autoestima, <em>antes y después</em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Efecto de un taller de 8 sesiones sobre la autoestima y sus dimensiones»</p>
+          <p class="study-ctx"><b>Tema:</b> efecto de un taller de autoestima · <b>Población:</b> estudiantes de 4.º y 5.º de un colegio público · <b>Muestra:</b> 30 (15 con taller, 15 sin taller) · <b>Contexto:</b> Huancavelica, 2026 · 8 sesiones.</p>
+          <div class="study-meta">
+            <div><span>Variable independiente</span><b>Taller de 8 sesiones (sí / no)</b></div>
+            <div><span>Variable dependiente</span><b>Autoestima 0–100 + académica, social, emocional</b></div>
+            <div><span>Diseño</span><b>Cuasi experimental, pre y post test</b></div>
+            <div><span>Muestra</span><b>30 estudiantes (15 / 15)</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="effect-panel">
+            <div class="eff"><span>Mejora del grupo con taller</span><b id="eDelta">—</b></div>
+            <div class="eff eff-main"><span>Efecto neto (descontando al control)</span><b id="netVal">—</b></div>
+            <p id="roNote">El grupo sin taller también mejoró: sin él, esa mejora se habría atribuido al programa.</p>
+          </div>
+
+          <table class="tbl tbl-dims">
+            <thead><tr><th>Variable / dimensión</th><th>Pre</th><th>Post</th><th>Δ taller</th><th>Δ control</th></tr></thead>
+            <tbody id="dimEffect"></tbody>
+          </table>
+
+          <div class="toggle-row">
+            <span>Calcular con grupo control</span>
+            <button class="switch" id="controlToggle" role="switch" aria-checked="true" aria-label="Usar grupo de comparación"><span class="knob"></span></button>
+            <span class="toggle-state" id="controlState">activo</span>
+          </div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · autoestima</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Grupo</th><th>Pre</th><th>Post</th><th>Δ</th></tr></thead>
+              <tbody id="tblPre"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Datos simulados con fines didácticos</span><b>30 registros</b></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide" data-slide="14" data-group="04 · Explicativo" data-label="Betas (regresión)">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">04B</span> Explicativo · coeficientes beta</p>
+        <h2 class="reveal">Horas, gasto y hermanos: <em>cuánto aporta cada uno</em></h2>
+        <div class="study reveal">
+          <p class="study-t">«Horas de estudio, gasto en materiales y hermanos como predictores del rendimiento»</p>
+          <p class="study-ctx"><b>Tema:</b> factores asociados al rendimiento · <b>Población:</b> los mismos 30 estudiantes · <b>Muestra:</b> 30 · <b>Contexto:</b> datos del semestre 2026-I.</p>
+          <div class="study-meta">
+            <div><span>Variable dependiente</span><b>Nota final (0–20)</b></div>
+            <div><span>Predictoras</span><b>Horas, gasto (S/) y nº de hermanos</b></div>
+            <div><span>Modelo</span><b>Regresión lineal múltiple</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <div class="model-switch" role="group" aria-label="Especificación del modelo">
+            <button class="seg is-active" data-model="1">Modelo 1 · solo horas</button>
+            <button class="seg" data-model="2">Modelo 2 · + gasto y hermanos</button>
+          </div>
+          <div class="beta-eq" id="betaEq">—</div>
+
+          <table class="beta-table" id="betaTable">
+            <thead><tr><th>Predictor</th><th>Beta</th><th>Lectura</th></tr></thead>
+            <tbody></tbody>
+          </table>
+
+          <p class="beta-read" id="betaRead">—</p>
+          <div class="beta-note" id="betaNote"></div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · rendimiento</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Horas</th><th>Gasto</th><th>Herm.</th><th>Nota</th></tr></thead>
+              <tbody id="tblBeta"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span id="betaSel">Toque una fila para ver su predicción</span><b>30 registros</b></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04D · puente explicativo → predictivo -->
+  <section class="slide" data-slide="15" data-group="04 · Explicativo" data-label="Pruebas y diseños">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">04</span> Explicativo · puente al predictivo</p>
+        <h2 class="reveal">Qué prueba usar, y <em>a qué nivel pertenece</em></h2>
+        <p class="lede reveal">Elija una prueba de la matriz: verá su nivel, su diseño, si es paramétrica y un ejemplo con los 30 estudiantes.</p>
+      </div>
+
+      <div class="test-tabs reveal">
+        <button class="tt is-active" data-block="1" role="tab">Comparación de grupos</button>
+        <button class="tt" data-block="2" role="tab">Correlación · modelos · series</button>
+      </div>
+
+      <div class="test-layout reveal">
+        <div class="matrix-wrap">
+          <div id="block1"></div>
+          <div id="block2" hidden></div>
+        </div>
+        <aside class="test-detail" id="testDetail"></aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Aquí terminan las pruebas de hipótesis</span>
+        <p>En el nivel <strong>predictivo</strong> ya no se buscan p-valores: se entrena un modelo y se mide su acierto con <strong>partición train/test, validación cruzada, AUC, RMSE y matriz de confusión</strong>. La estadística cambia de objetivo: de decidir si hay efecto, a estimar qué tan bien predice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 05 PREDICTIVO ================= -->
+  <section class="slide" data-slide="16" data-group="05 · Predictivo" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · teoría</p>
+        <h2 class="reveal">Anticipar <em>sin explicar</em></h2>
+        <p class="lede reveal">Modelamiento estadístico. No pregunta por la causa: estima la <strong>probabilidad individual</strong> de un evento o su valor futuro.</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se construyen modelos que estiman la probabilidad o el valor futuro de un evento a partir de variables predictoras; su calidad se juzga por la capacidad de acierto fuera de la muestra, no por la explicación.</p></div>
+        <div class="mini-grid four reveal">
+          <div class="mini"><span>Predecir</span><b>probabilidad / valor</b></div>
+          <div class="mini"><span>Pronosticar</span><b>cuándo ocurre</b></div>
+          <div class="mini"><span>Proyectar</span><b>serie futura</b></div>
+          <div class="mini"><span>Juzgar</span><b>AUC · RMSE</b></div>
+        </div>
+        <div class="case reveal">
+          <span class="case-tag">Caso real</span>
+          <p><strong>Georgia State University, GPS Advising.</strong> Un modelo detectaba estudiantes en riesgo y un equipo de tutores intervenía. El modelo no explicaba el abandono: <strong>lo anticipaba</strong>.</p>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="analogy">
+          <span class="analogy-icon" aria-hidden="true">🌦️</span>
+          <h3>El pronóstico del clima</h3>
+          <p>No le importa por qué llueve. Le importa <strong>si mañana llueve</strong>, para salir con paraguas.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Un modelo que acierta solo con los datos con que fue construido está sobreajustado: memorizó, no aprendió.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide" data-slide="17" data-group="05 · Predictivo" data-label="Ejemplo">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · ejemplo</p>
+        <h2 class="reveal">¿Quién está en riesgo de <em>reprobar</em>?</h2>
+        <div class="study reveal">
+          <p class="study-t">«Modelo de estimación del riesgo de reprobar en el primer ciclo»</p>
+          <p class="study-ctx"><b>Tema:</b> riesgo de reprobar · <b>Población:</b> ingresantes del primer ciclo · <b>Muestra:</b> 30 estudiantes · <b>Contexto:</b> cierre del primer bimestre, cuando aún se puede intervenir.</p>
+          <div class="study-meta">
+            <div><span>Predictores</span><b>Horas, autoestima y nota actual</b></div>
+            <div><span>Salida</span><b>Índice de riesgo 0–100</b></div>
+            <div><span>Métrica</span><b>AUC con validación cruzada</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <table class="tbl">
+            <thead><tr><th>Riesgo</th><th>Índice</th><th>Decisión</th></tr></thead>
+            <tbody>
+              <tr><td>Alto</td><td>70 – 100</td><td>Tutoría inmediata</td></tr>
+              <tr><td>Medio</td><td>40 – 69</td><td>Seguimiento quincenal</td></tr>
+              <tr><td>Bajo</td><td>0 – 39</td><td>Sin intervención</td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <span class="callout-tag">Cómo se juzga</span>
+            <p>No por el p-valor, sino por su acierto fuera de muestra: <strong>AUC = 0,81</strong>, con validación cruzada. Un modelo que solo acierta con los datos con que fue construido no sirve.</p>
+          </div>
+        </div>
+
+        <aside class="data-card">
+          <div class="data-head">
+            <b>Base de datos · riesgo estimado</b>
+            <span class="badge">n = 30</span>
+          </div>
+          <div class="data-scroll">
+            <table class="data-table">
+              <thead><tr><th>ID</th><th>Horas</th><th>Autoest.</th><th>Nota</th><th>Riesgo</th></tr></thead>
+              <tbody id="tblPred"></tbody>
+            </table>
+          </div>
+          <div class="data-foot"><span>Índice orientativo del modelo</span><b>30 registros</b></div>
+        </aside>
+      </div>
+
+      <div class="grid-2 reveal">
+        <div class="case">
+          <span class="case-tag">Caso real</span>
+          <p><strong>Georgia State University, GPS Advising.</strong> Un modelo sobre cientos de variables detectaba estudiantes en riesgo y un equipo de tutores intervenía. No explicaba el abandono: lo anticipaba para actuar a tiempo.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Predecir no es profecía: es una probabilidad con error. Y un modelo que no se valida fuera de la muestra es solo un recuerdo de los datos.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05C · modelos de clasificación -->
+  <section class="slide" data-slide="18" data-group="05 · Predictivo" data-label="Modelos de clasificación">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">05</span> Predictivo · modelos</p>
+        <h2 class="reveal">Los modelos de <em>clasificación</em>, en orden de uso</h2>
+        <p class="lede reveal">Clasificar es predecir una <strong>categoría</strong>: aprueba o reprueba, deserta o se queda, en riesgo o sin riesgo. Estos son los modelos que se usan, del más simple al más potente.</p>
+      </div>
+
+      <div class="model-grid reveal">
+        <div class="model-card">
+          <span class="mo-n">01</span>
+          <h3>Regresión logística</h3>
+          <p>El punto de partida. Devuelve probabilidades y sus coeficientes se leen como odds ratios.</p>
+          <span class="mo-use">Cuando necesitas interpretar</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">02</span>
+          <h3>Árbol de decisión</h3>
+          <p>Reglas legibles: «si falta más de 20 % y estudia menos de 5 h, riesgo alto». Se sobreajusta con facilidad.</p>
+          <span class="mo-use">Cuando necesitas explicar la regla</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">03</span>
+          <h3>Random Forest</h3>
+          <p>Cientos de árboles que votan. Robusto, tolera datos sucios y entrega importancia de variables.</p>
+          <span class="mo-use">Uso general en datos tabulares</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">04</span>
+          <h3>Gradient Boosting</h3>
+          <p>XGBoost, LightGBM, CatBoost. Suele ganar en tabulares; más potente y menos interpretable.</p>
+          <span class="mo-use">Cuando buscas la mejor métrica</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">05</span>
+          <h3>Máquinas de vectores (SVM)</h3>
+          <p>Traza el margen que mejor separa las clases. Bueno con pocos casos y muchas variables.</p>
+          <span class="mo-use">Muestras pequeñas, muchas variables</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">06</span>
+          <h3>k vecinos (kNN)</h3>
+          <p>Clasifica según los casos más parecidos. Simple e intuitivo; exige escalar las variables.</p>
+          <span class="mo-use">Para entender la idea de similitud</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">07</span>
+          <h3>Naive Bayes</h3>
+          <p>Rápido y sorprendentemente bueno con texto. Asume independencia entre predictores.</p>
+          <span class="mo-use">Textos y datos de alta dimensión</span>
+        </div>
+        <div class="model-card">
+          <span class="mo-n">08</span>
+          <h3>Red neuronal (MLP)</h3>
+          <p>Capta relaciones no lineales complejas. Necesita muchos datos y es una caja negra.</p>
+          <span class="mo-use">Muchos datos, patrones complejos</span>
+        </div>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">Cómo se elige y se juzga</span>
+        <p>No por el p-valor: se separa <strong>entrenamiento / validación / prueba</strong>, se usa <strong>validación cruzada</strong> y se reporta <strong>AUC-ROC</strong>, exactitud, sensibilidad, especificidad y F1, con su <strong>matriz de confusión</strong>. Con clases desbalanceadas (80 % aprueba, 20 % reprueba), la exactitud engaña: un modelo que dice «todos aprueban» acierta el 80 %.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 06 APLICATIVO ================= -->
+  <section class="slide" data-slide="19" data-group="06 · Aplicativo" data-label="Teoría">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">06</span> Aplicativo · teoría</p>
+        <h2 class="reveal">Intervenir, medir, <em>sostener</em></h2>
+        <p class="lede reveal">Metodologías de mejora continua. Incluye la investigación tecnológica: el criterio no es el p-valor, es que el resultado <strong>se mantenga</strong>.</p>
+      <div class="def reveal"><span class="def-lbl">Definición</span><p>Es el nivel en el que se interviene sobre un proceso o situación real, se evalúa el resultado con indicadores y criterios definidos de antemano, y se verifica que la mejora se sostenga en el tiempo.</p></div>
+        <table class="tbl reveal">
+          <thead><tr><th>Objetivo</th><th>Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td>Evaluar</td><td>Línea base y monitoreo de indicadores</td></tr>
+            <tr><td>Calibrar</td><td>Ajusta dosis o frecuencia de las sesiones</td></tr>
+            <tr><td>Controlar</td><td>Mantiene la mejora e institucionaliza</td></tr>
+            <tr><td>Aceptar</td><td>Valida con criterios definidos antes</td></tr>
+          </tbody>
+        </table>
+        <div class="case reveal">
+          <span class="case-tag">Caso real</span>
+          <p><strong>Seis Sigma (Motorola, 1986; GE, 1995).</strong> El ciclo DMAIC convirtió la reducción de defectos en un estándar verificable, no en una anécdota de éxito.</p>
+        </div>
+      </div>
+      <aside class="side reveal">
+        <div class="analogy">
+          <span class="analogy-icon" aria-hidden="true">🚿</span>
+          <h3>El agua de la ducha</h3>
+          <p>Mide con la mano (evaluar), ajusta la mezcla (calibrar), verifica que no varíe (controlar) y fija la posición (aceptar).</p>
+        </div>
+        <div class="alert"><b>Alerta</b> «Hice un taller y me pareció que funcionó» no es nivel aplicativo. Hacen falta línea base, indicadores y criterios previos.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="slide" data-slide="20" data-group="06 · Aplicativo" data-label="Ejemplo">
+    <div class="wrap split">
+      <div>
+        <p class="kicker reveal"><span class="num">06</span> Aplicativo · ejemplo</p>
+        <h2 class="reveal">Que el taller <em>no se quede</em> en un trimestre</h2>
+        <div class="study reveal">
+          <p class="study-t">«Implementación y sostenimiento del taller de autoestima en tres secciones»</p>
+          <p class="study-ctx"><b>Tema:</b> sostenibilidad del taller · <b>Población:</b> tres secciones del mismo grado · <b>Muestra:</b> 3 secciones con monitoreo de 6 bimestres · <b>Contexto:</b> institucionalización 2026-2027.</p>
+          <div class="study-meta">
+            <div><span>Indicadores</span><b>Media, % bajo 55 y asistencia</b></div>
+            <div><span>Monitoreo</span><b>6 bimestres</b></div>
+            <div><span>Método</span><b>DMAIC: evaluar, calibrar, controlar, aceptar</b></div>
+          </div>
+        </div>
+        <table class="tbl reveal">
+          <thead><tr><th>Bimestre</th><th>Autoestima media</th><th>% bajo 55</th><th>Asistencia</th><th>Decisión</th></tr></thead>
+          <tbody>
+            <tr><td>B1 · línea base</td><td>58,9</td><td>33 %</td><td>—</td><td>Iniciar taller</td></tr>
+            <tr><td>B2</td><td>64,1</td><td>21 %</td><td>88 %</td><td>Mantener 8 sesiones</td></tr>
+            <tr><td>B3</td><td>68,2</td><td>9 %</td><td>86 %</td><td>Meta alcanzada</td></tr>
+            <tr><td>B4</td><td>66,9</td><td>11 %</td><td>81 %</td><td>Calibrar: 6 sesiones</td></tr>
+            <tr><td>B5</td><td>67,4</td><td>10 %</td><td>87 %</td><td>Consolidar</td></tr>
+            <tr><td>B6</td><td>67,8</td><td>9 %</td><td>89 %</td><td>Aceptar el protocolo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="side reveal">
+        <div class="keybox">
+          <span class="keybox-tag">La diferencia</span>
+          <p>El <strong>explicativo</strong> demuestra que el taller produjo +9,3 puntos. El <strong>aplicativo</strong> demuestra que esos +9,3 se mantienen con 6 sesiones, en 3 secciones, dos años después.</p>
+        </div>
+        <div class="alert"><b>Alerta</b> Sin línea base no hay forma de demostrar mejora. El indicador se define <em>antes</em> de intervenir, no después.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 06C · aplicativo en ingeniería -->
+  <section class="slide" data-slide="21" data-group="06 · Aplicativo" data-label="Ejemplo en ingeniería">
+    <div class="wrap">
+      <div class="slide-head">
+        <p class="kicker reveal"><span class="num">06</span> Aplicativo · ingeniería</p>
+        <h2 class="reveal">Donde se ve de verdad: <em>control del concreto</em></h2>
+        <p class="lede reveal">En obra no se discute la teoría: se decide si el lote cumple o se rechaza. Los cuatro objetivos del nivel aplicativo, aplicados a probetas reales.</p>
+      </div>
+
+      <div class="study reveal">
+        <p class="study-t">«Control estadístico de la resistencia del concreto en una obra»</p>
+        <p class="study-ctx"><b>Tema:</b> control de calidad del concreto · <b>Población:</b> lotes de concreto de una obra · <b>Muestra:</b> 6 lotes × 3 probetas a 28 días · <b>Contexto:</b> obra en Huancavelica, 2026.</p>
+        <div class="study-meta">
+          <div><span>Variable</span><b>Resistencia a compresión (kg/cm²)</b></div>
+          <div><span>Criterio</span><b>f'c ≥ 210 · Cpk ≥ 0,67</b></div>
+          <div><span>Método</span><b>CEP: cartas x̄–R</b></div>
+        </div>
+      </div>
+
+      <div class="workbench reveal">
+        <div class="wb-main">
+          <table class="tbl">
+            <thead><tr><th>Lote</th><th>n</th><th>Media</th><th>DE</th><th>Cpk</th><th>Decisión</th></tr></thead>
+            <tbody>
+              <tr><td>L-01</td><td>3</td><td>248</td><td>14,7</td><td>0,86</td><td class="ok">Aceptar</td></tr>
+              <tr><td>L-02</td><td>3</td><td>252</td><td>14,7</td><td>0,95</td><td class="ok">Aceptar</td></tr>
+              <tr><td>L-03</td><td>3</td><td>214</td><td>6,3</td><td>0,21</td><td class="bad">Rechazar</td></tr>
+              <tr><td>L-04</td><td>3</td><td>206</td><td>22,0</td><td>−0,06</td><td class="bad">Rechazar</td></tr>
+              <tr><td>L-05</td><td>3</td><td>261</td><td>14,8</td><td>1,15</td><td class="ok">Aceptar</td></tr>
+              <tr><td>L-06</td><td>3</td><td>244</td><td>14,7</td><td>0,77</td><td class="ok">Aceptar</td></tr>
+            </tbody>
+          </table>
+          <p class="tiny" style="margin-top:2px">Cpk = (media − 210) ÷ (3 · DE). Un Cpk bajo no significa «mala teoría»: significa que el proceso no está centrado o varía demasiado.</p>
+        </div>
+
+        <aside class="side">
+          <div class="mini-grid four" style="margin-bottom:0">
+            <div class="mini"><span>Evaluar</span><b>18 probetas a 28 días</b></div>
+            <div class="mini"><span>Calibrar</span><b>L-03: relación a/c 0,55 → 0,48</b></div>
+            <div class="mini"><span>Controlar</span><b>Cartas x̄–R, límites 210–270</b></div>
+            <div class="mini"><span>Aceptar</span><b>Cpk ≥ 0,67 y ningún valor bajo 175</b></div>
+          </div>
+          <div class="case">
+            <span class="case-tag">Mismo esquema en química</span>
+            <p><strong>Rendimiento de un reactor.</strong> Se evalúa la línea base, se calibra la temperatura de operación, se controla con cartas de proceso y se acepta el nuevo punto de operación solo si se sostiene.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="callout reveal">
+        <span class="callout-tag">La diferencia con explicar</span>
+        <p>El nivel aplicativo no pregunta <em>por qué</em> el concreto resiste: pregunta <strong>si el proceso cumple el criterio y si la mejora se mantiene</strong>. Por eso necesita línea base, indicadores y un criterio definido antes de intervenir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CIERRE ================= -->
+  <section class="slide" data-slide="22" data-group="Cierre" data-label="Clasificador">
+    <div class="wrap">
+      <p class="kicker reveal">Ponte a prueba</p>
+      <h2 class="reveal">Clasificador de <em>niveles</em></h2>
+      <p class="lede reveal">Ocho situaciones del caso. Elija el nivel: la retroalimentación explica el criterio.</p>
+
+      <div class="quiz reveal" id="quiz">
+        <div class="quiz-head">
+          <span class="quiz-count"><b id="qIndex">1</b> / 8</span>
+          <div class="quiz-progress"><span id="qProgress"></span></div>
+          <span class="quiz-score">Aciertos: <b id="qScore">0</b></span>
+        </div>
+        <p class="quiz-q" id="qText">—</p>
+        <div class="quiz-options" id="qOptions"></div>
+        <div class="quiz-feedback" id="qFeedback" aria-live="polite"></div>
+        <div class="quiz-actions">
+          <button class="btn btn-ghost" id="qReset">Reiniciar</button>
+          <button class="btn btn-primary" id="qNext" disabled>Siguiente <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide" data-slide="23" data-group="Cierre" data-label="Síntesis">
+    <div class="wrap">
+      <p class="kicker reveal">Para llevarse</p>
+      <h2 class="reveal">Cinco ideas que <em>no se olvidan</em></h2>
+      <ol class="takeaways reveal">
+        <li><span>01</span><p><strong>El análisis decide el nivel.</strong> Si el título promete explicación y el informe muestra porcentajes, el nivel es decorativo.</p></li>
+        <li><span>02</span><p><strong>Relacional no es correlacional.</strong> r = 0,84 describe una asociación; no autoriza a decir «causa».</p></li>
+        <li><span>03</span><p><strong>Sin grupo de comparación no hay efecto.</strong> Los 15 estudiantes sin taller mejoraron 2,4 puntos por su cuenta.</p></li>
+        <li><span>04</span><p><strong>La beta cambia cuando controla.</strong> Las horas pasan de 0,64 a 0,48 al descontar hermanos: ese cambio es información.</p></li>
+        <li><span>05</span><p><strong>Predecir no es explicar, y aplicar no es predecir.</strong> El predictivo anticipa; el aplicativo interviene, mide y sostiene.</p></li>
+      </ol>
+
+      <div class="refs reveal">
+        <h3>Referencias</h3>
+        <p>Hernández-Sampieri, R., &amp; Mendoza, C. P. (2018). <em>Metodología de la investigación: las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill.</p>
+        <p>Supo, J. A. (2025). <em>Niveles de investigación: una clasificación emergente fundamentada en el análisis de datos</em>. BIOESTADISTICO.</p>
+        <p>Valderrama Mendoza, S. (2018). <em>El desarrollo de la tesis descriptiva-comparativa, correlacional y cuasiexperimental</em>. San Marcos.</p>
+        <p class="refs-note">La base de 30 estudiantes es simulada y se usa solo con fines didácticos.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="scroll-hint" id="scrollHint" aria-hidden="true">Desplazar <span>↓</span></div>
+
+<nav class="navbar" aria-label="Navegación de la presentación">
+  <button class="nav-btn" id="prevBtn" aria-label="Página anterior">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="progress"><span id="progressBar"></span></div>
+  <span class="counter"><b id="curNum">01</b><span>/</span><span id="totNum">18</span></span>
+  <button class="nav-btn" id="nextBtn" aria-label="Página siguiente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</nav>
+
+<script>
+/* ==========================================================
+   Niveles de investigación — deck interactivo
+   Casos educativos · navegación por niveles
+   ========================================================== */
+(function () {
+  "use strict";
+
+  const $  = (s, c) => (c || document).querySelector(s);
+  const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+  const fmt = (n, d = 1) => n.toFixed(d).replace(".", ",");
+  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const sd = a => {
+    const m = mean(a);
+    return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / (a.length - 1));
+  };
+
+  /* ---------------- base de datos: 30 estudiantes ---------------- */
+  const DATA = [
+    { id:"C01", g:"Control", preT:60.4, postT:61.7, preA:55.0, postA:55.9, preS:62.1, postS:63.9, preE:64.1, postE:65.3, horas:8.0, gasto:62, herm:2, rend:9.7 },
+    { id:"C02", g:"Control", preT:48.2, postT:51.7, preA:41.3, postA:44.8, preS:50.8, postS:54.8, preE:52.5, postE:55.5, horas:11.8, gasto:240, herm:2, rend:14.6 },
+    { id:"C03", g:"Control", preT:71.1, postT:73.2, preA:70.8, postA:73.0, preS:74.7, postS:75.5, preE:67.8, postE:71.2, horas:14.5, gasto:249, herm:0, rend:15.5 },
+    { id:"C04", g:"Control", preT:61.2, postT:63.8, preA:57.9, postA:59.8, preS:59.3, postS:61.4, preE:66.5, postE:70.3, horas:7.4, gasto:167, herm:1, rend:12.9 },
+    { id:"C05", g:"Control", preT:49.7, postT:51.8, preA:52.1, postA:55.0, preS:47.0, postS:49.7, preE:50.2, postE:50.7, horas:11.4, gasto:161, herm:1, rend:12.2 },
+    { id:"C06", g:"Control", preT:63.7, postT:66.7, preA:57.9, postA:60.6, preS:65.7, postS:68.5, preE:67.4, postE:71.0, horas:5.1, gasto:157, herm:2, rend:10.8 },
+    { id:"C07", g:"Control", preT:66.1, postT:68.5, preA:73.0, postA:74.5, preS:64.8, postS:66.7, preE:60.6, postE:64.4, horas:5.4, gasto:41, herm:1, rend:10.4 },
+    { id:"C08", g:"Control", preT:50.8, postT:53.3, preA:48.5, postA:50.8, preS:44.7, postS:48.0, preE:59.2, postE:61.1, horas:5.4, gasto:62, herm:3, rend:11.1 },
+    { id:"C09", g:"Control", preT:47.8, postT:50.7, preA:53.3, postA:55.8, preS:50.2, postS:53.5, preE:40.0, postE:42.9, horas:9.1, gasto:172, herm:2, rend:12.3 },
+    { id:"C10", g:"Control", preT:54.6, postT:57.3, preA:51.4, postA:53.5, preS:54.8, postS:56.9, preE:57.7, postE:61.4, horas:8.7, gasto:88, herm:2, rend:10.8 },
+    { id:"C11", g:"Control", preT:70.7, postT:71.6, preA:67.6, postA:67.8, preS:74.1, postS:75.3, preE:70.4, postE:71.8, horas:6.6, gasto:152, herm:2, rend:12.2 },
+    { id:"C12", g:"Control", preT:55.5, postT:58.7, preA:54.6, postA:56.0, preS:53.8, postS:57.7, preE:58.1, postE:62.4, horas:7.9, gasto:182, herm:1, rend:13.8 },
+    { id:"C13", g:"Control", preT:46.6, postT:48.7, preA:40.6, postA:42.2, preS:53.4, postS:55.5, preE:45.7, postE:48.4, horas:6.9, gasto:62, herm:1, rend:10.6 },
+    { id:"C14", g:"Control", preT:59.0, postT:60.6, preA:59.6, postA:59.4, preS:58.5, postS:61.2, preE:58.8, postE:61.1, horas:6.5, gasto:104, herm:3, rend:7.7 },
+    { id:"C15", g:"Control", preT:73.1, postT:76.0, preA:68.2, postA:70.2, preS:73.9, postS:77.4, preE:77.3, postE:80.6, horas:14.7, gasto:230, herm:1, rend:14.9 },
+    { id:"E01", g:"Experimental", preT:65.1, postT:74.8, preA:67.5, postA:80.0, preS:64.5, postS:72.5, preE:63.4, postE:71.8, horas:9.4, gasto:123, herm:2, rend:12.3 },
+    { id:"E02", g:"Experimental", preT:46.6, postT:54.7, preA:46.4, postA:56.3, preS:49.3, postS:57.4, preE:44.1, postE:50.4, horas:11.8, gasto:168, herm:1, rend:11.8 },
+    { id:"E03", g:"Experimental", preT:59.9, postT:69.8, preA:55.9, postA:67.5, preS:63.7, postS:73.0, preE:59.9, postE:68.8, horas:2.0, gasto:79, herm:2, rend:6.3 },
+    { id:"E04", g:"Experimental", preT:58.1, postT:67.2, preA:54.7, postA:67.3, preS:57.6, postS:65.9, preE:62.1, postE:68.5, horas:8.1, gasto:94, herm:3, rend:12.7 },
+    { id:"E05", g:"Experimental", preT:60.8, postT:70.2, preA:60.0, postA:74.8, preS:58.9, postS:67.4, preE:63.4, postE:68.3, horas:2.4, gasto:117, herm:3, rend:7.2 },
+    { id:"E06", g:"Experimental", preT:62.6, postT:70.7, preA:55.6, postA:68.9, preS:64.9, postS:73.0, preE:67.1, postE:70.3, horas:9.5, gasto:144, herm:1, rend:14.4 },
+    { id:"E07", g:"Experimental", preT:48.0, postT:57.9, preA:50.1, postA:62.2, preS:51.1, postS:62.6, preE:42.8, postE:48.8, horas:7.5, gasto:109, herm:1, rend:10.4 },
+    { id:"E08", g:"Experimental", preT:61.8, postT:70.3, preA:65.7, postA:80.3, preS:59.7, postS:64.9, preE:60.1, postE:65.6, horas:11.1, gasto:160, herm:2, rend:12.8 },
+    { id:"E09", g:"Experimental", preT:55.0, postT:64.2, preA:50.2, postA:63.7, preS:61.8, postS:70.3, preE:52.9, postE:58.7, horas:9.8, gasto:136, herm:1, rend:13.8 },
+    { id:"E10", g:"Experimental", preT:65.7, postT:74.4, preA:63.8, postA:78.5, preS:68.7, postS:77.0, preE:64.6, postE:67.7, horas:4.1, gasto:64, herm:2, rend:7.5 },
+    { id:"E11", g:"Experimental", preT:72.3, postT:81.4, preA:73.2, postA:84.2, preS:79.1, postS:85.8, preE:64.5, postE:74.1, horas:7.1, gasto:233, herm:2, rend:11.5 },
+    { id:"E12", g:"Experimental", preT:50.1, postT:59.7, preA:47.2, postA:61.1, preS:49.9, postS:59.3, preE:53.2, postE:58.7, horas:6.5, gasto:192, herm:3, rend:8.7 },
+    { id:"E13", g:"Experimental", preT:50.1, postT:60.3, preA:48.6, postA:63.6, preS:49.0, postS:57.2, preE:52.7, postE:60.0, horas:8.7, gasto:124, herm:1, rend:11.1 },
+    { id:"E14", g:"Experimental", preT:71.1, postT:79.7, preA:76.8, postA:88.2, preS:67.1, postS:76.1, preE:69.5, postE:74.7, horas:7.0, gasto:194, herm:3, rend:11.4 },
+    { id:"E15", g:"Experimental", preT:56.9, postT:68.0, preA:63.4, postA:77.2, preS:62.6, postS:75.2, preE:44.8, postE:51.6, horas:13.8, gasto:166, herm:0, rend:15.6 }
+  ];
+
+  const C = DATA.filter(d => d.g === "Control");
+  const E = DATA.filter(d => d.g === "Experimental");
+
+  /* ---------------- estadística ---------------- */
+  function ols(X, y) {
+    const n = X.length, k = X[0].length;
+    const A = [];
+    for (let i = 0; i < k; i++) {
+      const row = [];
+      for (let j = 0; j < k; j++) {
+        let s = 0;
+        for (let r = 0; r < n; r++) s += X[r][i] * X[r][j];
+        row.push(s);
+      }
+      let s = 0;
+      for (let r = 0; r < n; r++) s += X[r][i] * y[r];
+      row.push(s);
+      A.push(row);
+    }
+    for (let c = 0; c < k; c++) {
+      let piv = c;
+      for (let r = c + 1; r < k; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+      const t = A[c]; A[c] = A[piv]; A[piv] = t;
+      const pv = A[c][c];
+      for (let j = 0; j <= k; j++) A[c][j] /= pv;
+      for (let r = 0; r < k; r++) {
+        if (r === c) continue;
+        const f = A[r][c];
+        if (!f) continue;
+        for (let j = 0; j <= k; j++) A[r][j] -= f * A[c][j];
+      }
+    }
+    const b = A.map(r => r[k]);
+    const ybar = mean(y);
+    let ssr = 0, sst = 0;
+    for (let r = 0; r < n; r++) {
+      let yh = 0;
+      for (let j = 0; j < k; j++) yh += X[r][j] * b[j];
+      ssr += (y[r] - yh) ** 2;
+      sst += (y[r] - ybar) ** 2;
+    }
+    return { b, r2: 1 - ssr / sst };
+  }
+
+  function pearson(x, y) {
+    const mx = mean(x), my = mean(y);
+    let num = 0, dx = 0, dy = 0;
+    for (let i = 0; i < x.length; i++) {
+      num += (x[i] - mx) * (y[i] - my);
+      dx += (x[i] - mx) ** 2;
+      dy += (y[i] - my) ** 2;
+    }
+    return num / Math.sqrt(dx * dy);
+  }
+
+  const Y = DATA.map(d => d.rend);
+  const M1 = ols(DATA.map(d => [1, d.horas]), Y);
+  const M2 = ols(DATA.map(d => [1, d.horas, d.gasto, d.herm]), Y);
+
+  /* ---------------- pirámide de niveles ---------------- */
+  const PYRAMID = [
+    { n: "Aplicativo",   a: "Mejora continua", c: "#059669" },
+    { n: "Predictivo",   a: "Modelamiento",    c: "#10b981" },
+    { n: "Explicativo",  a: "Multivariado",    c: "#7c3aed" },
+    { n: "Relacional",   a: "Bivariado",       c: "#a78bfa" },
+    { n: "Descriptivo",  a: "Univariado",      c: "#0891b2" },
+    { n: "Exploratorio", a: "No estadístico",  c: "#22d3ee" }
+  ];
+
+  const pyramidEl = $("#pyramid");
+  if (pyramidEl) {
+    const W = 240, H = 300, CX = 120, HALF = 118, step = H / PYRAMID.length;
+    const bands = PYRAMID.map((lvl, i) => {
+      const y0 = i * step, y1 = (i + 1) * step;
+      const h0 = (y0 / H) * HALF, h1 = (y1 / H) * HALF;
+      const pts = CX + "," + y0 + " " + (CX + h0) + "," + y0 + " " +
+                  (CX + h1) + "," + y1 + " " + (CX - h1) + "," + y1 + " " +
+                  (CX - h0) + "," + y0;
+      return '<polygon class="pyr-band" points="' + pts + '" fill="' + lvl.c +
+             '" stroke="#ffffff" stroke-width="2.4" stroke-linejoin="round"></polygon>';
+    }).join("");
+
+    pyramidEl.innerHTML =
+      '<svg class="pyr-svg" viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" aria-hidden="true">' + bands + "</svg>" +
+      '<div class="pyr-legend">' + PYRAMID.map(l =>
+        '<div class="pyr-item"><i style="background:' + l.c + '"></i><div><b>' + l.n + "</b><span>" + l.a + "</span></div></div>"
+      ).join("") + "</div>";
+  }
+
+  /* ---------------- deck ---------------- */
+  const slides = $$(".slide");
+  const total = slides.length;
+  let index = 0;
+  $("#totNum").textContent = String(total).padStart(2, "0");
+
+  function setRevealIndexes() {
+    slides.forEach(s => $$(".reveal", s).forEach((el, i) => el.style.setProperty("--i", i)));
+  }
+
+  function render() {
+    slides.forEach((s, i) => {
+      const on = i === index;
+      s.classList.toggle("is-active", on);
+      s.setAttribute("aria-hidden", on ? "false" : "true");
+      try { s.inert = !on; } catch (_) {}
+    });
+
+    const num = index + 1;
+    $("#curNum").textContent = String(num).padStart(2, "0");
+    $("#progressBar").style.width = (num / total) * 100 + "%";
+    $("#prevBtn").disabled = index === 0;
+    $("#nextBtn").disabled = index === total - 1;
+    try { history.replaceState(null, "", "#/" + num); } catch (_) {}
+
+    const active = slides[index];
+    active.scrollTop = 0;
+    const gi = slideGroup[index];
+    $$(".ln-item").forEach((it, i) => it.classList.toggle("is-active", i === gi));
+    $("#topPage").textContent = String(num).padStart(2, "0") + " / " + total;
+    document.title = (active.dataset.label || "Niveles") + " · " + (active.dataset.group || "");
+
+    const updateHint = () => {
+      const hint = $("#scrollHint");
+      if (hint) hint.classList.toggle("is-on", active.scrollHeight > active.clientHeight + 8);
+    };
+    updateHint();
+    requestAnimationFrame(updateHint);
+    setTimeout(updateHint, 150);
+  }
+
+  function goTo(n) {
+    const target = Math.max(1, Math.min(total, n));
+    if (target === index + 1) return;
+    index = target - 1;
+    render();
+  }
+  const next = () => goTo(index + 2);
+  const prev = () => goTo(index);
+
+  $("#nextBtn").addEventListener("click", next);
+  $("#prevBtn").addEventListener("click", prev);
+  $$("[data-goto]").forEach(b => b.addEventListener("click", () => goTo(+b.dataset.goto)));
+
+  document.addEventListener("keydown", e => {
+    const tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return;
+
+    switch (e.key) {
+      case "ArrowRight": case "PageDown": case " ": e.preventDefault(); next(); break;
+      case "ArrowLeft":  case "PageUp":  e.preventDefault(); prev(); break;
+      case "Home": e.preventDefault(); goTo(1); break;
+      case "End":  e.preventDefault(); goTo(total); break;
+    }
+  });
+
+  let sx = 0, sy = 0, tracking = false;
+  const deck = $("#deck");
+  deck.addEventListener("pointerdown", e => {
+    if (e.target.closest("button, input, .menu, .data-scroll")) return;
+    sx = e.clientX; sy = e.clientY; tracking = true;
+  });
+  deck.addEventListener("pointerup", e => {
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) (dx < 0 ? next : prev)();
+  });
+
+  /* ---------------- navegación por niveles en el header ---------------- */
+  const nav = $("#levelNav");
+
+  const ANALYSIS = {
+    "General": "", "Cierre": "",
+    "01": "No estadístico", "02": "Univariado", "03": "Bivariado",
+    "04": "Multivariado", "05": "Modelamiento", "06": "Mejora continua"
+  };
+
+  const groups = [];
+  const slideGroup = [];
+  slides.forEach((s, i) => {
+    const g = s.dataset.group || "General";
+    let gi = groups.findIndex(x => x.name === g);
+    if (gi === -1) { groups.push({ name: g, items: [] }); gi = groups.length - 1; }
+    groups[gi].items.push({ n: i, label: s.dataset.label || "Página" });
+    slideGroup[i] = gi;
+  });
+
+  const caret = "";
+
+  nav.innerHTML = groups.map((g, gi) => {
+    const code = g.name.slice(0, 2);
+    const isLevel = /^\d/.test(code);
+    const num = isLevel ? code : "";
+    const title = isLevel ? g.name.slice(4).trim() : g.name;
+    return '<div class="ln-item' + (isLevel ? "" : " is-plain") + '" data-g="' + gi + '" data-first="' + g.items[0].n + '">' +
+      '<button class="ln-trigger" title="Ir a ' + title + '">' +
+        (num ? '<span class="ln-num">' + num + "</span>" : "") +
+        '<span class="ln-name">' + title + "</span>" + caret +
+      "</button>" +
+    "</div>";
+  }).join("");
+
+  nav.addEventListener("click", e => {
+    const trigger = e.target.closest(".ln-trigger");
+    if (!trigger) return;
+    const item = trigger.parentElement;
+    goTo(+item.dataset.first + 1);
+  });
+
+  /* ---------------- filtro rápido del rail ---------------- */
+  const railMap = { exploratorio: 4, descriptivo: 6, relacional: 8, explicativo: 12, predictivo: 16, aplicativo: 19 };
+  $$(".rail-item").forEach(b => b.addEventListener("click", () => goTo(railMap[b.dataset.level] || 2)));
+
+  /* ---------------- verbos ---------------- */
+  const VERBS = {
+    identificar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Identificar las situaciones en que los estudiantes dicen sentirse inseguros en clase." },
+    interpretar:  { level: "Exploratorio", analysis: "Análisis no estadístico", ex: "Interpretar cómo los estudiantes explican su propia autoestima." },
+    describir:    { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Describir el nivel de autoestima de los 30 estudiantes y sus tres dimensiones." },
+    estimar:      { level: "Descriptivo",  analysis: "Estadística univariada", ex: "Estimar la autoestima media de toda la promoción, con su intervalo de confianza." },
+    comparar:     { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Comparar la autoestima entre quienes practican deporte y quienes no." },
+    asociar:      { level: "Relacional",   analysis: "Estadística bivariada",  ex: "Asociar las horas de estudio con el rendimiento académico." },
+    evidenciar:   { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Evidenciar el efecto de las horas de estudio sobre la nota, controlando hermanos y gasto." },
+    demostrar:    { level: "Explicativo",  analysis: "Estadística multivariada", ex: "Demostrar que el taller de autoestima produce mejora, con grupo control y pre y post test." },
+    predecir:     { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Predecir la probabilidad de reprobar de cada estudiante." },
+    pronosticar:  { level: "Predictivo",   analysis: "Modelamiento predictivo", ex: "Pronosticar en qué bimestre es más probable que el estudiante baje su autoestima." },
+    evaluar:      { level: "Aplicativo",   analysis: "Mejora continua", ex: "Evaluar la línea base y el monitoreo del taller en tres secciones." },
+    controlar:    { level: "Aplicativo",   analysis: "Mejora continua", ex: "Controlar que la autoestima media se mantenga sobre 66 durante dos años." }
+  };
+
+  $("#verbGrid")?.addEventListener("click", e => {
+    const b = e.target.closest(".verb");
+    if (!b) return;
+    $$(".verb").forEach(v => v.classList.remove("is-active"));
+    b.classList.add("is-active");
+    const d = VERBS[b.dataset.verb];
+    $("#vrLevel").textContent = d.level;
+    $("#vrAnalysis").textContent = d.analysis;
+    $("#vrExample").innerHTML = "<em>Objetivo modelo:</em> " + d.ex;
+  });
+
+  /* ---------------- página 7: descriptivo ---------------- */
+  if ($("#dimTable")) {
+    const preT = DATA.map(d => d.preT);
+    const low = preT.filter(v => v < 55).length;
+
+    $("#dMean").textContent = fmt(mean(preT), 1);
+    $("#dSd").textContent = fmt(sd(preT), 1);
+    $("#dMin").textContent = fmt(Math.min(...preT), 1);
+    $("#dMax").textContent = fmt(Math.max(...preT), 1);
+    $("#dLow").textContent = Math.round((low / preT.length) * 100) + " %";
+    $("#dSay").textContent = fmt(mean(preT), 1);
+
+    const dims = [
+      { k: "preT", n: "Autoestima total", r: "Punto de partida del grupo" },
+      { k: "preA", n: "Dimensión académica", r: "La más baja: imagen de sí como estudiante" },
+      { k: "preS", n: "Dimensión social", r: "La más alta: relación con los pares" },
+      { k: "preE", n: "Dimensión emocional", r: "Intermedia: manejo de la frustración" }
+    ];
+
+    $("#dimTable").innerHTML = dims.map(d => {
+      const v = DATA.map(x => x[d.k]);
+      return "<tr><td>" + d.n + "</td><td>" + fmt(mean(v), 1) + "</td><td>" + fmt(sd(v), 1) +
+        "</td><td>" + fmt(Math.min(...v), 1) + "</td><td>" + fmt(Math.max(...v), 1) +
+        "</td><td>" + d.r + "</td></tr>";
+    }).join("");
+
+    $("#tblDesc").innerHTML = DATA.map(d =>
+      "<tr><td>" + d.id + "</td><td>" + fmt(d.preT, 1) + "</td><td>" + fmt(d.preA, 1) +
+      "</td><td>" + fmt(d.preS, 1) + "</td><td>" + fmt(d.preE, 1) + "</td></tr>"
+    ).join("");
+  }
+
+  /* ---------------- página 9: relacional ---------------- */
+  if ($("#rVal")) {
+    const r = pearson(DATA.map(d => d.horas), DATA.map(d => d.rend));
+    $("#rVal").textContent = fmt(r, 2);
+    $("#rVal2").textContent = fmt(r, 2);
+    $("#rBig").textContent = fmt(r, 2);
+    $("#r2Big").textContent = fmt(r * r, 2);
+
+    $("#tblRel").innerHTML = DATA.map(d =>
+      "<tr><td>" + d.id + '</td><td><span class="grp ' + (d.g === "Control" ? "c" : "e") + '">' +
+      (d.g === "Control" ? "Control" : "Exper.") + "</span></td><td>" + fmt(d.horas, 1) +
+      "</td><td>" + fmt(d.rend, 1) + "</td></tr>"
+    ).join("");
+
+    // dispersión + recta de mínimos cuadrados
+    const svg = $("#scatter");
+    if (svg) {
+      const W = 320, H = 150, PAD = 10;
+      const xs = DATA.map(d => d.horas), ys = DATA.map(d => d.rend);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs);
+      const y0 = Math.min(...ys), y1 = Math.max(...ys);
+      const px = v => PAD + ((v - x0) / (x1 - x0)) * (W - 2 * PAD);
+      const py = v => H - PAD - ((v - y0) / (y1 - y0)) * (H - 2 * PAD);
+
+      const grid = [0.25, 0.5, 0.75].map(f =>
+        '<line x1="' + PAD + '" y1="' + (PAD + f * (H - 2 * PAD)) + '" x2="' + (W - PAD) +
+        '" y2="' + (PAD + f * (H - 2 * PAD)) + '" stroke="rgba(15,23,42,.09)" stroke-width="1"/>'
+      ).join("");
+
+      const dots = DATA.map(d =>
+        '<circle cx="' + px(d.horas).toFixed(1) + '" cy="' + py(d.rend).toFixed(1) +
+        '" r="3" fill="' + (d.g === "Control" ? "#0891b2" : "#7c3aed") +
+        '" fill-opacity=".62" stroke="#fff" stroke-width=".9"/>'
+      ).join("");
+
+      const sl = ols(DATA.map(d => [1, d.horas]), DATA.map(d => d.rend)).b;
+      const line = '<line x1="' + px(x0) + '" y1="' + py(sl[0] + sl[1] * x0) +
+        '" x2="' + px(x1) + '" y2="' + py(sl[0] + sl[1] * x1) +
+        '" stroke="#1d4ed8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>';
+
+      svg.innerHTML = grid + line + dots;
+    }
+  }
+
+  /* ---------------- página 11: pretest–postest ---------------- */
+  const tblPre = $("#tblPre");
+  if (tblPre) {
+    tblPre.innerHTML = DATA.map(d => {
+      const delta = d.postT - d.preT;
+      return "<tr>" +
+        "<td>" + d.id + "</td>" +
+        '<td><span class="grp ' + (d.g === "Control" ? "c" : "e") + '">' + (d.g === "Control" ? "Control" : "Exper.") + "</span></td>" +
+        "<td>" + fmt(d.preT, 1) + "</td>" +
+        "<td>" + fmt(d.postT, 1) + "</td>" +
+        '<td class="delta">+' + fmt(delta, 1) + "</td>" +
+      "</tr>";
+    }).join("");
+
+    const avg = (arr, k) => mean(arr.map(d => d[k]));
+    const pairs = [
+      { n: "Autoestima total", a: "preT", b: "postT" },
+      { n: "Dimensión académica", a: "preA", b: "postA" },
+      { n: "Dimensión social", a: "preS", b: "postS" },
+      { n: "Dimensión emocional", a: "preE", b: "postE" }
+    ];
+
+    $("#dimEffect").innerHTML = pairs.map(p => {
+      const preE = avg(E, p.a), postE = avg(E, p.b);
+      const dE = postE - preE;
+      const dC = avg(C, p.b) - avg(C, p.a);
+      return "<tr><td>" + p.n + "</td><td>" + fmt(preE, 1) + "</td><td>" + fmt(postE, 1) +
+        '</td><td class="delta">+' + fmt(dE, 1) + "</td><td>+" + fmt(dC, 1) + "</td></tr>";
+    }).join("");
+
+    const dExp = avg(E, "postT") - avg(E, "preT");
+    const dCtl = avg(C, "postT") - avg(C, "preT");
+    let withControl = true;
+
+    function renderDiD() {
+      $("#eDelta").textContent = "+" + fmt(dExp, 1);
+      $("#controlToggle").setAttribute("aria-checked", String(withControl));
+      $("#controlState").textContent = withControl ? "activo" : "desactivado";
+
+      if (withControl) {
+        $("#netVal").textContent = "+" + fmt(dExp - dCtl, 1);
+        $("#netVal").style.color = "";
+        $("#roNote").textContent = "El grupo sin taller mejoró " + fmt(dCtl, 1) +
+          " puntos por su cuenta. El efecto que se puede atribuir al taller es la diferencia: " + fmt(dExp - dCtl, 1) + " puntos.";
+      } else {
+        $("#netVal").textContent = "—";
+        $("#netVal").style.color = "var(--muted)";
+        $("#roNote").textContent = "Con un solo grupo el efecto neto no es estimable: la mejora mezcla el taller, la maduración, el efecto del test y la regresión a la media.";
+      }
+    }
+
+    $("#controlToggle").addEventListener("click", () => { withControl = !withControl; renderDiD(); });
+    renderDiD();
+  }
+
+  /* ---------------- página 12: betas ---------------- */
+  const tblBeta = $("#tblBeta");
+  if (tblBeta) {
+    let model = 1;
+    let selected = null;
+
+    tblBeta.innerHTML = DATA.map((d, i) =>
+      '<tr data-i="' + i + '"><td>' + d.id + "</td><td>" + fmt(d.horas, 1) +
+      "</td><td>" + d.gasto + "</td><td>" + d.herm + "</td><td>" + fmt(d.rend, 1) + "</td></tr>"
+    ).join("");
+
+    const predict = (d, m) => m === 1
+      ? M1.b[0] + M1.b[1] * d.horas
+      : M2.b[0] + M2.b[1] * d.horas + M2.b[2] * d.gasto + M2.b[3] * d.herm;
+
+    function renderBeta() {
+      const m = model === 1 ? M1 : M2;
+      $("#betaEq").textContent = model === 1
+        ? "Ŷ = " + fmt(M1.b[0], 2) + " + " + fmt(M1.b[1], 2) + " · Horas   ·   R² = " + fmt(M1.r2, 2)
+        : "Ŷ = " + fmt(M2.b[0], 2) + " + " + fmt(M2.b[1], 2) + "·Horas + " + fmt(M2.b[2], 3) + "·Gasto − " + fmt(Math.abs(M2.b[3]), 2) + "·Hermanos   ·   R² = " + fmt(M2.r2, 2);
+
+      const rows = [];
+      rows.push({
+        k: "Horas de estudio", v: fmt(m.b[1], 2), key: true, drop: model === 2,
+        why: "Cada hora adicional " + (model === 1 ? "sube la nota " + fmt(m.b[1], 2) : "sube la nota " + fmt(m.b[1], 2))
+      });
+      if (model === 2) {
+        rows.push({ k: "Gasto en materiales (S/)", v: fmt(M2.b[2], 3), why: "Cada S/ 100 extra: " + fmt(M2.b[2] * 100, 2) + " puntos" });
+        rows.push({ k: "Número de hermanos", v: fmt(M2.b[3], 2), why: "Cada hermano adicional resta " + fmt(Math.abs(M2.b[3]), 2) + " puntos" });
+      }
+      rows.push({
+        k: "Intercepto", v: fmt(m.b[0], 2),
+        why: model === 1 ? "Nota esperada con 0 horas" : "Sin interpretación: nadie tiene 0 en todo"
+      });
+
+      $("#betaTable tbody").innerHTML = rows.map(r =>
+        "<tr" + (r.key ? ' class="is-key' + (r.drop ? " is-drop" : "") + '"' : "") + ">" +
+        "<td>" + r.k + "</td><td>" + r.v + "</td><td>" + r.why + "</td></tr>"
+      ).join("");
+
+      if (model === 1) {
+        $("#betaRead").innerHTML = "Con un solo predictor: por cada hora adicional de estudio, la nota sube <strong>" +
+          fmt(M1.b[1], 2) + " puntos</strong>. Pero este modelo no descuenta nada más.";
+        $("#betaNote").textContent = "Cuidado: la beta de horas absorbe el efecto de todo lo que no está en el modelo.";
+      } else {
+        $("#betaRead").innerHTML = "Al controlar las otras dos variables, cada hora adicional sube <strong>" +
+          fmt(M2.b[1], 2) + " puntos</strong>, y cada hermano <strong>baja " + fmt(Math.abs(M2.b[3]), 2) + " puntos</strong>.";
+        $("#betaNote").textContent = "La beta de horas cayó de " + fmt(M1.b[1], 2) + " a " + fmt(M2.b[1], 2) +
+          ": parte de esa asociación era, en realidad, tener menos hermanos.";
+      }
+
+      if (selected !== null) {
+        const d = DATA[selected];
+        $("#betaSel").innerHTML = "<b>" + d.id + "</b> · predicho " + fmt(predict(d, model), 1) + " · real " + fmt(d.rend, 1);
+      }
+    }
+
+    tblBeta.addEventListener("click", e => {
+      const tr = e.target.closest("tr");
+      if (!tr) return;
+      $$("#tblBeta tr").forEach(r => r.classList.remove("is-sel"));
+      tr.classList.add("is-sel");
+      selected = +tr.dataset.i;
+      const d = DATA[selected];
+      $("#betaSel").innerHTML = "<b>" + d.id + "</b> · predicho " + fmt(predict(d, model), 1) + " · real " + fmt(d.rend, 1);
+    });
+
+    $$(".seg").forEach(b => b.addEventListener("click", () => {
+      $$(".seg").forEach(x => x.classList.remove("is-active"));
+      b.classList.add("is-active");
+      model = +b.dataset.model;
+      renderBeta();
+    }));
+
+    renderBeta();
+  }
+
+  /* ---------------- página 10: calculadora 2x2 ---------------- */
+  if ($("#cellA")) {
+    const cells = ["cellA", "cellB", "cellC", "cellD"].map(id => $("#" + id));
+
+    const erf = x => {
+      const s = Math.sign(x); x = Math.abs(x);
+      const t = 1 / (1 + 0.3275911 * x);
+      const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+      return s * y;
+    };
+    const phi = z => 0.5 * (1 + erf(z / Math.SQRT2));
+
+    function updateCalc() {
+      const [a, b, c, d] = cells.map(i => Math.max(0, Math.min(99, parseInt(i.value, 10) || 0)));
+      const n = a + b + c + d;
+      const OR = (b * c) === 0 ? Infinity : (a * d) / (b * c);
+      const den = (a + b) * (c + d) * (a + c) * (b + d);
+      const chi = den === 0 ? 0 : n * Math.pow(a * d - b * c, 2) / den;
+      const p = den === 0 ? 1 : 2 * (1 - phi(Math.sqrt(chi)));
+
+      $("#orVal").textContent = isFinite(OR) ? fmt(OR, 2) : "∞";
+      $("#chiVal").textContent = fmt(chi, 2);
+      $("#pVal").textContent = p < 0.001 ? "< 0,001" : fmt(p, 3);
+
+      let txt = "";
+      if (!isFinite(OR)) {
+        txt = "Hay una celda en cero: el OR no se puede calcular. Es lo que ocurre cuando un grupo no tiene ningún caso en una categoría.";
+      } else if (OR > 1) {
+        txt = "Las chances de autoestima alta son <strong>" + fmt(OR, 2) + " veces mayores</strong> en el grupo con taller. ";
+      } else if (OR < 1) {
+        txt = "Las chances de autoestima alta son <strong>" + fmt(1 / OR, 2) + " veces menores</strong> en el grupo con taller. ";
+      } else {
+        txt = "OR = 1: no hay asociación entre el taller y la autoestima. ";
+      }
+      if (isFinite(OR)) {
+        txt += p < 0.05
+          ? "El χ² alcanza significancia (p < 0,05) con n = " + n + "."
+          : "Pero con n = " + n + ", el χ² no alcanza el 5 %: no se puede descartar el azar.";
+      }
+      $("#calcRead").innerHTML = txt;
+    }
+
+    cells.forEach(i => i.addEventListener("input", updateCalc));
+    updateCalc();
+  }
+
+  /* ---------------- página 14: matriz de pruebas ---------------- */
+  const TESTS = {
+    chi_bondad: { name:"χ² de bondad de ajuste", short:"χ² bondad", np:true, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"No paramétrica", variable:"Categórica",
+      q:"¿La distribución observada se ajusta a la esperada?", ej:"¿Los 30 estudiantes se reparten por igual entre las tres secciones?",
+      nota:"Es univariable: por eso es descriptivo, no relacional." },
+    binomial: { name:"Prueba binomial", short:"Binomial", np:true, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿La proporción observada difiere de un valor de referencia?", ej:"¿La proporción con autoestima alta supera el 50 %?" },
+    t_1m: { name:"t de Student para una muestra", short:"t · una muestra", np:false, nivel:"Descriptivo", diseno:"Transversal · un grupo", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿La media difiere de un valor de referencia?", ej:"¿La nota media del grupo difiere de 14?",
+      nota:"Contrastar con un parámetro es un objetivo del nivel descriptivo." },
+    chi_homog: { name:"χ² de homogeneidad", short:"χ² homogeneidad", np:true, nivel:"Relacional", diseno:"Transversal · 2 o más grupos independientes", tipo:"No paramétrica", variable:"Nominal",
+      q:"¿La distribución del desenlace difiere entre grupos?", ej:"¿La proporción con autoestima alta difiere entre quienes llevaron el taller y quienes no?" },
+    yates: { name:"Corrección de Yates", short:"Yates", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Nominal dicotómica (2×2)",
+      q:"Igual que el χ², corregido para tablas 2×2.", ej:"Taller sí/no × autoestima alta sí/no, con pocos casos por celda." },
+    fisher: { name:"Test exacto de Fisher", short:"Fisher", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Nominal dicotómica (2×2)",
+      q:"¿Hay asociación cuando las frecuencias son muy pequeñas?", ej:"Tabla 2×2 con celdas menores de 5 casos." },
+    u_mann: { name:"U de Mann-Whitney", short:"U Mann-Whitney", np:true, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Difieren dos grupos en una variable ordinal?", ej:"¿La autoestima ordinal difiere entre dos secciones?" },
+    t_indep: { name:"t de Student para muestras independientes", short:"t · independientes", np:false, nivel:"Relacional", diseno:"Transversal · 2 grupos independientes", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Difieren las medias de dos grupos?", ej:"¿La nota media difiere entre quienes llevaron el taller y quienes no?",
+      nota:"Solo es explicativa si los grupos provienen de una intervención controlada." },
+    kruskal: { name:"H de Kruskal-Wallis", short:"Kruskal-Wallis", np:true, nivel:"Relacional", diseno:"Transversal · 3 o más grupos independientes", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Difieren tres o más grupos?", ej:"¿La autoestima difiere entre 3.º, 4.º y 5.º?" },
+    anova1: { name:"ANOVA de un factor", short:"ANOVA 1 factor", np:false, nivel:"Relacional", diseno:"Transversal · 3 o más grupos independientes", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Difieren las medias de tres o más grupos?", ej:"¿La nota media difiere entre tres secciones?" },
+    mcnemar: { name:"Prueba de McNemar", short:"McNemar", np:true, nivel:"Relacional", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿Cambió la proporción entre dos mediciones?", ej:"¿Cuántos pasaron de autoestima baja a alta tras el taller?",
+      nota:"Si compara antes y después de una intervención, el diseño es pre experimental y el nivel pasa a explicativo." },
+    cochran: { name:"Q de Cochran", short:"Q de Cochran", np:true, nivel:"Relacional", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"No paramétrica", variable:"Nominal dicotómica",
+      q:"¿Cambia la proporción a lo largo de varias mediciones?", ej:"¿La proporción con autoestima alta cambió en tres bimestres?" },
+    wilcoxon: { name:"Wilcoxon de rangos con signo", short:"Wilcoxon", np:true, nivel:"Relacional", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Cambió la variable entre dos mediciones?", ej:"¿Subió la autoestima ordinal del pretest al postest?" },
+    t_rel: { name:"t de Student para muestras relacionadas", short:"t · relacionada", np:false, nivel:"Relacional / Explicativo", diseno:"Longitudinal · 2 medidas relacionadas", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Cambió la media entre dos mediciones?", ej:"¿La autoestima media subió del pretest al postest?",
+      nota:"Con grupo de comparación y una intervención, es el diseño pre experimental: nivel explicativo." },
+    friedman: { name:"Prueba de Friedman", short:"Friedman", np:true, nivel:"Relacional", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"No paramétrica", variable:"Ordinal",
+      q:"¿Cambió la variable en tres o más mediciones?", ej:"¿La autoestima ordinal cambió en tres bimestres?" },
+    anova_mr: { name:"ANOVA de medidas repetidas", short:"ANOVA medidas rep.", np:false, nivel:"Relacional / Explicativo", diseno:"Longitudinal · 3 o más medidas relacionadas", tipo:"Paramétrica", variable:"Numérica",
+      q:"¿Cambian las medias a lo largo del tiempo o entre grupos?", ej:"¿La autoestima media evolucionó en los seis bimestres?",
+      nota:"Es la prueba típica del nivel aplicativo cuando se monitorea una intervención." },
+    pearson: { name:"Coeficiente de correlación de Pearson", short:"Pearson", np:false, nivel:"Relacional", diseno:"Transversal · dos variables numéricas", tipo:"Paramétrica", variable:"Numérica × Numérica",
+      q:"¿Cuánto y en qué dirección se relacionan linealmente?", ej:"Horas de estudio y nota: r = 0,84",
+      nota:"Mide relación lineal; no implica causalidad y falla si la relación es curva." },
+    spearman: { name:"rho de Spearman", short:"Spearman", np:true, nivel:"Relacional", diseno:"Transversal · dos variables ordinales", tipo:"No paramétrica", variable:"Ordinal × Ordinal",
+      q:"¿Se relacionan de forma monótona?", ej:"Autoestima ordinal y nota final",
+      nota:"Alternativa a Pearson con escalas ordinales, outliers o distribuciones no normales." },
+    kendall: { name:"tau de Kendall", short:"Kendall", np:true, nivel:"Relacional", diseno:"Transversal · dos variables ordinales", tipo:"No paramétrica", variable:"Ordinal × Ordinal",
+      q:"¿Concuerdan los rangos de las dos variables?", ej:"Orden de mérito de dos evaluadores",
+      nota:"Más estable que Spearman con muestras pequeñas y muchos empates." },
+    biserial: { name:"Correlación punto-biserial", short:"Punto-biserial", np:false, nivel:"Relacional", diseno:"Transversal · numérica y dicotómica", tipo:"Paramétrica", variable:"Numérica × Dicotómica",
+      q:"¿Hay relación entre una variable numérica y una dicotómica?", ej:"Nota final y condición de becario",
+      nota:"Equivale a comparar las medias de dos grupos con una t independiente." },
+    shapiro: { name:"Shapiro-Wilk", short:"Shapiro-Wilk", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se distribuye normal?", ej:"¿La nota final sigue una distribución normal?",
+      nota:"No es un nivel de investigación: es el requisito para elegir entre pruebas paramétricas y no paramétricas." },
+    ks: { name:"Kolmogorov-Smirnov con corrección de Lilliefors", short:"K-S Lilliefors", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se ajusta a una distribución teórica?", ej:"¿Los 30 puntajes de autoestima son normales?",
+      nota:"Se prefiere con muestras grandes; con n < 50 suele usarse Shapiro-Wilk." },
+    anderson: { name:"Anderson-Darling", short:"Anderson-Darling", np:true, nivel:"— supuesto previo", diseno:"Transversal", tipo:"No paramétrica", variable:"Numérica",
+      q:"¿La variable se ajusta a una distribución teórica, con más peso en las colas?", ej:"Verificación previa antes de elegir ANOVA",
+      nota:"Sensible a las colas de la distribución; no confirma normalidad, solo no la rechaza." },
+    reg_simple: { name:"Regresión lineal simple", short:"Lineal simple", np:false, nivel:"Explicativo", diseno:"Transversal · una variable independiente", tipo:"Paramétrica", variable:"Y numérica × X numérica",
+      q:"¿Cuánto cambia Y por cada unidad de X?", ej:"Nota = 6,27 + 0,64 × horas de estudio",
+      nota:"Es predictiva si el objetivo es pronosticar; explicativa si busca el efecto controlando otras variables." },
+    reg_multiple: { name:"Regresión lineal múltiple", short:"Lineal múltiple", np:false, nivel:"Explicativo", diseno:"Transversal · varias variables independientes", tipo:"Paramétrica", variable:"Y numérica",
+      q:"¿Cuánto aporta cada X, manteniendo las demás constantes?", ej:"Horas, gasto y hermanos sobre la nota",
+      nota:"Es el modelo de las betas: aísla el aporte de cada factor." },
+    reg_log: { name:"Regresión logística binaria", short:"Logística", np:false, nivel:"Explicativo / Predictivo", diseno:"Transversal o longitudinal · Y dicotómica", tipo:"Paramétrica", variable:"Y dicotómica",
+      q:"¿Qué factores se asocian con la probabilidad del evento?", ej:"Probabilidad de reprobar según horas y autoestima",
+      nota:"Devuelve odds ratios; en el nivel predictivo se evalúa con AUC y validación cruzada." },
+    reg_poisson: { name:"Regresión de Poisson", short:"Poisson", np:false, nivel:"Explicativo / Predictivo", diseno:"Transversal o longitudinal · Y de conteo", tipo:"Paramétrica", variable:"Y de conteo",
+      q:"¿Qué factores explican el número de eventos?", ej:"Número de faltas por estudiante en el semestre" },
+    cox: { name:"Regresión de Cox", short:"Cox", np:false, nivel:"Predictivo", diseno:"Longitudinal · tiempo hasta el evento", tipo:"Paramétrica", variable:"Tiempo hasta el evento",
+      q:"¿Qué factores aceleran o retrasan el evento?", ej:"Tiempo hasta el abandono, con tutoría como predictor",
+      nota:"Modela el riesgo en el tiempo, no una probabilidad puntual." },
+    arima: { name:"ARIMA / SARIMA", short:"ARIMA", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · varios periodos", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el próximo valor de la serie?", ej:"Matrícula mensual de los próximos 12 meses",
+      nota:"Se juzga por RMSE o MAE fuera de muestra, no por p-valores." },
+    holt: { name:"Suavizamiento exponencial (Holt-Winters)", short:"Holt-Winters", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · tendencia y estacionalidad", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el próximo valor, con tendencia y estacionalidad?", ej:"Asistencia mensual con caída en exámenes" },
+    prophet: { name:"Prophet", short:"Prophet", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · tendencia y estacionalidad", tipo:"Paramétrica", variable:"Serie temporal",
+      q:"¿Cuál será el valor futuro de la serie?", ej:"Proyección de matrícula con feriados y vacaciones" },
+    vvar: { name:"VAR (vectores autorregresivos)", short:"VAR", np:false, nivel:"Predictivo", diseno:"Serie de tiempo · varias series", tipo:"Paramétrica", variable:"Varias series temporales",
+      q:"¿Cómo se influyen mutuamente varias series en el tiempo?", ej:"Matrícula y deserción mes a mes" },
+    tree: { name:"Árbol de decisión", short:"Árbol", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Qué reglas separan mejor las clases?", ej:"Si falta más de 20 % y estudia menos de 5 h, riesgo alto",
+      nota:"Muy interpretable, pero se sobreajusta si no se poda." },
+    rf: { name:"Random Forest", short:"Random Forest", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · conjunto de árboles", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Cuál es la clase más votada por cientos de árboles?", ej:"Riesgo de reprobar a partir de asistencia, horas y autoestima",
+      nota:"Robusto y estable; entrega importancia de variables." },
+    gbm: { name:"Gradient Boosting (XGBoost / LightGBM)", short:"Boosting", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · boosting", tipo:"Aprendizaje automático", variable:"Predictores mixtos",
+      q:"¿Qué modelo maximiza el acierto fuera de muestra?", ej:"Mejor AUC en la predicción de abandono",
+      nota:"Suele ganar en datos tabulares; menos interpretable." },
+    svm: { name:"Máquinas de vectores de soporte (SVM)", short:"SVM", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · margen máximo", tipo:"Aprendizaje automático", variable:"Predictores numéricos escalados",
+      q:"¿Qué frontera separa mejor las clases?", ej:"Pocos casos y muchas variables", nota:"Requiere escalar las variables." },
+    knn: { name:"k vecinos más cercanos (kNN)", short:"kNN", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · instancias", tipo:"Aprendizaje automático", variable:"Predictores numéricos escalados",
+      q:"¿A qué clase se parecen más los vecinos de este caso?", ej:"Estudiantes con perfil similar que reprobaron",
+      nota:"Simple e intuitivo; sufre con muchas variables." },
+    nb: { name:"Naive Bayes", short:"Naive Bayes", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · probabilístico", tipo:"Aprendizaje automático", variable:"Predictores categóricos o texto",
+      q:"¿Qué clase es más probable dadas las características?", ej:"Clasificar comentarios de tutoría por riesgo",
+      nota:"Asume independencia entre predictores; funciona bien en texto." },
+    mlp: { name:"Red neuronal (perceptrón multicapa)", short:"Red neuronal", np:false, nivel:"Predictivo", diseno:"Clasificación supervisada · red profunda", tipo:"Aprendizaje automático", variable:"Predictores numéricos",
+      q:"¿Qué patrón no lineal separa las clases?", ej:"Grandes volúmenes de datos de plataformas educativas",
+      nota:"Necesita muchos datos; es una caja negra." }
+  };
+
+  const MATRIX = [
+    { sec: "Transversal · un solo periodo" },
+    { row: "Un grupo", sub: "1 categoría", cells: [["chi_bondad", "binomial"], ["chi_bondad"], ["chi_bondad"], ["t_1m"]] },
+    { row: "Dos grupos", sub: "independientes", cells: [["chi_homog", "yates", "fisher"], ["chi_homog"], ["u_mann"], ["t_indep"]] },
+    { row: "Tres o más", sub: "independientes", cells: [["chi_homog"], ["chi_homog"], ["kruskal"], ["anova1"]] },
+    { sec: "Longitudinal · varios periodos" },
+    { row: "Dos medidas", sub: "relacionadas", cells: [["mcnemar"], ["cochran"], ["wilcoxon"], ["t_rel"]] },
+    { row: "Tres o más medidas", sub: "relacionadas", cells: [["cochran"], ["cochran"], ["friedman"], ["anova_mr"]] }
+  ];
+
+  if ($("#block1")) {
+    const heads = ["", "Nom. dicotómica", "Nom. politómica", "Ordinal", "Numérica"];
+    let html = "<table class=\"mtx\"><thead><tr>" + heads.map((h, i) =>
+      "<th>" + (i === 0 ? "Variable fija / aleatoria" : h) + "</th>").join("") + "</tr></thead><tbody>";
+
+    MATRIX.forEach(r => {
+      if (r.sec) {
+        html += '<tr class="sec"><td colspan="5">' + r.sec + "</td></tr>";
+        return;
+      }
+      html += '<tr><td class="rowh">' + r.row + "<span>" + r.sub + "</span></td>" +
+        r.cells.map(cell =>
+          '<td class="cell">' + cell.map(id => {
+            const t = TESTS[id];
+            return '<button class="chip-test' + (t.np ? " np" : "") + '" data-t="' + id + '" title="' + t.name + '">' + t.short + "</button>";
+          }).join("") + "</td>"
+        ).join("") + "</tr>";
+    });
+    html += "</tbody></table>";
+    $("#block1").innerHTML = html;
+
+    const panel = $("#testDetail");
+    const empty = '<p class="td-empty"><b>Elija una prueba.</b><br><br>Cada botón muestra el nivel, el diseño, si es paramétrica o no, y un ejemplo con los 30 estudiantes.</p>' +
+      '<p class="td-ej" style="margin-top:12px"><b>Observación:</b> la misma prueba puede cambiar de nivel según el diseño. Una t relacionada en un estudio transversal es relacional; en un pre–post con intervención, es explicativa.</p>';
+    panel.innerHTML = empty;
+
+    document.querySelector(".matrix-wrap").addEventListener("click", e => {
+      const b = e.target.closest(".chip-test");
+      if (!b) return;
+      $$(".chip-test").forEach(x => x.classList.remove("is-active"));
+      b.classList.add("is-active");
+      const t = TESTS[b.dataset.t];
+      panel.innerHTML =
+        '<p class="td-name">' + t.name + "</p>" +
+        '<div class="td-pills"><span>Nivel: ' + t.nivel + '</span><span class="g">' + t.tipo + "</span></div>" +
+        '<p class="td-row"><b>Diseño</b>' + t.diseno + "</p>" +
+        '<p class="td-row"><b>Variable</b>' + t.variable + "</p>" +
+        '<p class="td-row"><b>Pregunta</b>' + t.q + "</p>" +
+        '<p class="td-ej"><b>Ejemplo:</b> ' + t.ej + "</p>" +
+        (t.nota ? '<p class="td-note">' + t.nota + "</p>" : "");
+    });
+  }
+
+  const MATRIX2 = [
+    { row: "Correlación", sub: "nivel relacional", items: ["pearson", "spearman", "kendall", "biserial"] },
+    { row: "Normalidad", sub: "supuesto previo, no es nivel", items: ["shapiro", "ks", "anderson"] },
+    { row: "Regresión", sub: "explicativo o predictivo", items: ["reg_simple", "reg_multiple", "reg_log", "reg_poisson", "cox"] },
+    { row: "Series de tiempo", sub: "nivel predictivo", items: ["arima", "holt", "prophet", "vvar"] },
+    { row: "Clasificación", sub: "nivel predictivo · ML", items: ["tree", "rf", "gbm", "svm", "knn", "nb", "mlp"] }
+  ];
+
+  if ($("#block2")) {
+    $("#block2").innerHTML = '<table class="mtx mtx-groups"><thead><tr><th>Familia</th><th>Técnica</th></tr></thead><tbody>' +
+      MATRIX2.map(r =>
+        '<tr><td class="rowh">' + r.row + "<span>" + r.sub + "</span></td>" +
+        '<td class="cell chips-row">' + r.items.map(id => {
+          const t = TESTS[id];
+          return '<button class="chip-test' + (t.np ? " np" : "") + '" data-t="' + id + '" title="' + t.name + '">' + t.short + "</button>";
+        }).join("") + "</td></tr>").join("") +
+      "</tbody></table>";
+
+    $$(".tt").forEach(b => b.addEventListener("click", () => {
+      $$(".tt").forEach(x => x.classList.toggle("is-active", x === b));
+      const n = b.dataset.block;
+      $("#block1").hidden = n !== "1";
+      $("#block2").hidden = n !== "2";
+    }));
+  }
+
+  /* ---------------- página 14: riesgo estimado ---------------- */
+  const tblPred = $("#tblPred");
+  if (tblPred) {
+    tblPred.innerHTML = DATA.map(d => {
+      const score = 0.45 * (d.horas / 17) + 0.25 * (d.preT / 100) + 0.30 * (d.rend / 20);
+      const risk = Math.max(0, Math.min(100, Math.round((1 - score) * 100)));
+      return "<tr><td>" + d.id + "</td><td>" + fmt(d.horas, 1) + "</td><td>" + fmt(d.preT, 1) +
+        "</td><td>" + fmt(d.rend, 1) + '</td><td class="' + (risk >= 70 ? "risk-high" : "") + '">' + risk + "</td></tr>";
+    }).join("");
+  }
+
+  /* ---------------- quiz ---------------- */
+  const QUIZ = [
+    { q: "¿Cuál es la autoestima promedio de los 30 estudiantes?", a: "Descriptivo", why: "Una sola variable, análisis univariado: media y desviación estándar." },
+    { q: "¿Cómo viven la autoestima los estudiantes de un colegio donde nunca se investigó?", a: "Exploratorio", why: "Comprender significados con análisis no estadístico: nivel exploratorio." },
+    { q: "¿Qué relación existe entre horas de estudio y rendimiento?", a: "Relacional", why: "Dos variables, análisis bivariado: correlación. Relación, no causa." },
+    { q: "¿El taller produjo la mejora de la autoestima, comparado con el grupo sin taller?", a: "Explicativo", why: "Hay intervención y grupo de comparación: inferencia causal." },
+    { q: "¿Qué probabilidad tiene cada estudiante de reprobar?", a: "Predictivo", why: "Se estima una probabilidad individual con un modelo; no se busca la causa." },
+    { q: "¿La mejora del taller se mantiene dos años después?", a: "Aplicativo", why: "Evaluar y sostener una intervención con indicadores es nivel aplicativo." },
+    { q: "Se aplica t de Student para comparar la autoestima de dos secciones. ¿Qué nivel?", a: "Relacional", why: "Comparar grupos es una técnica bivariada del nivel relacional." },
+    { q: "Se controla el número de hermanos para aislar el efecto de las horas. ¿Qué nivel?", a: "Explicativo", why: "El control de variables extrañas mediante análisis multivariado define el explicativo." }
+  ];
+  const LEVELS = ["Exploratorio", "Descriptivo", "Relacional", "Explicativo", "Predictivo", "Aplicativo"];
+
+  if ($("#quiz")) {
+    let qi = 0, score = 0, answered = false;
+    const qText = $("#qText"), qOpts = $("#qOptions"), qFb = $("#qFeedback"),
+          qIdx = $("#qIndex"), qScore = $("#qScore"), qProg = $("#qProgress"), qNext = $("#qNext");
+
+    function renderQ() {
+      if (qi >= QUIZ.length) {
+        qText.textContent = "Resultado final";
+        qOpts.innerHTML = "";
+        qFb.innerHTML = "<b>" + score + " de " + QUIZ.length + "</b> correctas. " +
+          (score === QUIZ.length
+            ? "Domina el criterio: el análisis decide el nivel."
+            : "Repase relacional–correlacional y la frontera explicativo–predictivo.");
+        qNext.textContent = "Reiniciar";
+        qNext.disabled = false;
+        qNext.onclick = reset;
+        qIdx.textContent = QUIZ.length;
+        qProg.style.width = "100%";
+        return;
+      }
+
+      answered = false;
+      const item = QUIZ[qi];
+      qText.textContent = item.q;
+      qFb.textContent = "";
+      qIdx.textContent = qi + 1;
+      qProg.style.width = (qi / QUIZ.length) * 100 + "%";
+      qNext.disabled = true;
+      qNext.textContent = "Siguiente →";
+      qNext.onclick = () => { qi++; renderQ(); };
+
+      qOpts.innerHTML = "";
+      LEVELS.forEach(lvl => {
+        const b = document.createElement("button");
+        b.className = "opt";
+        b.textContent = lvl;
+        b.addEventListener("click", () => answer(b, lvl, item));
+        qOpts.appendChild(b);
+      });
+    }
+
+    function answer(btn, lvl, item) {
+      if (answered) return;
+      answered = true;
+      const ok = lvl === item.a;
+      if (ok) score++;
+      $$(".opt", qOpts).forEach(b => {
+        b.disabled = true;
+        if (b.textContent === item.a) b.classList.add("correct");
+      });
+      if (!ok) btn.classList.add("wrong");
+      qScore.textContent = score;
+      qFb.innerHTML = (ok ? "<b>Correcto.</b> " : "<b>No exactamente.</b> ") + item.why;
+      qNext.disabled = false;
+    }
+
+    function reset() {
+      qi = 0; score = 0;
+      qScore.textContent = "0";
+      renderQ();
+      qNext.onclick = () => { qi++; renderQ(); };
+    }
+
+    $("#qReset").addEventListener("click", reset);
+    renderQ();
+  }
+
+  /* ---------------- arranque ---------------- */
+  window.addEventListener("hashchange", () => {
+    const n = parseInt((location.hash.match(/\d+/) || [])[0], 10);
+    if (n && n !== index + 1 && n >= 1 && n <= total) { index = n - 1; render(); }
+  });
+
+  const hash = (location.hash.match(/\d+/) || [])[0];
+  if (hash) index = Math.max(0, Math.min(total - 1, parseInt(hash, 10) - 1));
+
+  setRevealIndexes();
+  render();
+})();
+
+</script>
+</body>
+</html>
